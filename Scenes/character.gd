@@ -26,28 +26,29 @@ func _update_animation():
 
 func _ready():
 	current_state = current_state
+	$NavigationAgent2D.velocity_computed.connect(_on_nav_velocity_computed)
 	
+func _on_nav_velocity_computed(safe_velocity: Vector2) -> void:
+	velocity = safe_velocity
 
 func _physics_process(delta) -> void:
-	_process_input()
+	
 	_update_facing()
 	_update_state()
-
-	move_and_slide()
-
-func _process_input() -> void:
-	var direction = Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	direction = Input.get_axis("ui_up", "ui_down")
-	if direction:
-		velocity.y = direction * SPEED
-	else:
-		velocity.y = move_toward(velocity.y, 0, SPEED)
 	
+	if not $NavigationAgent2D.is_navigation_finished():
+		$NavigationAgent2D.set_velocity(to_local($NavigationAgent2D.get_next_path_position()).normalized() * SPEED)
+		move_and_slide()
+	else:
+		velocity = Vector2(0, 0)
+	
+	# _process_input()
+
+func _input(event):
+	# Mouse in viewport coordinates.
+	if event is InputEventMouseButton and event.is_pressed():
+		$NavigationAgent2D.target_position = get_global_mouse_position()
+
 func _update_state() -> void:
 	if velocity.length() > 0 and current_state != State.RUN:
 		current_state = State.RUN
@@ -55,20 +56,26 @@ func _update_state() -> void:
 		current_state = State.IDLE
 		
 func _update_facing() -> void:
-	if velocity.x > 0:
+	if velocity.length() == 0:
+		return
+	
+	var angle = rad_to_deg(velocity.angle()) + 180
+	var sweep = 67.5
+
+	if sweep > angle - 180 and angle - 180 > -sweep:
 		current_east_west_facing = EastWestFacing.EAST
-	elif velocity.x < 0:
+	elif angle > 360 - sweep or angle < sweep:
 		current_east_west_facing = EastWestFacing.WEST
 	elif abs(velocity.y) > 0:
 		current_east_west_facing = EastWestFacing.NONE
-		
-	if velocity.y > 0:
+
+	if sweep > angle - 270 and angle - 270 > -sweep:
 		current_north_south_facing = NorthSouthFacing.SOUTH
-	elif velocity.y < 0:
+	elif sweep > angle - 90 and angle - 90 > -sweep:
 		current_north_south_facing = NorthSouthFacing.NORTH
 	elif abs(velocity.x) > 0:
-		current_north_south_facing = NorthSouthFacing.NONE
-		
+		current_north_south_facing = NorthSouthFacing.NONE	
+
 	var temp_facing = ""
 	if current_north_south_facing != NorthSouthFacing.NONE:
 		temp_facing = NorthSouthFacing.keys()[current_north_south_facing]
@@ -83,3 +90,16 @@ func _update_facing() -> void:
 		
 	if temp_facing != current_facing:
 		current_facing = temp_facing
+		
+func _process_input() -> void:
+	var direction = Input.get_axis("ui_left", "ui_right")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+	direction = Input.get_axis("ui_up", "ui_down")
+	if direction:
+		velocity.y = direction * SPEED
+	else:
+		velocity.y = move_toward(velocity.y, 0, SPEED)
