@@ -8,6 +8,9 @@ var current_east_west_facing := EastWestFacing.NONE
 enum NorthSouthFacing {NORTH, NONE, SOUTH}
 var current_north_south_facing := NorthSouthFacing.NONE
 
+var click_circle = 0
+const CIRLCE_SIZE = 22
+
 var current_facing := "SOUTH" :
 	set(value):
 		current_facing = value
@@ -24,6 +27,14 @@ func _update_animation():
 	var animation = State.keys()[current_state] + "_" + current_facing
 	$AnimationPlayer.play(animation)
 
+func _draw():
+	draw_set_transform(Vector2(0, 0), 0, Vector2(1, .5))
+	draw_arc(Vector2(0, 60), CIRLCE_SIZE, 0, 360, 100, Color(.1, .7, .1))
+
+	if click_circle > 0:
+		draw_set_transform(Vector2(0, 0), 0, Vector2(1, .5))
+		draw_arc(to_local($NavigationAgent2D.get_final_position()), click_circle, 0, 360, 100, Color(.1, .7, .1))
+
 func _ready():
 	current_state = current_state
 	$NavigationAgent2D.velocity_computed.connect(_on_nav_velocity_computed)
@@ -32,6 +43,10 @@ func _on_nav_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
 func _physics_process(delta) -> void:
+	
+	click_circle -= 66 * delta
+	if click_circle > -1:
+		queue_redraw()
 	
 	_update_facing()
 	_update_state()
@@ -46,8 +61,9 @@ func _physics_process(delta) -> void:
 
 func _input(event):
 	# Mouse in viewport coordinates.
-	if event is InputEventMouseButton and event.is_pressed():
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		$NavigationAgent2D.target_position = get_global_mouse_position()
+		click_circle = CIRLCE_SIZE
 
 func _update_state() -> void:
 	if velocity.length() > 0 and current_state != State.RUN:
