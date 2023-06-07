@@ -1,10 +1,10 @@
 [gd_scene load_steps=24 format=3 uid="uid://cqc1rcpyb12d2"]
 
-[ext_resource type="Script" path="res://Scenes/character.gd" id="1_xelpd"]
-[ext_resource type="Texture2D" uid="uid://bhs6bje6ikg66" path="res://Assets/isometric_hero/clothes.png" id="2_qm1ty"]
-[ext_resource type="Texture2D" uid="uid://d3j2q3bm2s71m" path="res://Assets/isometric_hero/male_head1.png" id="3_fcyr6"]
-[ext_resource type="Texture2D" uid="uid://dk7r0wepgwspk" path="res://Assets/isometric_hero/dagger.png" id="4_fb7g8"]
-[ext_resource type="Texture2D" uid="uid://6oboi62exj1n" path="res://Assets/isometric_hero/buckler.png" id="5_h85fw"]
+[ext_resource type="Script" path="res://Scenes/character.gd" id="1_ee8cy"]
+[ext_resource type="Texture2D" uid="uid://bhs6bje6ikg66" path="res://Assets/isometric_hero/clothes.png" id="2_ftp2d"]
+[ext_resource type="Texture2D" uid="uid://d3j2q3bm2s71m" path="res://Assets/isometric_hero/male_head1.png" id="3_laeo6"]
+[ext_resource type="Texture2D" uid="uid://dk7r0wepgwspk" path="res://Assets/isometric_hero/dagger.png" id="4_tyuls"]
+[ext_resource type="Texture2D" uid="uid://6oboi62exj1n" path="res://Assets/isometric_hero/buckler.png" id="5_vl225"]
 
 [sub_resource type="Animation" id="Animation_omdpy"]
 resource_name = "IDLE_EAST"
@@ -928,34 +928,37 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 1
-script = ExtResource("1_xelpd")
+script = ExtResource("1_ee8cy")
 
 [node name="Body" type="Sprite2D" parent="."]
-texture = ExtResource("2_qm1ty")
+texture_filter = 1
+texture = ExtResource("2_ftp2d")
 hframes = 32
 vframes = 8
 frame = 192
 
 [node name="Head" type="Sprite2D" parent="."]
-texture = ExtResource("3_fcyr6")
+texture_filter = 1
+texture = ExtResource("3_laeo6")
 hframes = 32
 vframes = 8
 frame = 192
 
 [node name="Weapon" type="Sprite2D" parent="."]
-texture = ExtResource("4_fb7g8")
+texture_filter = 1
+texture = ExtResource("4_tyuls")
 hframes = 32
 vframes = 8
 frame = 192
 
 [node name="Shield" type="Sprite2D" parent="."]
-texture = ExtResource("5_h85fw")
+texture_filter = 1
+texture = ExtResource("5_vl225")
 hframes = 32
 vframes = 8
 frame = 192
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)

@@ -9,14 +9,14 @@ enum NorthSouthFacing {NORTH, NONE, SOUTH}
 var current_north_south_facing := NorthSouthFacing.NONE
 
 var click_circle = 0
-const CIRLCE_SIZE = 22
+const CIRLCE_SIZE = 16
 
 var current_facing := "SOUTH" :
 	set(value):
 		current_facing = value
 		_update_animation()
 
-enum State {IDLE, RUN}
+enum State {IDLE, WALK}
 var current_state = State.IDLE:
 	set(value):
 		current_state = value
@@ -66,8 +66,8 @@ func _input(event):
 		click_circle = CIRLCE_SIZE
 
 func _update_state() -> void:
-	if velocity.length() > 0 and current_state != State.RUN:
-		current_state = State.RUN
+	if velocity.length() > 0 and current_state != State.WALK:
+		current_state = State.WALK
 	elif velocity.length() == 0 && current_state != State.IDLE: 
 		current_state = State.IDLE
 		
