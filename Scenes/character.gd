@@ -16,6 +16,7 @@ func _draw():
 		draw_arc(to_local($NavigationAgent2D.get_final_position()), click_circle, 0, 360, 100, Color(.1, .7, .1))
 
 func _ready():
+	Input.set_custom_mouse_cursor(load("res://Assets/Cursors/pointing.png"))
 	animation_state.travel("Idle")
 	$NavigationAgent2D.velocity_computed.connect(_on_nav_velocity_computed)
 	
@@ -29,10 +30,10 @@ func _physics_process(delta) -> void:
 
 	_update_state()
 
-	$AnimationTree.set("parameters/Walk/blend_position", velocity.normalized())
-	$AnimationTree.set("parameters/Attack/ATTACK_SWING_1H 2/blend_position", velocity.normalized())
 	if velocity != Vector2(0, 0):
 		$AnimationTree.set("parameters/Idle/blend_position", velocity.normalized())
+		$AnimationTree.set("parameters/Walk/blend_position", velocity.normalized())
+		$AnimationTree.set("parameters/Attack/ATTACK_SWING_1H/blend_position", velocity.normalized())
 	
 	if not $NavigationAgent2D.is_navigation_finished():
 		$NavigationAgent2D.set_velocity(to_local($NavigationAgent2D.get_next_path_position()).normalized() * SPEED)
