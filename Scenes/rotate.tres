@@ -1,0 +1,14 @@
+[gd_resource type="AnimationNodeBlendSpace1D" load_steps=3 format=3 uid="uid://bbfwn3pbi1af8"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b450r"]
+animation = &"EAST"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iauxw"]
+animation = &"WEST"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_b450r")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_iauxw")
+blend_point_1/pos = -1.0
+blend_mode = 1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=46 format=3 uid="uid://7tkwlfrpbikd"]
 
 [ext_resource type="Script" path="res://Scenes/character.gd" id="1_cppdy"]
-[ext_resource type="Texture2D" uid="uid://pt4jxg5dn6u7" path="res://Assets/pvg/male/body/knight.png" id="2_lp3yq"]
+[ext_resource type="Texture2D" uid="uid://pt4jxg5dn6u7" path="res://Assets/pvg/male/premade/full_plate.png" id="2_y21v6"]
 [ext_resource type="Texture2D" uid="uid://ygvp607j5agk" path="res://Assets/pvg/male/weapon/longsword.png" id="3_wu6rx"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://dec3kc2p41sjq" path="res://BlendsSpaces/Idle.tres" id="4_bjhe7"]
 
@@ -751,17 +751,16 @@ script = ExtResource("1_cppdy")
 
 [node name="Body" type="Sprite2D" parent="Sprites"]
 texture_filter = 1
-texture = ExtResource("2_lp3yq")
+texture = ExtResource("2_y21v6")
 hframes = 24
 vframes = 24
-frame = 142
+frame = 129
 
 [node name="Weapon" type="Sprite2D" parent="Sprites"]
 texture_filter = 1
 texture = ExtResource("3_wu6rx")
 hframes = 24
 vframes = 24
-frame = 142
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
