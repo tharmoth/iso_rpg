@@ -1,10 +1,7 @@
-[gd_scene load_steps=141 format=3 uid="uid://4ywym55iy5lf"]
+[gd_scene load_steps=146 format=3 uid="uid://bidv13heqw5gf"]
 
-[ext_resource type="Script" path="res://Scenes/player.gd" id="1_wpa13"]
-[ext_resource type="AnimationNodeBlendSpace1D" uid="uid://bbfwn3pbi1af8" path="res://Scenes/rotate.tres" id="2_684gt"]
-[ext_resource type="Texture2D" uid="uid://bud4nx24xn7we" path="res://Scenes/male_gen1.png" id="3_w0llu"]
-[ext_resource type="Texture2D" uid="uid://dddgj5o0agfpm" path="res://Assets/pvg/male/weapon/mace.png" id="4_gkfux"]
-[ext_resource type="Texture2D" uid="uid://bbfmscefwnjr" path="res://Assets/pvg/male/shield/shield_1.png" id="5_paaky"]
+[ext_resource type="Texture2D" uid="uid://b8ovevetkynav" path="res://Assets/pvg/male/body/body_1.png" id="1_m8uu7"]
+[ext_resource type="AnimationNodeBlendSpace1D" uid="uid://bbfwn3pbi1af8" path="res://Scenes/rotate.tres" id="2_wh2bf"]
 
 [sub_resource type="Animation" id="Animation_8qk6u"]
 length = 0.45
@@ -1528,7 +1525,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_c2wvs"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1568,7 +1564,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_vet7x"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1608,7 +1603,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_5i1by"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1648,7 +1642,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_fvt8l"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1688,7 +1681,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_yaviq"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1728,7 +1720,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_gat7y"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1768,7 +1759,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_8dd72"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1808,7 +1798,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_ib6s0"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -3443,6 +3432,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [368, 369, 370]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_attack_animation_complete"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_au842"]
 length = 0.45
@@ -3980,13 +3983,56 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5umhp"]
-states/Rotate/node = ExtResource("2_684gt")
+states/Rotate/node = ExtResource("2_wh2bf")
 states/Rotate/position = Vector2(375, 100)
 states/SWING_1H/node = SubResource("AnimationNodeAnimation_7drkc")
 states/SWING_1H/position = Vector2(598, 100)
 states/WEST/node = SubResource("AnimationNodeAnimation_0x8v8")
 states/WEST/position = Vector2(763, 100)
 transitions = ["Start", "Rotate", SubResource("AnimationNodeStateMachineTransition_a11id"), "SWING_1H", "WEST", SubResource("AnimationNodeStateMachineTransition_lxnts"), "Rotate", "SWING_1H", SubResource("AnimationNodeStateMachineTransition_130jr")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_diqna"]
+animation = &"KO_NORTH"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ke3pj"]
+animation = &"KO_SOUTH"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ayda2"]
+animation = &"KO_EAST"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o8ir8"]
+animation = &"KO_WEST"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_usmh6"]
+animation = &"KO_SOUTH_EAST"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y2qif"]
+animation = &"KO_SOUTH_WEST"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_73s6u"]
+animation = &"KO_NORTH_WEST"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_drlgn"]
+animation = &"KO_NORTH_EAST"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_sstf3"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_diqna")
+blend_point_0/pos = Vector2(0, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ke3pj")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ayda2")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_o8ir8")
+blend_point_3/pos = Vector2(1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_usmh6")
+blend_point_4/pos = Vector2(-1, 1)
+blend_point_5/node = SubResource("AnimationNodeAnimation_y2qif")
+blend_point_5/pos = Vector2(1, 1)
+blend_point_6/node = SubResource("AnimationNodeAnimation_73s6u")
+blend_point_6/pos = Vector2(1, -1)
+blend_point_7/node = SubResource("AnimationNodeAnimation_drlgn")
+blend_point_7/pos = Vector2(-1, -1)
+blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vrct2"]
 animation = &"IDLE_NORTH"
@@ -4054,7 +4100,7 @@ states/INTERACT/node = SubResource("AnimationNodeAnimation_6niq8")
 states/INTERACT/position = Vector2(498, 100)
 states/RESET/node = SubResource("AnimationNodeAnimation_04o76")
 states/RESET/position = Vector2(680, 100)
-states/Rotate/node = ExtResource("2_684gt")
+states/Rotate/node = ExtResource("2_wh2bf")
 states/Rotate/position = Vector2(359, 100)
 transitions = ["Start", "Rotate", SubResource("AnimationNodeStateMachineTransition_1i8d1"), "Rotate", "INTERACT", SubResource("AnimationNodeStateMachineTransition_iwglc"), "INTERACT", "RESET", SubResource("AnimationNodeStateMachineTransition_78l5e")]
 
@@ -4113,6 +4159,8 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2hkex"]
 states/Attack/node = SubResource("AnimationNodeStateMachine_5umhp")
 states/Attack/position = Vector2(330, 169)
+states/Death/node = SubResource("AnimationNodeBlendSpace2D_sstf3")
+states/Death/position = Vector2(646, 176)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_ydrv2")
 states/Idle/position = Vector2(507, 127)
 states/Interact/node = SubResource("AnimationNodeStateMachine_lhk6q")
@@ -4121,55 +4169,25 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace2D_s2whn")
 states/Walk/position = Vector2(517, 52)
 transitions = ["Attack/WEST", "Idle", SubResource("AnimationNodeStateMachineTransition_27m6y"), "Interact/RESET", "Idle", SubResource("AnimationNodeStateMachineTransition_k6ly3")]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_7axfi"]
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_nw4yy"]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_1atpp"]
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_xrrdt"]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_qr1xh"]
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_wbjru"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sng4i"]
-radius = 22.0
-
-[node name="Player" type="CharacterBody2D"]
-z_index = 1
+[node name="Sprites" type="Node2D"]
 y_sort_enabled = true
-motion_mode = 1
-wall_min_slide_angle = 0.0
-script = ExtResource("1_wpa13")
+metadata/_edit_lock_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_ekm6r")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_2hkex")
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource("AnimationNodeStateMachinePlayback_7axfi")
-parameters/Attack/playback = SubResource("AnimationNodeStateMachinePlayback_1atpp")
-parameters/Attack/Rotate/blend_position = -0.653814
-parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Interact/playback = SubResource("AnimationNodeStateMachinePlayback_qr1xh")
-parameters/Interact/Rotate/blend_position = -0.51886
-parameters/Walk/blend_position = Vector2(-0.278646, -0.177866)
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-avoidance_enabled = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-
-[node name="Sprites" type="Node2D" parent="."]
-position = Vector2(0, -40)
-
-[node name="Body" type="Sprite2D" parent="Sprites"]
+[node name="Body" type="Sprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PXJlczovL0Fzc2V0cy9wdmcvbWFsZS9tYWxlX2dlbjEuYXNlCmxheWVyfD0Kb3BfZXhwfD1mYWxzZQpvX2ZvbGRlcnw9Cm9fbmFtZXw9Cm9ubHlfdmlzaWJsZXw9ZmFsc2UKb19leF9wfD0K"
+y_sort_enabled = true
 texture_filter = 1
-texture = ExtResource("3_w0llu")
+texture = ExtResource("1_m8uu7")
+offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
-frame = 150
+frame = 140
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -4181,18 +4199,35 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://Assets/pvg/male/body/Knight.ase"
 }
 
-[node name="Weapon" type="Sprite2D" parent="Sprites"]
-texture = ExtResource("4_gkfux")
+[node name="Shield" type="Sprite2D" parent="."]
+y_sort_enabled = true
+offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
-frame = 150
+frame = 140
 
-[node name="Shield" type="Sprite2D" parent="Sprites"]
-texture = ExtResource("5_paaky")
+[node name="Weapon" type="Sprite2D" parent="."]
+y_sort_enabled = true
+offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
-frame = 150
+frame = 140
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 0.5)
-shape = SubResource("CircleShape2D_sng4i")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_ekm6r")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_2hkex")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_nw4yy")
+parameters/Attack/playback = SubResource("AnimationNodeStateMachinePlayback_xrrdt")
+parameters/Attack/Rotate/blend_position = -0.653814
+parameters/Death/blend_position = Vector2(-0.00193048, 0)
+parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Interact/playback = SubResource("AnimationNodeStateMachinePlayback_wbjru")
+parameters/Interact/Rotate/blend_position = -0.51886
+parameters/Walk/blend_position = Vector2(-0.278646, -0.177866)

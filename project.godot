@@ -21,7 +21,7 @@ animation/storage/use_metadata=false
 
 [autoload]
 
-Cursor="*res://Scenes/cursor.tscn"
+GlobalCursor="*res://Scripts/cursor.gd"
 
 [debug]
 

@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://4ywym55iy5lf"]
+
+[ext_resource type="Script" path="res://Scripts/character.gd" id="1_ajnbe"]
+[ext_resource type="PackedScene" uid="uid://bidv13heqw5gf" path="res://Scenes/PVGSprite.tscn" id="2_g7784"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxgo4"]
+bg_color = Color(0.501961, 0.0313726, 0.0313726, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sng4i"]
+radius = 13.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2tkwt"]
+radius = 30.0
+height = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uh5u3"]
+radius = 50.0
+
+[node name="Character" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(0.75, 0.75)
+motion_mode = 1
+wall_min_slide_angle = 0.174533
+script = ExtResource("1_ajnbe")
+metadata/_edit_lock_ = true
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(50, 25)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -92.0
+offset_right = 26.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.2)
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_nxgo4")
+value = 100.0
+show_percentage = false
+
+[node name="Sprites" parent="." instance=ExtResource("2_g7784")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 17.0
+max_speed = 150.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sng4i")
+metadata/_edit_lock_ = true
+
+[node name="SelectionArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+metadata/_edit_lock_ = true
+
+[node name="SelectionShape" type="CollisionShape2D" parent="SelectionArea"]
+position = Vector2(0, -35)
+shape = SubResource("CapsuleShape2D_2tkwt")
+
+[node name="AttackRange" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="AttackShape" type="CollisionShape2D" parent="AttackRange"]
+scale = Vector2(1, 0.75)
+shape = SubResource("CircleShape2D_uh5u3")
+
+[node name="CollisionArea" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
+shape = SubResource("CircleShape2D_sng4i")
