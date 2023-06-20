@@ -1181,7 +1181,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_ile0i"]
 length = 0.6
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -3395,7 +3394,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_klojj"]
 length = 0.45
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -3431,20 +3429,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [368, 369, 370]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.4),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_attack_animation_complete"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_au842"]
@@ -4146,7 +4130,7 @@ blend_point_6/pos = Vector2(-1, 1)
 blend_point_7/node = SubResource("AnimationNodeAnimation_qxo7o")
 blend_point_7/pos = Vector2(-1, -1)
 snap = Vector2(0.5, 0.5)
-blend_mode = 1
+blend_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_27m6y"]
 switch_mode = 2
@@ -4198,6 +4182,7 @@ metadata/_aseprite_wizard_config_ = {
 "player": "AnimationPlayer",
 "source": "res://Assets/pvg/male/body/Knight.ase"
 }
+metadata/_edit_lock_ = true
 
 [node name="Shield" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -4205,6 +4190,7 @@ offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
 frame = 140
+metadata/_edit_lock_ = true
 
 [node name="Weapon" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -4212,6 +4198,7 @@ offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
 frame = 140
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")

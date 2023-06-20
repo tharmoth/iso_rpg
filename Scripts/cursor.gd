@@ -5,9 +5,27 @@ class_name CursorState
 enum State {MOVE, ATTACK, CAN_INTERACT, INTERACTING}
 var current_state : State = State.MOVE : set = _set_state
 
+var mouse_over_queue : Array = []
+
+func mouse_enter(object) -> void:
+	mouse_over_queue.push_front(object)
+	selected = mouse_over_queue.front()
+	
+func mouse_exit(object) -> void:
+	mouse_over_queue.remove_at(mouse_over_queue.find(object))
+	selected = mouse_over_queue.front()
+
 var selected : Node2D = null : 
 	set(value):
+		
+		if selected != null and selected.has_method("set_selected"):
+			selected.set_selected(false)
+			
 		selected = value
+		
+		if selected != null and selected.has_method("set_selected"):
+			selected.set_selected(true)
+		
 		if selected is Interactable and current_state == State.CAN_INTERACT:
 			current_state = State.INTERACTING
 		elif selected is Interactable:
