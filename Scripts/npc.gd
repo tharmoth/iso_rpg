@@ -6,12 +6,22 @@ var start_point = position
 var leashing_distance = 700
 @onready var player : Player = get_parent().get_node("Player")
 
+enum NPC_STATES {WANDER, ATTACK, RETURN}
+var state := NPC_STATES.WANDER :
+	set(value):
+		state = value
+		if state == NPC_STATES.RETURN:
+			return_to_home()
+		elif state == NPC_STATES.ATTACK:
+			attack_player()
+		elif state == NPC_STATES.WANDER:
+			wander()
+
 func _ready():
 	super()
 	
 	_wander()
 
-	action_timer.timeout.disconnect(_fight)
 	action_timer.timeout.connect(_wander)
 	action_timer.start()
 	
@@ -29,23 +39,33 @@ func _physics_process(delta) -> void:
 		return
 	
 	var distance_to_start = position.distance_to(start_point)
-
-	if distance_to_start > leashing_distance:
-		$NavigationAgent2D.target_position = start_point
-		animation_state.travel("Walk")
-		action_timer.timeout.disconnect(_fight)
-		action_timer.timeout.connect(_wander)
+		
+	if distance_to_start > leashing_distance and state != NPC_STATES.RETURN:
+		state = NPC_STATES.RETURN
+	elif position.distance_to(player.position) < 300 and not (distance_to_start > 500 and target == null) and player.health > 0 and state != NPC_STATES.ATTACK:
+		state = NPC_STATES.ATTACK
+	elif distance_to_start < 100 and state != NPC_STATES.WANDER:
+		state = NPC_STATES.WANDER
+		
+func return_to_home():
+	$NavigationAgent2D.target_position = start_point
+	animation_state.travel("Walk")
+	target_animation_state = "Idle"
+	action_timer.stop()
+	target = null
+	
+func attack_player():
+	if target == null:
+		action_timer.timeout.disconnect(_wander)
+		action_timer.timeout.connect(_fight)
 		action_timer.start()
-		target = null
-	elif position.distance_to(player.position) < 300 and not (distance_to_start > 500 and target == null):
-		if target == null:
-			action_timer.timeout.disconnect(_wander)
-			action_timer.timeout.connect(_fight)
-			action_timer.start()
-			
-		target = player
-	else:
-		target = null
+		
+	target = player
+	
+func wander():
+	action_timer.timeout.disconnect(_fight)
+	action_timer.timeout.connect(_wander)
+	action_timer.start()
 
 func _update_state() -> void:
 	pass

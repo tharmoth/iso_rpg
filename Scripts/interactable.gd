@@ -4,11 +4,20 @@ class_name Interactable
 
 var selected := false
 
-@export var item : Items.ITEM_NAME
+enum ACTIONS {LOOT, MAP}
 
-func loot():
-	queue_free()
-	return Items.items.get(item)
+@export var action : ACTIONS
+@export var item : Items.ITEM_NAME
+@export var scene : String
+@export var scene_start : Vector2
+
+func loot(player : Character):
+	if action == ACTIONS.MAP:
+		get_tree().change_scene_to_file(scene)
+	else:
+		queue_free()
+		GlobalCursor.mouse_exit(self)
+		return Items.items.get(item)
 
 func _on_mouse_entered():
 	GlobalCursor.mouse_enter(self)

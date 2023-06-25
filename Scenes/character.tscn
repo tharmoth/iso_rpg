@@ -18,10 +18,10 @@ radius = 50.0
 
 [node name="Character" type="CharacterBody2D"]
 y_sort_enabled = true
-scale = Vector2(0.75, 0.75)
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 script = ExtResource("1_ajnbe")
+health = null
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 1

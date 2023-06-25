@@ -64,6 +64,9 @@ func _ready():
 	
 	$Sprites/AnimationTree.animation_finished.connect(_on_animation_changed)
 	
+	NavigationServer2D.agent_set_map($NavigationAgent2D.get_rid(), get_world_2d().get_navigation_map())
+	NavigationServer2D.agent_set_radius($NavigationAgent2D.get_rid(), 25)
+	
 func _on_animation_changed(old_name):
 	if old_name == "SWING_1H":
 		_attack_animation_complete()
@@ -161,7 +164,9 @@ func _attack_animation_complete():
 		action_timer.start()
 
 func _on_interact_complete() -> void:
-	equip(target_interactable.loot())
+	var item = target_interactable.loot(self)
+	if item != null:
+		equip(item)
 
 func equip(item) -> void:
 	if item is Items.ITEM_NAME:
@@ -181,7 +186,7 @@ func _draw():
 	draw_set_transform(Vector2(0, 0), 0, Vector2(1, .5))
 	draw_arc(Vector2(0, 0), CIRLCE_SIZE, 0, 360, 100, circle_color)
 	draw_set_transform(Vector2(0, 0), 0, Vector2(1, 1))
-
+  
 #	for i in steering.num_rays:
 #		var bad_color = Color(1, 0, 0)
 #		var good_color = Color(0, 1, 0)
@@ -189,8 +194,9 @@ func _draw():
 #		if steering.danger[i] != null and steering.danger[i] == 0:
 #			draw_line(to_local(position), to_local(position + steering.ray_directions[i].rotated(animation_rotation.angle()) * steering.look_ahead), good_color)
 #		else: 
+#			print(steering.danger[i])
 #			draw_line(to_local(position), to_local(position + steering.ray_directions[i].rotated(animation_rotation.angle()) * steering.look_ahead), bad_color)
-#
+
 #	if velocity != Vector2.ZERO:
 #		draw_line(Vector2.ZERO, velocity.normalized() * 75, Color(0, 0, 1), 2)
 	

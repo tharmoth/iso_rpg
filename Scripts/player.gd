@@ -5,13 +5,14 @@ class_name Player
 func _ready():
 	super()
 	var camera = Camera2D.new()
-	camera.zoom = Vector2(1.5, 1.5)
+	camera.zoom = Vector2(1, 1)
 	add_child(camera)
 	
 	action_timer.timeout.connect(_fight)
 	
-	var tilemap : TileMap = get_parent()
-	tilemap.set_layer_modulate(0, Color(0, 0, 0, 0))
+	if get_parent() is TileMap:
+		var tilemap : TileMap = get_parent()
+		tilemap.set_layer_modulate(0, Color(0, 0, 0, 0))
 	
 	equip(Items.ITEM_NAME.farmer)
 

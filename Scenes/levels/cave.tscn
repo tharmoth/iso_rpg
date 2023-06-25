@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxu8n1lyku1vq"]
+
+[ext_resource type="Texture2D" uid="uid://dvflr603dclxl" path="res://Assets/scenes/cave.png" id="1_ymcb5"]
+[ext_resource type="PackedScene" uid="uid://4ywym55iy5lf" path="res://Scenes/character.tscn" id="2_2c2ul"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="3_cqepc"]
+[ext_resource type="PackedScene" uid="uid://bfdbbwsg4dg3b" path="res://Scenes/interactable.tscn" id="4_tqrce"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_st5yp"]
+vertices = PackedVector2Array(80, -230, 195, -212, 264, -126, 269, 46, 212, 76, -4, -110, -15, -169, -43, -234, -48, -236, -115, -211, -165, -198, -127, -119, -191, -60, -97, -61, -163, 20, -191, 17, -119, 125, 209, 131, 55, 224, -164, 225, -122, 101, -152, 70, -241, 26, -200, 107, -244, 133, -190, 128, -203, 167, -182, 183, 239, 200, 116, 277)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6), PackedInt32Array(0, 6, 7), PackedInt32Array(8, 0, 7), PackedInt32Array(8, 7, 9, 10), PackedInt32Array(10, 9, 11, 12), PackedInt32Array(12, 11, 13, 14, 15), PackedInt32Array(16, 5, 4, 17, 18, 19), PackedInt32Array(5, 16, 20, 13), PackedInt32Array(13, 20, 21, 14), PackedInt32Array(22, 12, 15, 23, 24), PackedInt32Array(24, 23, 25, 26), PackedInt32Array(19, 24, 26), PackedInt32Array(19, 26, 27), PackedInt32Array(17, 28, 29, 18), PackedInt32Array(16, 19, 27)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(116, 277, 239, 200, 209, 131, 212, 76, 269, 46, 264, -126, 195, -212, 80, -230, -48, -236, -165, -198, -191, -60, -241, 26, -244, 133, -164, 225, 55, 224), PackedVector2Array(-119, 125, -122, 101, -152, 70, -163, 20, -191, 17, -200, 107, -190, 128, -203, 167, -182, 183), PackedVector2Array(-97, -61, -4, -110, -15, -169, -43, -234, -115, -211, -127, -119)])
+
+[node name="Cave" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ymcb5")
+
+[node name="Character" parent="." instance=ExtResource("2_2c2ul")]
+position = Vector2(137, 208)
+script = ExtResource("3_cqepc")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_st5yp")
+
+[node name="Interactable" parent="." instance=ExtResource("4_tqrce")]
+action = 1
+scene = "res://Scenes/levels/forest.tscn"
+scene_start = Vector2(-12, -1174)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
+polygon = PackedVector2Array(108, 268, 122, 297, 255, 214, 233, 186)

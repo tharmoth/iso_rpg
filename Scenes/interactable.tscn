@@ -5,7 +5,6 @@
 [node name="Interactable" type="Area2D"]
 z_index = 2
 z_as_relative = false
-position = Vector2(-367, 265)
 script = ExtResource("1_7ilkv")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

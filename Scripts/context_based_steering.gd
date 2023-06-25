@@ -50,6 +50,8 @@ func update() -> Vector2:
 	set_danger()
 	choose_direction()
 
+	owner.queue_redraw()
+
 	return cached_dir if cached_dir != Vector2.ZERO else chosen_dir
 	
 func set_interest() -> void:
