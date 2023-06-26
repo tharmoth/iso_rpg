@@ -154,10 +154,14 @@ func _add_animation_frames(target_node: Node, player: AnimationPlayer, anim_name
 		frames.reverse()
 
 	var animation_length = 0
+	
+	
 
 	for frame in frames:
 		var frame_key = _get_frame_key(target_node, frame, context)
 		for index in frame_track_index:
+			if full_name.contains("NORTH_EAST"):
+				print(full_name + " we found it?! " + str(index))
 			animation.track_insert_key(index, animation_length, frame_key)
 		animation_length += frame.duration / 1000
 
@@ -190,6 +194,7 @@ func _validate_animation_name(name: String) -> bool:
 
 func _create_track(target_node: Node, animation: Animation, track: Array[String]) -> Array[int]:
 	var all_track_index : Array[int] = []
+	animation.clear()
 	for node_track in track:
 		var track_index = animation.find_track(node_track, Animation.TYPE_VALUE)
 
@@ -208,6 +213,8 @@ func _create_track(target_node: Node, animation: Animation, track: Array[String]
 func _get_property_track_path(player: AnimationPlayer, target_node: Node, prop: String) -> Array[String]:
 		var paths : Array[String] = []
 		for siblings in target_node.get_parent().get_children():
+			if not (siblings is Sprite2D):
+				continue
 			var node_path = player.get_node(player.root_node).get_path_to(siblings)
 			paths.append("%s:%s" % [node_path, prop])
 		return paths

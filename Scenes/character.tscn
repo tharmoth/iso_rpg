@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://4ywym55iy5lf"]
 
 [ext_resource type="Script" path="res://Scripts/character.gd" id="1_ajnbe"]
-[ext_resource type="PackedScene" uid="uid://bidv13heqw5gf" path="res://Scenes/PVGSprite.tscn" id="2_g7784"]
+[ext_resource type="PackedScene" uid="uid://bidv13heqw5gf" path="res://Scenes/character_sprites/PVGSprite.tscn" id="2_g7784"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxgo4"]
 bg_color = Color(0.501961, 0.0313726, 0.0313726, 1)
@@ -21,7 +21,6 @@ y_sort_enabled = true
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 script = ExtResource("1_ajnbe")
-health = null
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 1

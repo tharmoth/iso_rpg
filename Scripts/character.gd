@@ -2,27 +2,19 @@ extends CharacterBody2D
 
 class_name Character
 
-const SPEED = 150.0
-const MAX_HEALTH = 100.0
+const SPEED = 200.0
+const MAX_HEALTH = 10.0
 const CIRLCE_SIZE = 22
 
 @export var health := MAX_HEALTH :
 	set(value):
 		health = min(MAX_HEALTH, value)
 		if health <= 0:
-			animation_state.travel("Death")
-			action_timer.stop()
-			health_regen.stop()
-			target = null
-			remove_child($SelectionArea)
-			remove_child($CollisionShape2D)
-			remove_child($NavigationAgent2D)
-			remove_child($HealthBar)
-			circle_color = Color(0, 0, 0, 0)
+			on_death()
 		else:
 			$HealthBar.value = health
 			
-var damage : = 10.0
+var damage := "1d4"
 var protection := 0.0
 var block_chance := 0.0
 
@@ -60,12 +52,14 @@ func _ready():
 	health_regen.one_shot = false
 	health_regen.timeout.connect(_regen)
 	add_child(health_regen)
-	health_regen.start()
+#	health_regen.start()
 	
 	$Sprites/AnimationTree.animation_finished.connect(_on_animation_changed)
 	
 	NavigationServer2D.agent_set_map($NavigationAgent2D.get_rid(), get_world_2d().get_navigation_map())
 	NavigationServer2D.agent_set_radius($NavigationAgent2D.get_rid(), 25)
+	
+	$HealthBar.max_value = MAX_HEALTH
 	
 func _on_animation_changed(old_name):
 	if old_name == "SWING_1H":
@@ -150,12 +144,16 @@ func _attack_animation_complete():
 	if target == null:
 		return
 		
-	if RandomNumberGenerator.new().randf_range(0, 1.0) > (target.block_chance / 100):
-		var damage_out = damage * (1 - target.protection / 100) 
-		print(target.name + " took " + str(damage_out) + " damage from " + name)
+	var rand = RandomNumberGenerator.new()	
+	var attack_roll = rand.randi_range(1, 20)
+	var target_ac = target.protection + target.block_chance
+	var damage_out = Items.calculate_damage(damage)
+
+	if attack_roll > target_ac:
+		print(name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to hit " + target.name + " dealing " + str(damage_out) + " damage!")
 		target.health = target.health - damage_out
 	else:
-		print(target.name + " blocked attack from " + name)
+		print(name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to miss " + target.name + "!")
 	
 	if target.health <= 0:
 		target = null
@@ -181,6 +179,17 @@ func equip(item) -> void:
 	elif item.slot == "shield":
 		block_chance = item.block_chance
 		$Sprites/Shield.texture = item.texture
+
+func on_death():
+	animation_state.travel("Death")
+	action_timer.stop()
+	health_regen.stop()
+	target = null
+	remove_child($SelectionArea)
+	remove_child($CollisionShape2D)
+	remove_child($NavigationAgent2D)
+	remove_child($HealthBar)
+	circle_color = Color(0, 0, 0, 0)
 
 func _draw():
 	draw_set_transform(Vector2(0, 0), 0, Vector2(1, .5))

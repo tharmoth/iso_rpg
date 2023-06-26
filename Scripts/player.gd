@@ -15,13 +15,14 @@ func _ready():
 		tilemap.set_layer_modulate(0, Color(0, 0, 0, 0))
 	
 	equip(Items.ITEM_NAME.farmer)
+	damage = "20d20"
 
 func _update_state() -> void:
 	if Input.is_action_just_pressed("interact") and animation_state.get_current_node() != "Death":
 		$NavigationAgent2D.target_position = get_global_mouse_position()
 		animation_state.travel("Walk")
 		
-		if GlobalCursor.current_state == GlobalCursor.State.ATTACK:
+		if GlobalCursor.current_state == GlobalCursor.State.ATTACK and target != GlobalCursor.selected:
 			target = GlobalCursor.selected
 			target_animation_state = "Attack"
 			action_timer.start()

@@ -12,8 +12,13 @@ func mouse_enter(object) -> void:
 	selected = mouse_over_queue.front()
 	
 func mouse_exit(object) -> void:
-	mouse_over_queue.remove_at(mouse_over_queue.find(object))
-	selected = mouse_over_queue.front()
+	if mouse_over_queue.find(object) > -1:
+		mouse_over_queue.remove_at(mouse_over_queue.find(object))
+		
+	if mouse_over_queue.size() > 0:
+		selected = mouse_over_queue.front()
+	else:
+		selected = null
 
 var selected : Node2D = null : 
 	set(value):

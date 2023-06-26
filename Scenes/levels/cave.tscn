@@ -29,3 +29,9 @@ scene_start = Vector2(-12, -1174)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
 polygon = PackedVector2Array(108, 268, 122, 297, 255, 214, 233, 186)
+
+[node name="Interactable2" parent="." instance=ExtResource("4_tqrce")]
+position = Vector2(-166, 194)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable2"]
+polygon = PackedVector2Array(0, 7, 4, 6, 4, 2, 0, -2, -5, 0, -4, 4)

@@ -9,6 +9,7 @@ var leashing_distance = 700
 enum NPC_STATES {WANDER, ATTACK, RETURN}
 var state := NPC_STATES.WANDER :
 	set(value):
+		print("npc state change from " + str(NPC_STATES.keys()[state]) + " to " + str(NPC_STATES.keys()[value]))
 		state = value
 		if state == NPC_STATES.RETURN:
 			return_to_home()
@@ -16,6 +17,7 @@ var state := NPC_STATES.WANDER :
 			attack_player()
 		elif state == NPC_STATES.WANDER:
 			wander()
+		
 
 func _ready():
 	super()
@@ -44,7 +46,7 @@ func _physics_process(delta) -> void:
 		state = NPC_STATES.RETURN
 	elif position.distance_to(player.position) < 300 and not (distance_to_start > 500 and target == null) and player.health > 0 and state != NPC_STATES.ATTACK:
 		state = NPC_STATES.ATTACK
-	elif distance_to_start < 100 and state != NPC_STATES.WANDER:
+	elif distance_to_start < 100 and state != NPC_STATES.WANDER and state != NPC_STATES.ATTACK:
 		state = NPC_STATES.WANDER
 		
 func return_to_home():
@@ -66,6 +68,10 @@ func wander():
 	action_timer.timeout.disconnect(_fight)
 	action_timer.timeout.connect(_wander)
 	action_timer.start()
+
+func on_death():
+	_on_mouse_over_mouse_exited()
+	super()
 
 func _update_state() -> void:
 	pass
