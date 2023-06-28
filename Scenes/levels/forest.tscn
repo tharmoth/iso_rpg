@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bk8v8gsd0qupa" path="res://Assets/scenes/forest.png" id="3_h6g5a"]
 [ext_resource type="PackedScene" uid="uid://4ywym55iy5lf" path="res://Scenes/character.tscn" id="4_vc72k"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="5_k8jq1"]
-[ext_resource type="Script" path="res://Scripts/npc.gd" id="6_cu3fx"]
 [ext_resource type="PackedScene" uid="uid://bfdbbwsg4dg3b" path="res://Scenes/interactable.tscn" id="7_n2xmn"]
+[ext_resource type="PackedScene" uid="uid://dffrpu3t4k4aj" path="res://Scenes/behavior_character.tscn" id="8_vpl37"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n37w1"]
 vertices = PackedVector2Array(-297, -1315, 249, -1027, 99, -1024, -974, -1031, -345, -1316, 662, -527, 544, -932, 1498, -1496, 1496, 1488, 591, -486, 642, -489, 803, 813, 760, 806, -120, 201, -142, 145, -103, -588, -223, -663, -146, -660, 523, -866, 613, -564, 523, -818, 824, 852, 800, 879, 752, 1497, 566, 1376, 766, 878, 39, -968, 99, -942, 26, -900, 104, -523, 299, -523, 513, -521, -751, -445, -754, -472, -112, -520, 105, -589, 249, -941, 338, -1003, 337, -907, 298, -593, -1365, -780, -1496, -756, -1496, -1496, -1086, -1039, -1104, -968, -1498, 1230, -1496, 6.08154, -1293, 31, 511, -593, 579, -530, -399, -932, -1299, -672, -1348, -660, -1006, -959, 733, 840, -1235.37, 0.504059, -180, 178, 496, -895, -762, -391, -764, -368, -785, -418, -1276, -97, -1231, -116, -1206, -80, -1150, -46, -1087, -78, -808, -347, -1054, -245, -857, -384, -833, -436, -1065, -402, -855, -480, 461, -821, -257, -625, -72, -828, -96, -760, -401, -866, -259, -783, -824, -516, -13, -998, 435, -992, -285, -1338, -348, -1404, -363, -1342, -1182, -474, -145, -722, -193, -822, -152, -881, -245, -832)
@@ -178,23 +178,8 @@ texture = ExtResource("3_h6g5a")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("4_vc72k")]
-position = Vector2(696, -111)
+position = Vector2(-876, 148)
 script = ExtResource("5_k8jq1")
-
-[node name="Bandit" parent="." instance=ExtResource("4_vc72k")]
-position = Vector2(365, -846)
-script = ExtResource("6_cu3fx")
-health = 100.0
-
-[node name="Bandit2" parent="." instance=ExtResource("4_vc72k")]
-position = Vector2(189, -538)
-script = ExtResource("6_cu3fx")
-health = 100.0
-
-[node name="Bandit3" parent="." instance=ExtResource("4_vc72k")]
-position = Vector2(-6, -856)
-script = ExtResource("6_cu3fx")
-health = 100.0
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
@@ -208,3 +193,6 @@ scene_start = Vector2(151, 207)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
 polygon = PackedVector2Array(-1239, -21, -1181, -66, -1207, -81, -1207, -122, -1231, -127, -1248, -106, -1270, -104, -1278, -98, -1267, -36, -1240, -23)
+
+[node name="BehaviorCharacter" parent="." instance=ExtResource("8_vpl37")]
+position = Vector2(-557, 136)

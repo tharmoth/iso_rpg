@@ -6,15 +6,15 @@ enum ITEM_NAME {longsword, mace, full_plate, leather, farmer, shield, buckler}
 
 const items = {
 	# Weapons
-	ITEM_NAME.longsword : {"slot" : "weapon", "damage" : "1d8", "texture" : preload("res://Assets/pvg/male/weapon/longsword.png")},
-	ITEM_NAME.mace      : {"slot" : "weapon", "damage" : "1d6+1", "texture" : preload("res://Assets/pvg/male/weapon/mace.png")},
+	ITEM_NAME.longsword : {"slot" : "weapon", "damage" : "1d8", "texture" : preload("res://Assets/rpgtools/male/Weapons/sword.png")},
+	ITEM_NAME.mace      : {"slot" : "weapon", "damage" : "1d6+1", "texture" : preload("res://Assets/rpgtools/male/Weapons/mace.png")},
 	# Armors
-	ITEM_NAME.full_plate : {"slot" : "body", "protection" : 17, "texture" : preload("res://Assets/pvg/male/premade/full_plate.png")},
-	ITEM_NAME.leather    : {"slot" : "body", "protection" : 12, "texture" : preload("res://Assets/pvg/male/premade/leather.png")},
-	ITEM_NAME.farmer    : {"slot" : "body", "protection" : 10, "texture" : preload("res://Assets/pvg/male/premade/farmer.png")},
+	ITEM_NAME.full_plate : {"slot" : "body", "protection" : 17, "texture" : preload("res://Assets/rpgtools/male/Top/plate-shiny.png")},
+#	ITEM_NAME.leather    : {"slot" : "body", "protection" : 12, "texture" : preload("res://Assets/pvg/male/premade/leather.png")},
+#	ITEM_NAME.farmer    : {"slot" : "body", "protection" : 10, "texture" : preload("res://Assets/pvg/male/premade/farmer.png")},
 	# Shields
-	ITEM_NAME.shield : {"slot" : "shield", "block_chance" : 2, "texture" : preload("res://Assets/pvg/male/shield/shield_1.png")},
-	ITEM_NAME.buckler : {"slot" : "shield", "block_chance" : 1, "texture" : preload("res://Assets/pvg/male/shield/shield_2.png")},
+#	ITEM_NAME.shield : {"slot" : "shield", "block_chance" : 2, "texture" : preload("res://Assets/pvg/male/shield/shield_1.png")},
+#	ITEM_NAME.buckler : {"slot" : "shield", "block_chance" : 1, "texture" : preload("res://Assets/pvg/male/shield/shield_2.png")},
 }
 
 static func calculate_damage(damage_string : String) -> int:
@@ -35,9 +35,12 @@ static func calculate_damage(damage_string : String) -> int:
 		
 	if dice_loc > -1:
 		addition = damage_string.substr(dice_loc + 1)
+		
+	if dice_loc == -1 and num_dice_loc == -1:
+		damage = int(damage_string)
 
 	for i in num_dice:
 		damage += RandomNumberGenerator.new().randi_range(1, int(dice))
-	
+
 	damage += int(addition)
 	return damage

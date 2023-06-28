@@ -14,8 +14,11 @@ func _ready():
 		var tilemap : TileMap = get_parent()
 		tilemap.set_layer_modulate(0, Color(0, 0, 0, 0))
 	
-	equip(Items.ITEM_NAME.farmer)
+#	equip(Items.ITEM_NAME.farmer)
 	damage = "20d20"
+	GlobalCursor.player = self
+	
+	SPEED = 300
 
 func _update_state() -> void:
 	if Input.is_action_just_pressed("interact") and animation_state.get_current_node() != "Death":

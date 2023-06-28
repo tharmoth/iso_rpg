@@ -35,7 +35,7 @@ var selected : Node2D = null :
 			current_state = State.INTERACTING
 		elif selected is Interactable:
 			current_state = State.CAN_INTERACT
-		elif selected is NPC:
+		elif selected is NPC or selected is BCharacter:
 			current_state = State.ATTACK
 		else:
 			current_state = State.MOVE
@@ -58,3 +58,6 @@ func _set_state(value) -> void:
 		Input.set_custom_mouse_cursor(load("res://Assets/Cursors/grabbing.png"))
 	elif current_state == State.ATTACK:
 		Input.set_custom_mouse_cursor(load("res://Assets/Cursors/sword.png"))
+
+#bad scott
+var player : Player

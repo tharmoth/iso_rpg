@@ -1,0 +1,162 @@
+[gd_scene load_steps=22 format=3 uid="uid://dffrpu3t4k4aj"]
+
+[ext_resource type="Script" path="res://Scripts/behavior_character.gd" id="1_8cfw4"]
+[ext_resource type="PackedScene" uid="uid://d1f3qs13lmqom" path="res://Scenes/character_sprites/rpgmaker_sprite.tscn" id="2_amevs"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="3_mift4"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="4_ncugb"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="5_5rywe"]
+[ext_resource type="Script" path="res://Scripts/behaviors/is_dead.gd" id="5_iwn6v"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="6_0mobg"]
+[ext_resource type="Script" path="res://Scripts/behaviors/focus_start.gd" id="6_y87yl"]
+[ext_resource type="Script" path="res://Scripts/behaviors/focus_in_range.gd" id="7_w6c3l"]
+[ext_resource type="Script" path="res://Scripts/behaviors/move_to_focus.gd" id="8_pw4t4"]
+[ext_resource type="Script" path="res://Scripts/behaviors/can_interact.gd" id="9_a7jg8"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="9_w2n3s"]
+[ext_resource type="Script" path="res://Scripts/behaviors/wait.gd" id="10_gm7yf"]
+[ext_resource type="Script" path="res://Scripts/behaviors/attack.gd" id="10_kc14f"]
+[ext_resource type="Script" path="res://Scripts/behaviors/focus_player.gd" id="10_lw6hu"]
+[ext_resource type="Script" path="res://Scripts/behaviors/focus_wander.gd" id="10_yt4yt"]
+[ext_resource type="Script" path="res://Scripts/behaviors/should_wander.gd" id="12_0ptbi"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/time_limiter.gd" id="14_rs2y1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt351"]
+bg_color = Color(0.501961, 0.0313726, 0.0313726, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xgrj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wghc6"]
+radius = 30.0
+height = 100.0
+
+[node name="BehaviorCharacter" type="CharacterBody2D"]
+script = ExtResource("1_8cfw4")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(50, 25)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -92.0
+offset_right = 26.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.2)
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_dt351")
+value = 100.0
+show_percentage = false
+
+[node name="Sprites" parent="." instance=ExtResource("2_amevs")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7xgrj")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AI" type="Node" parent="."]
+script = ExtResource("3_mift4")
+actor_node_path = NodePath("..")
+
+[node name="SelectorReactiveComposite" type="Node" parent="AI"]
+script = ExtResource("4_ncugb")
+
+[node name="IsDead" type="Node" parent="AI/SelectorReactiveComposite"]
+script = ExtResource("5_iwn6v")
+
+[node name="Attack" type="Node" parent="AI/SelectorReactiveComposite"]
+script = ExtResource("9_w2n3s")
+
+[node name="FocusPlayer" type="Node" parent="AI/SelectorReactiveComposite/Attack"]
+script = ExtResource("10_lw6hu")
+
+[node name="FocusInRange" type="Node" parent="AI/SelectorReactiveComposite/Attack" node_paths=PackedStringArray("focus")]
+script = ExtResource("7_w6c3l")
+range = 300
+focus = NodePath("../FocusPlayer")
+
+[node name="SelectorReactiveComposite" type="Node" parent="AI/SelectorReactiveComposite/Attack"]
+script = ExtResource("4_ncugb")
+
+[node name="Attack" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite"]
+script = ExtResource("5_5rywe")
+
+[node name="FocusInRange" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite/Attack" node_paths=PackedStringArray("focus")]
+script = ExtResource("7_w6c3l")
+range = 100
+focus = NodePath("../../../FocusPlayer")
+
+[node name="CanInteract" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite/Attack" node_paths=PackedStringArray("focus")]
+script = ExtResource("9_a7jg8")
+focus = NodePath("../../../FocusPlayer")
+
+[node name="Attack" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite/Attack" node_paths=PackedStringArray("focus")]
+script = ExtResource("10_kc14f")
+focus = NodePath("../../../FocusPlayer")
+
+[node name="InRange" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite"]
+script = ExtResource("9_w2n3s")
+
+[node name="FocusInRange" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite/InRange" node_paths=PackedStringArray("focus")]
+script = ExtResource("7_w6c3l")
+range = 100
+focus = NodePath("../../../FocusPlayer")
+
+[node name="Wait" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite/InRange"]
+script = ExtResource("10_gm7yf")
+
+[node name="MoveToFocus" type="Node" parent="AI/SelectorReactiveComposite/Attack/SelectorReactiveComposite" node_paths=PackedStringArray("focus")]
+script = ExtResource("8_pw4t4")
+focus = NodePath("../../FocusPlayer")
+
+[node name="Return" type="Node" parent="AI/SelectorReactiveComposite"]
+script = ExtResource("9_w2n3s")
+
+[node name="FocusStart" type="Node" parent="AI/SelectorReactiveComposite/Return"]
+script = ExtResource("6_y87yl")
+
+[node name="GoHome" type="Node" parent="AI/SelectorReactiveComposite/Return"]
+script = ExtResource("5_5rywe")
+
+[node name="InverterDecorator" type="Node" parent="AI/SelectorReactiveComposite/Return/GoHome"]
+script = ExtResource("6_0mobg")
+
+[node name="FocusInRange" type="Node" parent="AI/SelectorReactiveComposite/Return/GoHome/InverterDecorator" node_paths=PackedStringArray("focus")]
+script = ExtResource("7_w6c3l")
+focus = NodePath("../../../FocusStart")
+
+[node name="MoveToFocus" type="Node" parent="AI/SelectorReactiveComposite/Return/GoHome" node_paths=PackedStringArray("focus")]
+script = ExtResource("8_pw4t4")
+focus = NodePath("../../FocusStart")
+
+[node name="Wander" type="Node" parent="AI/SelectorReactiveComposite"]
+script = ExtResource("9_w2n3s")
+
+[node name="FocusWander" type="Node" parent="AI/SelectorReactiveComposite/Wander"]
+script = ExtResource("10_yt4yt")
+
+[node name="Wander" type="Node" parent="AI/SelectorReactiveComposite/Wander"]
+script = ExtResource("5_5rywe")
+
+[node name="ShouldWander" type="Node" parent="AI/SelectorReactiveComposite/Wander/Wander"]
+script = ExtResource("12_0ptbi")
+
+[node name="TimeLimiterDecorator" type="Node" parent="AI/SelectorReactiveComposite/Wander/Wander"]
+script = ExtResource("14_rs2y1")
+wait_time = 20.0
+
+[node name="MoveToFocus" type="Node" parent="AI/SelectorReactiveComposite/Wander/Wander/TimeLimiterDecorator" node_paths=PackedStringArray("focus")]
+script = ExtResource("8_pw4t4")
+focus = NodePath("../../../FocusWander")
+
+[node name="SelectionArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+metadata/_edit_lock_ = true
+
+[node name="SelectionShape" type="CollisionShape2D" parent="SelectionArea"]
+position = Vector2(0, -35)
+shape = SubResource("CapsuleShape2D_wghc6")

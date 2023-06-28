@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://4ywym55iy5lf"]
 
 [ext_resource type="Script" path="res://Scripts/character.gd" id="1_ajnbe"]
-[ext_resource type="PackedScene" uid="uid://bidv13heqw5gf" path="res://Scenes/character_sprites/PVGSprite.tscn" id="2_g7784"]
+[ext_resource type="PackedScene" uid="uid://d1f3qs13lmqom" path="res://Scenes/character_sprites/rpgmaker_sprite.tscn" id="2_dqx2e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxgo4"]
 bg_color = Color(0.501961, 0.0313726, 0.0313726, 1)
@@ -41,7 +41,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_nxgo4")
 value = 100.0
 show_percentage = false
 
-[node name="Sprites" parent="." instance=ExtResource("2_g7784")]
+[node name="Sprites" parent="." instance=ExtResource("2_dqx2e")]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 radius = 17.0

@@ -155,7 +155,10 @@ func _add_animation_frames(target_node: Node, player: AnimationPlayer, anim_name
 
 	var animation_length = 0
 	
-	
+	if full_name.contains("NORTH_WEST"):
+		print("--------------------- " + full_name)
+	else:
+		print("not " + full_name)
 
 	for frame in frames:
 		var frame_key = _get_frame_key(target_node, frame, context)

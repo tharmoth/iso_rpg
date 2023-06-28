@@ -4171,7 +4171,7 @@ texture = ExtResource("1_qhrfj")
 offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
-frame = 140
+frame = 368
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -4185,19 +4185,21 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_edit_lock_ = true
 
 [node name="Shield" type="Sprite2D" parent="."]
+visible = false
 y_sort_enabled = true
 offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
-frame = 140
+frame = 368
 metadata/_edit_lock_ = true
 
 [node name="Weapon" type="Sprite2D" parent="."]
+visible = false
 y_sort_enabled = true
 offset = Vector2(0, -40)
 hframes = 24
 vframes = 24
-frame = 140
+frame = 368
 metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

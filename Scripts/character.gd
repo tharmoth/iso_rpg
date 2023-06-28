@@ -2,10 +2,11 @@ extends CharacterBody2D
 
 class_name Character
 
-const SPEED = 200.0
-const MAX_HEALTH = 10.0
+var SPEED = 200.0
+
 const CIRLCE_SIZE = 22
 
+const MAX_HEALTH = 10.0
 @export var health := MAX_HEALTH :
 	set(value):
 		health = min(MAX_HEALTH, value)
@@ -28,7 +29,7 @@ var target_animation_state := "Idle"
 var animation_rotation := Vector2.ZERO
 
 @onready var steering = preload("res://Scripts/context_based_steering.gd").new()
-var target : Character = null :
+var target = null :
 	set(value):
 		target = value
 		queue_redraw()
@@ -55,6 +56,7 @@ func _ready():
 #	health_regen.start()
 	
 	$Sprites/AnimationTree.animation_finished.connect(_on_animation_changed)
+#	$Sprites/AnimationPlayer.animation_finished.connect(_on_animation_changed)
 	
 	NavigationServer2D.agent_set_map($NavigationAgent2D.get_rid(), get_world_2d().get_navigation_map())
 	NavigationServer2D.agent_set_radius($NavigationAgent2D.get_rid(), 25)
@@ -62,10 +64,13 @@ func _ready():
 	$HealthBar.max_value = MAX_HEALTH
 	
 func _on_animation_changed(old_name):
-	if old_name == "SWING_1H":
+	print(old_name)
+	if old_name.contains("ATTACK"):
 		_attack_animation_complete()
-	elif old_name == "INTERACT":
+	elif old_name.contains("INTERACT"):
 		_on_interact_complete()
+	elif old_name.contains("DEAD"):
+		process_mode = Node.PROCESS_MODE_DISABLED
  
 func _regen():
 	health += 1	
@@ -73,16 +78,17 @@ func _regen():
 func _on_nav_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
 
+
+
 func _physics_process(delta) -> void:
 	if health <= 0:
 		return
-	
+
 	_turn()
 	
 	# Follow the target if not currently attacking
 	if not action_timer.is_stopped() and not _is_in_range() and animation_state.get_current_node() != "Attack" and target != null:
 		_fight()
-		$Sprites/AnimationPlayer.play("RESET")
 		queue_redraw()
 	
 	if animation_state.get_current_node() == "Walk":
@@ -91,18 +97,22 @@ func _physics_process(delta) -> void:
 	_update_state()
 
 func _is_in_range() -> bool:
-	return target != null and $AttackRange.overlaps_area(target.get_node("CollisionArea"))
+	return target != null and position.distance_to(target.position) < 28
 
 func _process_movement() -> void:
+	if health <= 0:
+		return
+	
 	if target != null:
 		$NavigationAgent2D.target_position = target.position
 
 	if not $NavigationAgent2D.is_navigation_finished() and not _is_in_range():
 		# $NavigationAgent2D.set_velocity(to_local($NavigationAgent2D.get_next_path_position()).normalized() * SPEED)
 		velocity = to_local($NavigationAgent2D.get_next_path_position()).normalized() * SPEED
-		velocity = steering.update()
+#		velocity = steering.update()
 		
 		move_and_slide()
+		position = position.snapped(Vector2.ONE)
 	else:
 		_turn()
 		velocity = Vector2(0, 0)
@@ -118,12 +128,12 @@ func _turn():
 		new_rotation = (target.position - position).normalized()
 
 	if new_rotation != null:
-		animation_rotation = UTILS.clamp_rotation(animation_rotation, new_rotation, 30)
+		animation_rotation = UTILS.clamp_rotation(animation_rotation, new_rotation, 15)
 		$Sprites/AnimationTree.set("parameters/Walk/blend_position", animation_rotation)
 		$Sprites/AnimationTree.set("parameters/Idle/blend_position", animation_rotation)
 		$Sprites/AnimationTree.set("parameters/Death/blend_position", animation_rotation)
-		$Sprites/AnimationTree.set("parameters/Attack/Rotate/blend_position", animation_rotation.x)
-		$Sprites/AnimationTree.set("parameters/Interact/Rotate/blend_position", animation_rotation.x)
+		$Sprites/AnimationTree.set("parameters/Attack/blend_position", animation_rotation)
+		$Sprites/AnimationTree.set("parameters/Interact/blend_position", animation_rotation)
 
 func _update_state():
 	push_error("_update_state not implemented!")

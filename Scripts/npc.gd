@@ -31,9 +31,9 @@ func _ready():
 	$SelectionArea.mouse_entered.connect(_on_mouse_over_mouse_entered)
 	$SelectionArea.mouse_exited.connect(_on_mouse_over_mouse_exited)
 	
-	equip(Items.ITEM_NAME.leather)
-	equip(Items.ITEM_NAME.mace)
-	equip(Items.ITEM_NAME.buckler)
+#	equip(Items.ITEM_NAME.leather)
+#	equip(Items.ITEM_NAME.mace)
+#	equip(Items.ITEM_NAME.buckler)
 
 func _physics_process(delta) -> void:
 	super(delta)
