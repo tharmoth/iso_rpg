@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqbg1hw3dxj1m"]
+[gd_scene load_steps=8 format=3 uid="uid://dqbg1hw3dxj1m"]
 
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_ik8ot"]
 [ext_resource type="PackedScene" uid="uid://byxfna00ayh7b" path="res://Scenes/Sprites/tree_1.tscn" id="1_kspi4"]
 [ext_resource type="PackedScene" uid="uid://wckkkffvx36b" path="res://Scenes/Sprites/tree_2.tscn" id="2_tx4aa"]
 [ext_resource type="Texture2D" uid="uid://bk8v8gsd0qupa" path="res://Assets/scenes/forest.png" id="3_h6g5a"]
-[ext_resource type="PackedScene" uid="uid://4ywym55iy5lf" path="res://Scenes/character.tscn" id="4_vc72k"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="5_k8jq1"]
-[ext_resource type="PackedScene" uid="uid://bfdbbwsg4dg3b" path="res://Scenes/interactable.tscn" id="7_n2xmn"]
+[ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/exit.tscn" id="4_tw86v"]
 [ext_resource type="PackedScene" uid="uid://dffrpu3t4k4aj" path="res://Scenes/behavior_character.tscn" id="8_vpl37"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n37w1"]
@@ -13,10 +12,12 @@ vertices = PackedVector2Array(-297, -1315, 249, -1027, 99, -1024, -974, -1031, -
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13, 14), PackedInt32Array(15, 16, 17), PackedInt32Array(18, 6, 5, 19, 20), PackedInt32Array(5, 8, 21, 11, 10), PackedInt32Array(22, 21, 8, 23, 24), PackedInt32Array(25, 22, 24), PackedInt32Array(26, 2, 27, 28), PackedInt32Array(29, 30, 31, 9, 14, 32, 33, 34), PackedInt32Array(35, 36, 37, 38, 39), PackedInt32Array(37, 36, 1), PackedInt32Array(40, 41, 42, 43, 44), PackedInt32Array(45, 46, 47, 24), PackedInt32Array(31, 48, 49, 9), PackedInt32Array(50, 51, 52, 40, 53), PackedInt32Array(13, 54, 25, 24, 47, 55, 56), PackedInt32Array(18, 57, 6), PackedInt32Array(58, 32, 14, 56, 59), PackedInt32Array(13, 12, 54), PackedInt32Array(58, 60, 32), PackedInt32Array(35, 39, 30, 29), PackedInt32Array(55, 61, 62, 63), PackedInt32Array(55, 63, 64), PackedInt32Array(56, 55, 64, 65), PackedInt32Array(59, 56, 65, 66), PackedInt32Array(66, 65, 67, 68), PackedInt32Array(69, 68, 67, 70, 71), PackedInt32Array(20, 19, 49, 48, 72), PackedInt32Array(72, 48, 39, 38), PackedInt32Array(73, 34, 33), PackedInt32Array(74, 28, 27, 36, 35, 15, 75), PackedInt32Array(76, 77, 73, 33, 78), PackedInt32Array(2, 26, 79), PackedInt32Array(53, 3, 2, 79, 50), PackedInt32Array(7, 6, 80), PackedInt32Array(81, 82, 7, 80, 37, 1), PackedInt32Array(0, 81, 1), PackedInt32Array(42, 83, 4, 3, 43), PackedInt32Array(71, 70, 84, 51, 78), PackedInt32Array(76, 78, 51, 50), PackedInt32Array(42, 7, 82), PackedInt32Array(42, 82, 83), PackedInt32Array(17, 85, 75, 15), PackedInt32Array(74, 75, 86, 87), PackedInt32Array(87, 86, 88, 50), PackedInt32Array(79, 87, 50), PackedInt32Array(40, 44, 53)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1496, -1496, 1498, -1496, 1496, 1488, 752, 1497, 566, 1376, -1498, 1230, -1496, 6.08154, -1293, 31, -1235.37, 0.504059, -1276, -97, -1231, -116, -1206, -80, -1150, -46, -1087, -78, -1054, -245, -1065, -402, -1182, -474, -1299, -672, -1348, -660, -1365, -780, -1496, -756), PackedVector2Array(104, -523, -112, -520, -257, -625, -259, -783, -401, -866, -399, -932, -245, -832, -193, -822, -96, -760, -145, -722, -146, -660, -223, -663, -103, -588, 105, -589), PackedVector2Array(299, -523, 513, -521, 511, -593, 298, -593), PackedVector2Array(-152, -881, -72, -828, 26, -900, 39, -968, -13, -998), PackedVector2Array(99, -1024, 99, -942, 249, -941, 249, -1027), PackedVector2Array(338, -1003, 337, -907, 461, -821, 523, -818, 523, -866, 496, -895, 544, -932, 435, -992), PackedVector2Array(613, -564, 579, -530, 591, -486, 642, -489, 662, -527), PackedVector2Array(-808, -347, -764, -368, -762, -391, -785, -418, -751, -445, -754, -472, -824, -516, -855, -480, -833, -436, -857, -384), PackedVector2Array(-1104, -968, -1006, -959, -974, -1031, -1086, -1039), PackedVector2Array(-180, 178, -120, 201, -142, 145), PackedVector2Array(733, 840, 766, 878, 800, 879, 824, 852, 803, 813, 760, 806), PackedVector2Array(-348, -1404, -363, -1342, -345, -1316, -297, -1315, -285, -1338)])
 
-[node name="Node2D" type="Node2D"]
+[node name="Forest" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_ik8ot")
 
 [node name="Trees" type="Node2D" parent="."]
+visible = false
 y_sort_enabled = true
 
 [node name="Tree1" parent="Trees" instance=ExtResource("1_kspi4")]
@@ -177,22 +178,29 @@ z_index = -1
 texture = ExtResource("3_h6g5a")
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("4_vc72k")]
-position = Vector2(-876, 148)
-script = ExtResource("5_k8jq1")
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_n37w1")
 metadata/_edit_lock_ = true
 
-[node name="Interactable" parent="." instance=ExtResource("7_n2xmn")]
-action = 1
-scene = "res://Scenes/levels/cave.tscn"
-scene_start = Vector2(151, 207)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
-polygon = PackedVector2Array(-1239, -21, -1181, -66, -1207, -81, -1207, -122, -1231, -127, -1248, -106, -1270, -104, -1278, -98, -1267, -36, -1240, -23)
-
 [node name="BehaviorCharacter" parent="." instance=ExtResource("8_vpl37")]
+process_mode = 4
 position = Vector2(-557, 136)
+
+[node name="City" parent="." instance=ExtResource("4_tw86v")]
+position = Vector2(1464, -339)
+target_scene = "res://Scenes/levels/city.tscn"
+
+[node name="Cave" parent="." instance=ExtResource("4_tw86v")]
+position = Vector2(-1196, -34)
+target_scene = "res://Scenes/levels/cave.tscn"
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" parent="Cave" index="0"]
+polygon = PackedVector2Array(-47, 14, 15, -33, -19, -53, -12, -91, -30, -93, -50, -70, -70, -66, -74, -35, -69, -3)
+
+[node name="Exit" parent="." instance=ExtResource("4_tw86v")]
+position = Vector2(-1475, 1081)
+target_scene = "default"
+
+[editable path="Cave"]

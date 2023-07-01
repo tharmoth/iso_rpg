@@ -1,23 +1,49 @@
-extends CharacterBody2D
-
-class_name Character
+class_name Character extends CharacterBody2D
 
 var SPEED = 200.0
 
 const CIRLCE_SIZE = 22
 
-const MAX_HEALTH = 10.0
+const MAX_HEALTH := 10
+
+# you can't override setters so we use a signal
+signal health_changed
 @export var health := MAX_HEALTH :
 	set(value):
 		health = min(MAX_HEALTH, value)
+		health_changed.emit()
 		if health <= 0:
 			on_death()
 		else:
 			$HealthBar.value = health
-			
-var damage := "1d4"
-var protection := 0.0
-var block_chance := 0.0
+
+var weapon = Items.ITEM_NAME.unarmed :
+	set(value):
+		if value is Items.ITEM_NAME:
+			value = Items.items.get(value)
+		weapon = value
+		
+		if value != null and value.texture != null:
+			$Sprites/Weapon.texture = load(weapon.texture)
+		else:
+			$Sprites/Weapon.texture = null
+var armor = Items.ITEM_NAME.clothing :
+	set(value):
+		if value is Items.ITEM_NAME:
+			value = Items.items.get(value)
+		armor = value
+		if value != null:
+			$Sprites/Top.texture = load(armor.top_texture)
+			$Sprites/Bottom.texture = load(armor.bottom_texture)
+var shield = null :
+	set(value):
+		if value is Items.ITEM_NAME:
+			value = Items.items.get(value)
+		shield = value
+		if value != null:
+			$Sprites/Shield.texture = load(shield.texture)
+		
+		
 
 var circle_color := UTILS.PLAYER_COLOR :
 	set(value):
@@ -64,7 +90,6 @@ func _ready():
 	$HealthBar.max_value = MAX_HEALTH
 	
 func _on_animation_changed(old_name):
-	print(old_name)
 	if old_name.contains("ATTACK"):
 		_attack_animation_complete()
 	elif old_name.contains("INTERACT"):
@@ -155,15 +180,15 @@ func _attack_animation_complete():
 		return
 		
 	var rand = RandomNumberGenerator.new()	
-	var attack_roll = rand.randi_range(1, 20)
-	var target_ac = target.protection + target.block_chance
-	var damage_out = Items.calculate_damage(damage)
+	var attack_roll = rand.randi_range(1, 20) + 20
+	var target_ac = target.get_ac()
+	var damage_out = Items.calculate_damage(weapon.damage)
 
 	if attack_roll > target_ac:
-		print(name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to hit " + target.name + " dealing " + str(damage_out) + " damage!")
 		target.health = target.health - damage_out
+		GlobalPersistant.print(name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to hit " + target.name + " dealing " + str(damage_out) + " damage!")
 	else:
-		print(name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to miss " + target.name + "!")
+		GlobalPersistant.print(GlobalPersistant.console.text + name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to miss " + target.name + "!")
 	
 	if target.health <= 0:
 		target = null
@@ -174,22 +199,20 @@ func _attack_animation_complete():
 func _on_interact_complete() -> void:
 	var item = target_interactable.loot(self)
 	if item != null:
-		equip(item)
+		equip(item) 
 
 func equip(item) -> void:
 	if item is Items.ITEM_NAME:
 		item = Items.items.get(item)
 	
 	if item.slot == "weapon":
-		damage = item.damage
-		$Sprites/Weapon.texture = item.texture
+		weapon = item
 	elif item.slot == "body":
-		protection = item.protection
-		$Sprites/Body.texture = item.texture
+		armor = item
 	elif item.slot == "shield":
-		block_chance = item.block_chance
-		$Sprites/Shield.texture = item.texture
+		shield = item
 
+ 
 func on_death():
 	animation_state.travel("Death")
 	action_timer.stop()
@@ -200,6 +223,18 @@ func on_death():
 	remove_child($NavigationAgent2D)
 	remove_child($HealthBar)
 	circle_color = Color(0, 0, 0, 0)
+	
+func get_ac() -> int:
+	var ac = 0
+	if armor != null:
+		ac += armor.ac
+	else:
+		ac = 10
+		
+	if shield != null:
+		ac += shield.ac
+		
+	return ac
 
 func _draw():
 	draw_set_transform(Vector2(0, 0), 0, Vector2(1, .5))
@@ -228,10 +263,10 @@ func _draw():
 		var end = target_pos - target_pos / 10
 		var point = Vector2(0, -15)
 		
-		if self is Player:
-			start += Vector2(0, 2)
-			end += Vector2(0, 2)
-			point += Vector2(0, 2)
+#		if self is Player:
+#			start += Vector2(0, 2)
+#			end += Vector2(0, 2)
+#			point += Vector2(0, 2)
 		
 		var curve = Curve2D.new()
 		curve.add_point(start, point, point)

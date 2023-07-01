@@ -1,45 +1,56 @@
-extends "res://Scripts/character.gd"
+class_name Player extends BCharacter
 
-class_name Player
+var spawn = "default"
+#@onready var scene = get_tree().current_scene.scene_file_path
+
+func _update_healthbar():
+#	GlobalPersistant.gui.get_node("%HealthBarCharacter1").value = MAX_HEALTH - health
+#	GlobalPersistant.gui.get_node("%HealthTextCharacter1").text = str(health) + "/" +str(MAX_HEALTH)
+	pass
 
 func _ready():
 	super()
-	var camera = Camera2D.new()
-	camera.zoom = Vector2(1, 1)
-	add_child(camera)
-	
-	action_timer.timeout.connect(_fight)
-	
-	if get_parent() is TileMap:
-		var tilemap : TileMap = get_parent()
-		tilemap.set_layer_modulate(0, Color(0, 0, 0, 0))
-	
-#	equip(Items.ITEM_NAME.farmer)
-	damage = "20d20"
-	GlobalCursor.player = self
-	
+	health_changed.connect(_update_healthbar)
 	SPEED = 300
+	
+	equip(Items.ITEM_NAME.full_plate)
+	equip(Items.ITEM_NAME.unarmed)
+	
+func _physics_process(delta):
+	super(delta)
+	_set_target()
+	
+func _set_target() -> void:
+	if Input.is_action_just_pressed("interact"):
+		target = get_global_mouse_position()
+		
+#		if GlobalCursor.current_state == GlobalCursor.State.ATTACK and target != GlobalCursor.selected:
+#			target = GlobalCursor.selected
+#		else:
+#			target = null
 
-func _update_state() -> void:
-	if Input.is_action_just_pressed("interact") and animation_state.get_current_node() != "Death":
-		$NavigationAgent2D.target_position = get_global_mouse_position()
-		animation_state.travel("Walk")
-		
-		if GlobalCursor.current_state == GlobalCursor.State.ATTACK and target != GlobalCursor.selected:
-			target = GlobalCursor.selected
-			target_animation_state = "Attack"
-			action_timer.start()
-		else:
-			target = null
-			action_timer.stop()
-			
-		if GlobalCursor.current_state == GlobalCursor.State.MOVE:
-			target_animation_state = "Idle"
-			
-		if GlobalCursor.current_state == GlobalCursor.State.CAN_INTERACT or GlobalCursor.current_state == GlobalCursor.State.INTERACTING:
-			target_interactable = GlobalCursor.selected
-			target_animation_state = "Interact"
+#		if GlobalCursor.current_state == GlobalCursor.State.CAN_INTERACT or GlobalCursor.current_state == GlobalCursor.State.INTERACTING:
+#			target_interactable = GlobalCursor.selected
+#			target_animation_state = "Interact"
 			
 		
-		_process_movement()
-		steering._update_cache()
+########################################
+# Save related functions and variables #
+########################################
+func save():
+	return {
+		# Metadata
+		"filename" : get_scene_file_path(),
+		"parent" : get_parent().get_path(),
+#		"scene" : get_tree().current_scene.scene_file_path,
+		
+		# Stats
+		"health" : health,
+		"position_x" : position.x,
+		"position_y" : position.y,
+		
+		# Equipment
+		"weapon" : weapon,
+		"armor" : armor,
+		"shield" : shield,
+	}

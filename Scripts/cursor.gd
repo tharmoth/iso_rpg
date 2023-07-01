@@ -22,7 +22,6 @@ func mouse_exit(object) -> void:
 
 var selected : Node2D = null : 
 	set(value):
-		
 		if selected != null and selected.has_method("set_selected"):
 			selected.set_selected(false)
 			
@@ -43,6 +42,12 @@ var selected : Node2D = null :
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_set_state(State.MOVE)
+	tree_entered.connect(reset)
+	tree_exited.connect(reset)
+	
+func reset():
+	mouse_over_queue.clear()
+	selected = null
 	
 func _physics_process(delta):
 	if Input.is_action_just_pressed("interact") or Input.is_action_just_released("interact"):
@@ -58,6 +63,3 @@ func _set_state(value) -> void:
 		Input.set_custom_mouse_cursor(load("res://Assets/Cursors/grabbing.png"))
 	elif current_state == State.ATTACK:
 		Input.set_custom_mouse_cursor(load("res://Assets/Cursors/sword.png"))
-
-#bad scott
-var player : Player

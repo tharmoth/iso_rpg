@@ -1,48 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://brmkmc3icd8ur"]
+[gd_scene load_steps=4 format=3 uid="uid://brmkmc3icd8ur"]
 
 [ext_resource type="Texture2D" uid="uid://c71nm0qi4yfyt" path="res://Assets/scenes/city.png" id="1_8jma5"]
-[ext_resource type="PackedScene" uid="uid://4ywym55iy5lf" path="res://Scenes/character.tscn" id="2_naepu"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="3_28vgf"]
+[ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/exit.tscn" id="3_qirx3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_si37x"]
 vertices = PackedVector2Array(709, 585, 707, 585, 777, 552, 979, 694, 1069, 636, 1078, 838, 680, 809, 654, 849, 670, 750, 1301, 854, 1328, 996, -905, 1197, -896, 979, 576, 875, 529, 869, 565, 849, 629, 738, 628, 683, -1492, -1214, 1490, -1226, 1494, -322, 296, -263, -880, -516, 1492, 1151, 1492, 1495, -1065, 1501, -1496, -526, -988, 245, -943, -100, 326, 253, -834, 580, 1496, 1116, -994, 1198, -1059, 1031, -996, 979, 491, 260, 477, 463, 386, 630, 548, 374, 384, 762, 472, 568)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Array(6, 3, 5, 7), PackedInt32Array(2, 3, 6, 8, 0), PackedInt32Array(9, 10, 11, 12, 13), PackedInt32Array(14, 15, 13), PackedInt32Array(0, 8, 16, 17), PackedInt32Array(18, 19, 20, 21, 22), PackedInt32Array(23, 24, 25), PackedInt32Array(22, 26, 18), PackedInt32Array(27, 28, 22, 21, 29, 30), PackedInt32Array(10, 31, 23, 25, 11), PackedInt32Array(32, 11, 25), PackedInt32Array(32, 25, 33, 34), PackedInt32Array(34, 33, 30), PackedInt32Array(12, 34, 30, 29, 35, 36, 37), PackedInt32Array(35, 38, 36), PackedInt32Array(13, 7, 5, 9), PackedInt32Array(14, 13, 12), PackedInt32Array(39, 14, 12), PackedInt32Array(37, 39, 12), PackedInt32Array(40, 37, 36), PackedInt32Array(40, 36, 0, 17)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(1496, 1116, 1328, 996, 1301, 854, 1078, 838, 1069, 636, 979, 694, 777, 552, 707, 585, 709, 585, 477, 463, 548, 374, 491, 260, 326, 253, 296, -263, 1494, -322, 1490, -1226, -1492, -1214, -1496, -526, -880, -516, -943, -100, -988, 245, -834, 580, -1059, 1031, -1065, 1501, 1492, 1495, 1492, 1151), PackedVector2Array(-996, 979, -994, 1198, -905, 1197, -896, 979), PackedVector2Array(529, 869, 565, 849, 576, 875, 654, 849, 680, 809, 670, 750, 629, 738, 628, 683, 472, 568, 386, 630, 384, 762)])
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wm26q"]
-load_path = "res://.godot/imported/Well1_4.png-9a0ac05ccd06f26e163828dfd0fd2cd3.ctex"
+[node name="Level" type="Node2D"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wrrki"]
-radius = 80.0
-
-[node name="Node2D" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_8jma5")
 metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 position = Vector2(-10, -13)
 navigation_polygon = SubResource("NavigationPolygon_si37x")
 
-[node name="TileMap" type="TileMap" parent="."]
-y_sort_enabled = true
-format = 2
+[node name="Exit" parent="." instance=ExtResource("3_qirx3")]
+position = Vector2(225, 1444)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="TileMap"]
-position = Vector2(-177, 965)
-
-[node name="Well" type="Sprite2D" parent="TileMap/StaticBody2D"]
-y_sort_enabled = true
-position = Vector2(-248, -156)
-texture = SubResource("CompressedTexture2D_wm26q")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/StaticBody2D"]
-position = Vector2(-267, -89)
-scale = Vector2(1, 0.8)
-shape = SubResource("CircleShape2D_wrrki")
-
-[node name="Character" parent="TileMap" instance=ExtResource("2_naepu")]
-position = Vector2(-177, 965)
-scale = Vector2(1, 1)
-script = ExtResource("3_28vgf")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Exit"]
+polygon = PackedVector2Array(-425, -25, -375, 55, 640, 55, 480, -31)

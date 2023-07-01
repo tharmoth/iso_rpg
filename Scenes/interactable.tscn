@@ -7,5 +7,7 @@ z_index = 2
 z_as_relative = false
 script = ExtResource("1_7ilkv")
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

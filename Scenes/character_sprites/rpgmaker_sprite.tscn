@@ -1,8 +1,10 @@
-[gd_scene load_steps=558 format=3 uid="uid://d1f3qs13lmqom"]
+[gd_scene load_steps=560 format=3 uid="uid://d1f3qs13lmqom"]
 
 [ext_resource type="Texture2D" uid="uid://dlpy4atg2h7lp" path="res://Assets/rpgtools/male/Shadow/shadow.png" id="1_4gpkk"]
 [ext_resource type="Texture2D" uid="uid://c376h2wtqg07a" path="res://Assets/rpgtools/male/Base/body-1.png" id="2_k23vt"]
+[ext_resource type="Texture2D" uid="uid://828jhyejv6k1" path="res://Assets/rpgtools/male/Top/hide.png" id="3_j7adk"]
 [ext_resource type="Texture2D" uid="uid://cj670dsqa67lm" path="res://Assets/rpgtools/male/FacialHair/FacialHair-4.png" id="4_6vslk"]
+[ext_resource type="Texture2D" uid="uid://b7t5qyjjlyba1" path="res://Assets/rpgtools/male/Bottom/hide.png" id="4_a5hn4"]
 [ext_resource type="Texture2D" uid="uid://b2yo1o7tnr875" path="res://Assets/rpgtools/male/Hair/Hair-2.png" id="5_1qptm"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://c6i2l3qpvvjl2" path="res://BlendsSpaces/attack.tres" id="10_oovdx"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://cfvd3mk5uckdv" path="res://BlendsSpaces/walk.tres" id="11_6nks7"]
@@ -60435,12 +60437,14 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="Top" type="Sprite2D" parent="."]
+texture = ExtResource("3_j7adk")
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
 frame = 128
 
 [node name="Bottom" type="Sprite2D" parent="."]
+texture = ExtResource("4_a5hn4")
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50

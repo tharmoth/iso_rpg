@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://btrc6kotue7ux"]
+
+[ext_resource type="PackedScene" uid="uid://dffrpu3t4k4aj" path="res://Scenes/behavior_character.tscn" id="1_3oybb"]
+[ext_resource type="PackedScene" uid="uid://iq3fuum1vh2j" path="res://Scenes/hostile_ai.tscn" id="2_gfn64"]
+
+[node name="HostileNPC" instance=ExtResource("1_3oybb")]
+
+[node name="AI" parent="." index="4" instance=ExtResource("2_gfn64")]

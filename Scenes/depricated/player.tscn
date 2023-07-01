@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnuklf8fbovt"]
+
+[ext_resource type="PackedScene" uid="uid://4ywym55iy5lf" path="res://Scenes/character.tscn" id="1_vdc6r"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="2_j6hl6"]
+
+[node name="Player" instance=ExtResource("1_vdc6r")]
+script = ExtResource("2_j6hl6")
+health = 10.0
+
+[node name="HealthBar" parent="." index="0"]
+visible = false
+
+[node name="Camera2D" type="Camera2D" parent="." index="7"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://wckkkffvx36b"]
+[gd_scene load_steps=4 format=3 uid="uid://wckkkffvx36b"]
 
 [ext_resource type="Texture2D" uid="uid://ccxd5f2ef1txt" path="res://Assets/sprites/Tree10_3.png" id="1_4n0e3"]
+[ext_resource type="Material" uid="uid://och6et0w3vug" path="res://shaders/wind_material.tres" id="1_7ca0k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ao50p"]
 radius = 30.0
@@ -10,6 +11,7 @@ y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+material = ExtResource("1_7ca0k")
 texture = ExtResource("1_4n0e3")
 offset = Vector2(60, -180)
 
