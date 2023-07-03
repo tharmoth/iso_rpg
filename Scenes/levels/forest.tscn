@@ -1,11 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqbg1hw3dxj1m"]
+[gd_scene load_steps=13 format=3 uid="uid://dqbg1hw3dxj1m"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_ik8ot"]
 [ext_resource type="PackedScene" uid="uid://byxfna00ayh7b" path="res://Scenes/Sprites/tree_1.tscn" id="1_kspi4"]
 [ext_resource type="PackedScene" uid="uid://wckkkffvx36b" path="res://Scenes/Sprites/tree_2.tscn" id="2_tx4aa"]
 [ext_resource type="Texture2D" uid="uid://bk8v8gsd0qupa" path="res://Assets/scenes/forest.png" id="3_h6g5a"]
-[ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/exit.tscn" id="4_tw86v"]
-[ext_resource type="PackedScene" uid="uid://dffrpu3t4k4aj" path="res://Scenes/behavior_character.tscn" id="8_vpl37"]
+[ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/interactables/exit.tscn" id="4_tw86v"]
+[ext_resource type="PackedScene" uid="uid://btrc6kotue7ux" path="res://Scenes/characters/hostile_npc.tscn" id="6_10hjr"]
+[ext_resource type="PackedScene" uid="uid://db1x5tigwum0m" path="res://Scenes/interactables/lootable.tscn" id="7_3nygm"]
+[ext_resource type="Texture2D" uid="uid://bt3vn8bgiti58" path="res://Assets/rpgtools/items/Shield1_0008.png" id="8_qec30"]
+[ext_resource type="Texture2D" uid="uid://c1ryqm35cl20f" path="res://Assets/rpgtools/items/Weapon_Dagger1_7.png" id="9_yxuse"]
+[ext_resource type="Texture2D" uid="uid://g7panc5n4jgv" path="res://Assets/rpgtools/items/Top_Cleric3_07.png" id="10_ep6r3"]
+[ext_resource type="AudioStream" uid="uid://efy8n1af3sx3" path="res://Assets/sfx/ambiance/forest - wind, birds.wav" id="11_r3tq2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n37w1"]
 vertices = PackedVector2Array(-297, -1315, 249, -1027, 99, -1024, -974, -1031, -345, -1316, 662, -527, 544, -932, 1498, -1496, 1496, 1488, 591, -486, 642, -489, 803, 813, 760, 806, -120, 201, -142, 145, -103, -588, -223, -663, -146, -660, 523, -866, 613, -564, 523, -818, 824, 852, 800, 879, 752, 1497, 566, 1376, 766, 878, 39, -968, 99, -942, 26, -900, 104, -523, 299, -523, 513, -521, -751, -445, -754, -472, -112, -520, 105, -589, 249, -941, 338, -1003, 337, -907, 298, -593, -1365, -780, -1496, -756, -1496, -1496, -1086, -1039, -1104, -968, -1498, 1230, -1496, 6.08154, -1293, 31, 511, -593, 579, -530, -399, -932, -1299, -672, -1348, -660, -1006, -959, 733, 840, -1235.37, 0.504059, -180, 178, 496, -895, -762, -391, -764, -368, -785, -418, -1276, -97, -1231, -116, -1206, -80, -1150, -46, -1087, -78, -808, -347, -1054, -245, -857, -384, -833, -436, -1065, -402, -855, -480, 461, -821, -257, -625, -72, -828, -96, -760, -401, -866, -259, -783, -824, -516, -13, -998, 435, -992, -285, -1338, -348, -1404, -363, -1342, -1182, -474, -145, -722, -193, -822, -152, -881, -245, -832)
@@ -17,7 +22,6 @@ y_sort_enabled = true
 script = ExtResource("1_ik8ot")
 
 [node name="Trees" type="Node2D" parent="."]
-visible = false
 y_sort_enabled = true
 
 [node name="Tree1" parent="Trees" instance=ExtResource("1_kspi4")]
@@ -117,7 +121,7 @@ position = Vector2(1096, -607)
 position = Vector2(938, -276)
 
 [node name="Tree33" parent="Trees" instance=ExtResource("1_kspi4")]
-position = Vector2(132, 326)
+position = Vector2(-130, 264)
 
 [node name="Tree34" parent="Trees" instance=ExtResource("2_tx4aa")]
 position = Vector2(275, 187)
@@ -183,24 +187,133 @@ visible = false
 navigation_polygon = SubResource("NavigationPolygon_n37w1")
 metadata/_edit_lock_ = true
 
-[node name="BehaviorCharacter" parent="." instance=ExtResource("8_vpl37")]
-process_mode = 4
-position = Vector2(-557, 136)
+[node name="Hostiles" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="City" parent="." instance=ExtResource("4_tw86v")]
-position = Vector2(1464, -339)
-target_scene = "res://Scenes/levels/city.tscn"
+[node name="Bandit" parent="Hostiles" instance=ExtResource("6_10hjr")]
+position = Vector2(154, -895)
+display_name = "Bandit"
+weapon = 1
+armor = 13
 
-[node name="Cave" parent="." instance=ExtResource("4_tw86v")]
-position = Vector2(-1196, -34)
-target_scene = "res://Scenes/levels/cave.tscn"
+[node name="Bandit2" parent="Hostiles" instance=ExtResource("6_10hjr")]
+position = Vector2(-30, -822)
+display_name = "Bandit"
+weapon = 1
+armor = 13
+
+[node name="Bandit3" parent="Hostiles" instance=ExtResource("6_10hjr")]
+position = Vector2(339, -842)
+display_name = "Bandit"
+weapon = 1
+armor = 13
+
+[node name="BanditClothing" parent="Hostiles" instance=ExtResource("6_10hjr")]
+position = Vector2(-1176, -1104)
+display_name = "Bandit"
+weapon = 1
+
+[node name="Loot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Food" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(-172, -778)
+item = 17
+
+[node name="CollisionPolygon2D" parent="Loot/Food" index="0"]
+polygon = PackedVector2Array(-6, 0, 1, 8, 8, 5, 0, -3, -4, -3)
+
+[node name="Mushroom1" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(-581, 63)
+item = 18
+
+[node name="CollisionPolygon2D" parent="Loot/Mushroom1" index="0"]
+polygon = PackedVector2Array(-24, 4, 5, 21, 24, 6, 15, -15, -13, -11)
+
+[node name="Mushroom2" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(652, 829)
+item = 18
+
+[node name="CollisionPolygon2D" parent="Loot/Mushroom2" index="0"]
+polygon = PackedVector2Array(-20, 15, 20, 14, 17, -12, -12, -13)
+
+[node name="Mushroom3" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(814, 879)
+item = 18
+
+[node name="CollisionPolygon2D" parent="Loot/Mushroom3" index="0"]
+polygon = PackedVector2Array(-12, 1, 3, 19, 13, -5, 1, -15)
+
+[node name="Mushroom4" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(1119, -1178)
+item = 18
+
+[node name="CollisionPolygon2D" parent="Loot/Mushroom4" index="0"]
+polygon = PackedVector2Array(-17, 18, 20, 10, 16, -12, -16, -16)
+
+[node name="Dagger" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(-1006, 1091)
+item = 4
+
+[node name="CollisionPolygon2D" parent="Loot/Dagger" index="0"]
+polygon = PackedVector2Array(-7, 0, 18, -16, -4, 3, 2, 7, -8, 7, -20, 13, -12, 4, -13, -4)
+
+[node name="Sprite2D" parent="Loot/Dagger" index="1"]
+texture = ExtResource("9_yxuse")
+
+[node name="Chain" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(778, 953)
+item = 12
+
+[node name="CollisionPolygon2D" parent="Loot/Chain" index="0"]
+polygon = PackedVector2Array(-32, 9, -13, 24, 33, 16, 1, 9, 23, -2, 15, -16, 1, -21, -19, -2, -24, -27)
+
+[node name="Sprite2D" parent="Loot/Chain" index="1"]
+texture = ExtResource("10_ep6r3")
+
+[node name="Shield" parent="Loot" instance=ExtResource("7_3nygm")]
+position = Vector2(-1248, -1159)
+item = 16
+
+[node name="CollisionPolygon2D" parent="Loot/Shield" index="0"]
+polygon = PackedVector2Array(-23, 3, -2, 13, 22, 14, 17, -4, 2, -15, -13, -8)
 metadata/_edit_lock_ = true
 
-[node name="CollisionPolygon2D" parent="Cave" index="0"]
-polygon = PackedVector2Array(-47, 14, 15, -33, -19, -53, -12, -91, -30, -93, -50, -70, -70, -66, -74, -35, -69, -3)
+[node name="Sprite2D" parent="Loot/Shield" index="1"]
+texture = ExtResource("8_qec30")
 
-[node name="Exit" parent="." instance=ExtResource("4_tw86v")]
-position = Vector2(-1475, 1081)
-target_scene = "default"
+[node name="Exits" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[editable path="Cave"]
+[node name="Cave" parent="Exits" instance=ExtResource("4_tw86v")]
+position = Vector2(-1239, -79)
+target_scene = "res://Scenes/levels/cave.tscn"
+
+[node name="CollisionPolygon2D" parent="Exits/Cave" index="0"]
+polygon = PackedVector2Array(-2, 56, -25, 46, -31, -18, -12, -18, 10, -45, 28, -46, 21, -20, 41, -1)
+
+[node name="City" parent="Exits" instance=ExtResource("4_tw86v")]
+position = Vector2(1479, -379)
+target_scene = "res://Scenes/levels/city.tscn"
+
+[node name="CollisionPolygon2D" parent="Exits/City" index="0"]
+polygon = PackedVector2Array(-39, -142, -42, 169, 22, 171, 21, -145)
+
+[node name="Spawn" parent="Exits" instance=ExtResource("4_tw86v")]
+position = Vector2(-1479, 1074)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_r3tq2")
+volume_db = -10.0
+autoplay = true
+
+[editable path="Loot/Food"]
+[editable path="Loot/Mushroom1"]
+[editable path="Loot/Mushroom2"]
+[editable path="Loot/Mushroom3"]
+[editable path="Loot/Mushroom4"]
+[editable path="Loot/Dagger"]
+[editable path="Loot/Chain"]
+[editable path="Loot/Shield"]
+[editable path="Exits/Cave"]
+[editable path="Exits/City"]

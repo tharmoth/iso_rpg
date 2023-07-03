@@ -7,7 +7,6 @@ func _ready():
 	load_level()
 
 func save_level():
-	print("save " + filepath)
 	var save_game = FileAccess.open(filepath, FileAccess.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
 	for node in save_nodes:
@@ -35,7 +34,6 @@ func save_level():
 		save_game.store_line(json_string)
 		
 func load_level():
-	print("load " + filepath)
 	if not FileAccess.file_exists(filepath):
 		return # Error! We don't have a save to load.
 
@@ -68,10 +66,7 @@ func load_level():
 		# Firstly, we need to create the object and add it to the tree and set its position.
 		var new_object = load(node_data["filename"]).instantiate()
 		get_node(node_data["parent"]).add_child(new_object)
-		new_object.position = Vector2(node_data["position_x"], node_data["position_y"])
 
 		# Now we set the remaining variables.
 		for i in node_data.keys():
-			if i == "filename" or i == "parent" or i == "position_x" or i == "position_y":
-				continue
-			new_object.set(i, node_data[i])
+			new_object.set(i, jsonify.godotify(node_data[i]))

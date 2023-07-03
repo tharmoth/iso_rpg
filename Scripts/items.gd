@@ -1,6 +1,6 @@
 class_name Items extends Node
 
-enum ITEM_NAME {unarmed, battle_axe, long_bow, short_bow, dagger, halberd, mace, quarterstaff, longsword, bastard_sword, crossbow, full_plate, hide, clothing, shield, buckler}
+enum ITEM_NAME {unarmed, battle_axe, long_bow, short_bow, dagger, halberd, mace, quarterstaff, longsword, bastard_sword, crossbow, full_plate, chain, hide, clothing, unarmed_oh, shield, buckler, food}
 
 const items = {
 	# Weapons
@@ -18,16 +18,21 @@ const items = {
 
 	# Armors
 	ITEM_NAME.full_plate : {"slot" : "body", "ac" : 19, "top_texture" : "res://Assets/rpgtools/male/Top/plate-shiny.png", "bottom_texture" : "res://Assets/rpgtools/male/Bottom/plate-shiny.png", "price" : "7000"},
+	ITEM_NAME.chain      : {"slot" : "body", "ac" : 14, "top_texture" : "res://Assets/rpgtools/male/Top/scale.png",       "bottom_texture" : "res://Assets/rpgtools/male/Bottom/leather-red.png", "price" : "200"},
 	ITEM_NAME.hide       : {"slot" : "body", "ac" : 12, "top_texture" : "res://Assets/rpgtools/male/Top/hide.png",        "bottom_texture" : "res://Assets/rpgtools/male/Bottom/hide.png",        "price" : "5"},
 	ITEM_NAME.clothing   : {"slot" : "body", "ac" : 10, "top_texture" : "res://Assets/rpgtools/male/Top/shirt.png",       "bottom_texture" : "res://Assets/rpgtools/male/Bottom/black.png",       "price" : "0"},
-	# Pants
+
 	# Shields
-#	ITEM_NAME.shield : {"slot" : "shield", "ac" : 2, "texture" : preload("res://Assets/pvg/male/shield/shield_1.png")},
-#	ITEM_NAME.buckler : {"slot" : "shield", "ac" : 1, "texture" : preload("res://Assets/pvg/male/shield/shield_2.png")},
+	ITEM_NAME.unarmed_oh : {"slot" : "shield", "ac" : 0, "texture" : null},
+	ITEM_NAME.shield : {"slot" : "shield", "ac" : 2, "texture" : "res://Assets/rpgtools/male/Weapons/shield.png"},
+	ITEM_NAME.buckler : {"slot" : "shield", "ac" : 1, "texture" : "res://Assets/rpgtools/male/Weapons/shield-2.png"},
+	
+	# Items
+	ITEM_NAME.food : {"slot" : "mouth", "healing" : "1d4"}
 }
 
 
-static func calculate_damage(damage_string : String) -> int:
+static func roll_dice(damage_string : String) -> int:
 	var damage := 0
 	
 	var num_dice_loc = damage_string.find("d")

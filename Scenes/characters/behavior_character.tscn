@@ -1,0 +1,195 @@
+[gd_scene load_steps=47 format=3 uid="uid://dffrpu3t4k4aj"]
+
+[ext_resource type="Script" path="res://Scripts/behavior_character.gd" id="1_hamvy"]
+[ext_resource type="PackedScene" uid="uid://d1f3qs13lmqom" path="res://Scenes/characters/sprites/rpgmaker_sprite.tscn" id="2_28wwc"]
+[ext_resource type="AudioStream" uid="uid://cwjfu6dk6rmqo" path="res://Assets/sfx/footsteps/footstep dirt 1.wav" id="3_svc7s"]
+[ext_resource type="AudioStream" uid="uid://whhsrbnycg8m" path="res://Assets/sfx/footsteps/footstep dirt 2.wav" id="4_1xl2s"]
+[ext_resource type="AudioStream" uid="uid://cr8oiyjqydkyk" path="res://Assets/sfx/footsteps/footstep dirt 11.wav" id="5_5esfd"]
+[ext_resource type="AudioStream" uid="uid://ddk5f8rq230io" path="res://Assets/sfx/footsteps/footstep dirt 12.wav" id="6_ffqlw"]
+[ext_resource type="AudioStream" uid="uid://4pfoepvh8hhw" path="res://Assets/sfx/footsteps/footstep dirt 13.wav" id="7_3bf0x"]
+[ext_resource type="AudioStream" uid="uid://dc8ssncng36j1" path="res://Assets/sfx/footsteps/footstep dirt 14.wav" id="8_syxcu"]
+[ext_resource type="AudioStream" uid="uid://e4m647adp3oe" path="res://Assets/sfx/footsteps/footstep dirt 15.wav" id="9_wo6xu"]
+[ext_resource type="AudioStream" uid="uid://bcuwtjaq8du40" path="res://Assets/sfx/footsteps/footstep dirt 16.wav" id="10_up78c"]
+[ext_resource type="AudioStream" uid="uid://4bw4dip47x43" path="res://Assets/sfx/footsteps/footstep dirt 17.wav" id="11_4n1u7"]
+[ext_resource type="AudioStream" uid="uid://bu8wmgrrmr3xi" path="res://Assets/sfx/footsteps/footstep dirt 18.wav" id="12_piy8p"]
+[ext_resource type="AudioStream" uid="uid://4jqjiif4iq77" path="res://Assets/sfx/footsteps/footstep dirt 19.wav" id="13_dyo58"]
+[ext_resource type="AudioStream" uid="uid://dln73ouj0g2yo" path="res://Assets/sfx/footsteps/footstep dirt 20.wav" id="14_opmkj"]
+[ext_resource type="AudioStream" uid="uid://ceoeg81wq4vws" path="res://Assets/sfx/footsteps/footstep dirt 3.wav" id="15_n6rtv"]
+[ext_resource type="AudioStream" uid="uid://b75nxxc7ffb5e" path="res://Assets/sfx/footsteps/footstep dirt 21.wav" id="16_hvbjq"]
+[ext_resource type="AudioStream" uid="uid://con2obo5g1hsb" path="res://Assets/sfx/footsteps/footstep dirt 22.wav" id="17_26qb1"]
+[ext_resource type="AudioStream" uid="uid://8n2nkn8xd4bn" path="res://Assets/sfx/footsteps/footstep dirt 23.wav" id="18_hqa2b"]
+[ext_resource type="AudioStream" uid="uid://dtqx6qwbo8jd6" path="res://Assets/sfx/footsteps/footstep dirt 24.wav" id="19_31whu"]
+[ext_resource type="AudioStream" uid="uid://f26cmnxd52j4" path="res://Assets/sfx/footsteps/footstep dirt 25.wav" id="20_jpuck"]
+[ext_resource type="AudioStream" uid="uid://p2c5uaoocmtn" path="res://Assets/sfx/footsteps/footstep dirt 26.wav" id="21_k6514"]
+[ext_resource type="AudioStream" uid="uid://c57b5maoj8p03" path="res://Assets/sfx/footsteps/footstep dirt 27.wav" id="22_kokwt"]
+[ext_resource type="AudioStream" uid="uid://cwylr7rrm5pg4" path="res://Assets/sfx/footsteps/footstep dirt 28.wav" id="23_l5uxs"]
+[ext_resource type="AudioStream" uid="uid://cv08ttyf3fot7" path="res://Assets/sfx/footsteps/footstep dirt 4.wav" id="24_af0tf"]
+[ext_resource type="AudioStream" uid="uid://didm2pylfcrp7" path="res://Assets/sfx/footsteps/footstep dirt 5.wav" id="25_sccs8"]
+[ext_resource type="AudioStream" uid="uid://d1vubhtsyi0ph" path="res://Assets/sfx/footsteps/footstep dirt 6.wav" id="26_jqug4"]
+[ext_resource type="AudioStream" uid="uid://bs120m0sflpfk" path="res://Assets/sfx/footsteps/footstep dirt 7.wav" id="27_unsob"]
+[ext_resource type="AudioStream" uid="uid://dwco8cecaxpg5" path="res://Assets/sfx/footsteps/footstep dirt 8.wav" id="28_0r0bn"]
+[ext_resource type="AudioStream" uid="uid://beeowwlml5hg0" path="res://Assets/sfx/footsteps/footstep dirt 9.wav" id="29_g3b44"]
+[ext_resource type="AudioStream" uid="uid://bjaois1w4egxs" path="res://Assets/sfx/footsteps/footstep dirt 10.wav" id="30_7hpv7"]
+[ext_resource type="AudioStream" uid="uid://o76553sv6pri" path="res://Assets/sfx/swing/swing2.wav" id="31_t4asg"]
+[ext_resource type="AudioStream" uid="uid://bokpcv3ysmt81" path="res://Assets/sfx/swing/swing3.wav" id="32_13inv"]
+[ext_resource type="AudioStream" uid="uid://befqr5nyrtxk6" path="res://Assets/sfx/swing/swing.wav" id="33_nocrf"]
+[ext_resource type="AudioStream" uid="uid://cjs1bism87sr7" path="res://Assets/sfx/interact/zapsplat_interact1.mp3" id="34_xj8y2"]
+[ext_resource type="AudioStream" uid="uid://dc7xpgand76fg" path="res://Assets/sfx/interact/zapsplat_interact2.mp3" id="35_esr2g"]
+[ext_resource type="AudioStream" uid="uid://dftjf8371u1jq" path="res://Assets/sfx/sword_strike/zapsplat_impact_sword_swipe_into_large_wood_hit_001_43691.mp3" id="35_q6pr3"]
+[ext_resource type="AudioStream" uid="uid://ptssvqpaa8ua" path="res://Assets/sfx/interact/zapsplat_interact3.mp3" id="36_b0hgn"]
+[ext_resource type="AudioStream" uid="uid://cx47cp4gikcjs" path="res://Assets/sfx/sword_strike/zapsplat_impact_sword_swipe_into_large_wood_hit_004_43694.mp3" id="36_hrhli"]
+[ext_resource type="AudioStream" uid="uid://bcv6vb3h08q5s" path="res://Assets/sfx/sword_strike/zapsplat_warfare_sword_stab_into_body_flesh_light_squelch_93748.mp3" id="37_fylif"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt351"]
+bg_color = Color(0.501961, 0.0313726, 0.0313726, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xgrj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wghc6"]
+radius = 30.0
+height = 100.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nsx06"]
+streams_count = 28
+stream_0/stream = ExtResource("3_svc7s")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_1xl2s")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("15_n6rtv")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("24_af0tf")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("25_sccs8")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("26_jqug4")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("27_unsob")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("28_0r0bn")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("29_g3b44")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("30_7hpv7")
+stream_9/weight = 1.0
+stream_10/stream = ExtResource("5_5esfd")
+stream_10/weight = 1.0
+stream_11/stream = ExtResource("6_ffqlw")
+stream_11/weight = 1.0
+stream_12/stream = ExtResource("7_3bf0x")
+stream_12/weight = 1.0
+stream_13/stream = ExtResource("8_syxcu")
+stream_13/weight = 1.0
+stream_14/stream = ExtResource("9_wo6xu")
+stream_14/weight = 1.0
+stream_15/stream = ExtResource("10_up78c")
+stream_15/weight = 1.0
+stream_16/stream = ExtResource("11_4n1u7")
+stream_16/weight = 1.0
+stream_17/stream = ExtResource("12_piy8p")
+stream_17/weight = 1.0
+stream_18/stream = ExtResource("13_dyo58")
+stream_18/weight = 1.0
+stream_19/stream = ExtResource("14_opmkj")
+stream_19/weight = 1.0
+stream_20/stream = ExtResource("16_hvbjq")
+stream_20/weight = 1.0
+stream_21/stream = ExtResource("17_26qb1")
+stream_21/weight = 1.0
+stream_22/stream = ExtResource("18_hqa2b")
+stream_22/weight = 1.0
+stream_23/stream = ExtResource("19_31whu")
+stream_23/weight = 1.0
+stream_24/stream = ExtResource("20_jpuck")
+stream_24/weight = 1.0
+stream_25/stream = ExtResource("21_k6514")
+stream_25/weight = 1.0
+stream_26/stream = ExtResource("22_kokwt")
+stream_26/weight = 1.0
+stream_27/stream = ExtResource("23_l5uxs")
+stream_27/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6dq7d"]
+streams_count = 3
+stream_0/stream = ExtResource("31_t4asg")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("32_13inv")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("33_nocrf")
+stream_2/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yrh1q"]
+streams_count = 3
+stream_0/stream = ExtResource("34_xj8y2")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("35_esr2g")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("36_b0hgn")
+stream_2/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nojo6"]
+streams_count = 3
+stream_0/stream = ExtResource("35_q6pr3")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("36_hrhli")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("37_fylif")
+stream_2/weight = 1.0
+
+[node name="BehaviorCharacter" type="CharacterBody2D" groups=["Persist"]]
+script = ExtResource("1_hamvy")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(50, 25)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -92.0
+offset_right = 26.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.2)
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_dt351")
+max_value = 10.0
+value = 10.0
+show_percentage = false
+
+[node name="Sprites" parent="." instance=ExtResource("2_28wwc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7xgrj")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="SelectionArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+metadata/_edit_lock_ = true
+
+[node name="SelectionShape" type="CollisionShape2D" parent="SelectionArea"]
+position = Vector2(0, -35)
+shape = SubResource("CapsuleShape2D_wghc6")
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="FootstepPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_nsx06")
+volume_db = -5.0
+max_distance = 500.0
+attenuation = 0.233259
+
+[node name="SwingPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_6dq7d")
+max_distance = 500.0
+
+[node name="InteractPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_yrh1q")
+max_distance = 500.0
+
+[node name="SwordStrikePlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = SubResource("AudioStreamRandomizer_nojo6")
+max_distance = 500.0

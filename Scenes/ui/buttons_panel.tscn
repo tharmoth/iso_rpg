@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bkvh6q302uw2q"]
+
+[node name="Buttons" type="PanelContainer"]
+z_index = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+
+[node name="ExitButton" type="Button" parent="MarginContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Exit"
+
+[node name="InventoryButton" type="Button" parent="MarginContainer/Buttons"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Gear"

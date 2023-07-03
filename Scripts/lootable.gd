@@ -2,21 +2,38 @@ class_name Lootable extends Interactable
 
 enum TEST_ENUM {A, B, C}
 
-@export var item : Items.ITEM_NAME : 
+@export var item : Items.ITEM_NAME
+var looted := false :
 	set(value):
-		item = value
-		if value == null:
-			queue_free()
+		looted = value
+		visible = not looted
+
+@onready var texture = $Sprite2D.texture.get_path() if $Sprite2D.texture != null else null:
+	set(value):
+		texture = value
+		if texture != null:
+			$Sprite2D.texture = load(texture)
 
 
-@onready var polygon : PackedVector2Array = $CollisionPolygon2D.polygon :
+@onready var polygon : Array = Array($CollisionPolygon2D.polygon) :
 	set(value):
 		polygon = value
-		$CollisionPolygon2D.polygon = polygon
+		$CollisionPolygon2D.polygon = PackedVector2Array(polygon)
 
-func loot(player : Character):
-	queue_free()
+
+func _on_mouse_entered():
+	if not looted:
+		super()
+
+
+func _on_mouse_exited():
+	if not looted:
+		super()
+
+
+func loot(player : BCharacter):
 	GlobalCursor.mouse_exit(self)
+	looted = true
 	return Items.items.get(item)
 
 
@@ -30,10 +47,11 @@ func save():
 		"parent" : get_parent().get_path(),
 
 		# Stats
-		"position_x" : position.x,
-		"position_y" : position.y,
+		"position" : jsonify.jsonify(position),
 
 		# Equipment
 		"item" : item,
-		"polygon" : polygon,
+		"looted" : looted,
+		"polygon" : jsonify.jsonify(polygon),
+		"texture" : texture
 	}

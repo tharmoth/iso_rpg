@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://btrc6kotue7ux"]
+
+[ext_resource type="PackedScene" uid="uid://dffrpu3t4k4aj" path="res://Scenes/characters/behavior_character.tscn" id="1_ksdmf"]
+[ext_resource type="PackedScene" uid="uid://iq3fuum1vh2j" path="res://Scenes/characters/ai/hostile_ai.tscn" id="2_gfn64"]
+[ext_resource type="PackedScene" uid="uid://b4img0lbdnber" path="res://Scenes/characters/voices/ian_lenhart.tscn" id="3_032f0"]
+
+[node name="HostileNPC" instance=ExtResource("1_ksdmf")]
+
+[node name="AI" parent="." index="4" instance=ExtResource("2_gfn64")]
+
+[node name="Voice" parent="." index="8" instance=ExtResource("3_032f0")]

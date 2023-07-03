@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqppxnh6723j1"]
+
+[ext_resource type="PackedScene" uid="uid://8t53t4rmile7" path="res://Scenes/ui/button_press_audio_player.tscn" id="1_6j3pp"]
+[ext_resource type="Theme" uid="uid://8innpdu1og7a" path="res://Scenes/ui/theme.tres" id="2_2b3df"]
+[ext_resource type="PackedScene" uid="uid://bkvh6q302uw2q" path="res://Scenes/ui/buttons_panel.tscn" id="3_vq087"]
+[ext_resource type="Texture2D" uid="uid://bt3vn8bgiti58" path="res://Assets/rpgtools/items/Shield1_0008.png" id="4_ufwqk"]
+[ext_resource type="Script" path="res://Scenes/ui/InventorySlot.gd" id="5_j046i"]
+[ext_resource type="PackedScene" uid="uid://c1xl50qrl5lhh" path="res://Scenes/ui/characters_panel.tscn" id="6_su23s"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="ButtonPressAudioPlayer" parent="." instance=ExtResource("1_6j3pp")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2b3df")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_2b3df")
+
+[node name="Buttons" parent="MarginContainer/HBoxContainer" instance=ExtResource("3_vq087")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.686275)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("4_ufwqk")
+script = ExtResource("5_j046i")
+
+[node name="Characters" parent="MarginContainer/HBoxContainer" instance=ExtResource("6_su23s")]
+layout_mode = 2

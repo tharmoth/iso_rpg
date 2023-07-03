@@ -34,7 +34,7 @@ var selected : Node2D = null :
 			current_state = State.INTERACTING
 		elif selected is Interactable:
 			current_state = State.CAN_INTERACT
-		elif selected is NPC or selected is BCharacter:
+		elif selected is BCharacter and not selected is Player:
 			current_state = State.ATTACK
 		else:
 			current_state = State.MOVE

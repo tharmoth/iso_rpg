@@ -1,0 +1,171 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2qwbpb1nxg83"]
+
+[ext_resource type="Script" path="res://Scripts/gui.gd" id="1_53g0o"]
+[ext_resource type="Theme" uid="uid://8innpdu1og7a" path="res://Scenes/ui/theme.tres" id="2_bfbf4"]
+[ext_resource type="Texture2D" uid="uid://c6crx05wy1345" path="res://Assets/corax/coraxdigitalart-realistic-human-heroes (319).png" id="3_776sl"]
+[ext_resource type="PackedScene" uid="uid://8t53t4rmile7" path="res://Scenes/ui/button_press_audio_player.tscn" id="4_ftdpw"]
+
+[sub_resource type="SystemFont" id="SystemFont_q1t07"]
+font_names = PackedStringArray("Copperplate Gothic")
+oversampling = 1.0
+
+[sub_resource type="SystemFont" id="SystemFont_81uf1"]
+font_names = PackedStringArray("Copperplate Gothic")
+
+[node name="GUI" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_53g0o")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bfbf4")
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Row" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -5
+
+[node name="Buttons" type="PanelContainer" parent="MarginContainer/Row"]
+z_index = 1
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/Row/Buttons"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Row/Buttons"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer/Row/Buttons/MarginContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+
+[node name="ExitButton" type="Button" parent="MarginContainer/Row/Buttons/MarginContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Exit"
+
+[node name="InventoryButton" type="Button" parent="MarginContainer/Row/Buttons/MarginContainer/Buttons"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Gear"
+
+[node name="Main" type="VBoxContainer" parent="MarginContainer/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Row" type="HBoxContainer" parent="MarginContainer/Row/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Row2" type="HBoxContainer" parent="MarginContainer/Row/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Console" type="PanelContainer" parent="MarginContainer/Row/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/Row/Main/Console"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Row/Main/Console"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/Row/Main/Console/MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.0117647)
+
+[node name="Console" type="RichTextLabel" parent="MarginContainer/Row/Main/Console/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/normal_font = SubResource("SystemFont_q1t07")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+autowrap_mode = 0
+
+[node name="Characters" type="PanelContainer" parent="MarginContainer/Row"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/Row/Characters"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Row/Characters"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Row/Characters/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Row/Characters/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PortratCharacter1" type="TextureRect" parent="MarginContainer/Row/Characters/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("3_776sl")
+expand_mode = 1
+
+[node name="HealthBarCharacter1" type="ProgressBar" parent="MarginContainer/Row/Characters/MarginContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+modulate = Color(0.909804, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 10.0
+step = 1.0
+fill_mode = 3
+show_percentage = false
+
+[node name="HealthTextCharacter1" type="RichTextLabel" parent="MarginContainer/Row/Characters/MarginContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+text = "10/10"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="DeathLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/bold_font = SubResource("SystemFont_81uf1")
+bbcode_enabled = true
+text = "[font_size=100][color=#e80000][b]You Died![/b][/color][/font_size]
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ButtonPressAudioPlayer" parent="." instance=ExtResource("4_ftdpw")]

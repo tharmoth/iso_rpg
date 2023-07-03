@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://8t53t4rmile7"]
+
+[ext_resource type="AudioStream" uid="uid://cc2e3ul58dsoq" path="res://Assets/sfx/ui/sfx_push_boulder.wav" id="1_8s5we"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cloil"]
+streams_count = 1
+stream_0/stream = ExtResource("1_8s5we")
+stream_0/weight = 1.0
+
+[node name="ButtonPressAudioPlayer" type="AudioStreamPlayer"]
+stream = SubResource("AudioStreamRandomizer_cloil")

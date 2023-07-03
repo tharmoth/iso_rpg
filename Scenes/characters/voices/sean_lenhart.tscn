@@ -1,0 +1,77 @@
+[gd_scene load_steps=23 format=3 uid="uid://b5wdd557fj0qw"]
+
+[ext_resource type="AudioStream" uid="uid://ci0t2rokw8dua" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_1_sean.wav" id="1_w12nx"]
+[ext_resource type="AudioStream" uid="uid://dmo4cgrw70ahp" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_2_sean.wav" id="2_n41n2"]
+[ext_resource type="AudioStream" uid="uid://dcq1mnbdb4ogk" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_3_sean.wav" id="3_tg2vj"]
+[ext_resource type="AudioStream" uid="uid://d188c10e0ss5r" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_4_sean.wav" id="4_xvpp1"]
+[ext_resource type="AudioStream" uid="uid://w2888ls6qibx" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_5_sean.wav" id="5_y4pjo"]
+[ext_resource type="AudioStream" uid="uid://dagqlaisrmkav" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_6_sean.wav" id="6_0x77n"]
+[ext_resource type="AudioStream" uid="uid://bpax4vm7l2a40" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_7_sean.wav" id="7_x35bf"]
+[ext_resource type="AudioStream" uid="uid://bm14l6vsyesm1" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_8_sean.wav" id="8_unpmq"]
+[ext_resource type="AudioStream" uid="uid://odciylmwtm1x" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_9_sean.wav" id="9_bf3q4"]
+[ext_resource type="AudioStream" uid="uid://csmqmwj655k52" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_10_sean.wav" id="10_qhnu2"]
+[ext_resource type="AudioStream" uid="uid://dpyf4klbu70b0" path="res://Assets/sfx/voices/death/Sean Lenhart/death_1_sean.wav" id="11_qd0w6"]
+[ext_resource type="AudioStream" uid="uid://biuo7p5utt0mg" path="res://Assets/sfx/voices/death/Sean Lenhart/death_2_sean.wav" id="12_ft1rs"]
+[ext_resource type="AudioStream" uid="uid://d2bacenggcb04" path="res://Assets/sfx/voices/death/Sean Lenhart/death_3_sean.wav" id="13_xhcu8"]
+[ext_resource type="AudioStream" uid="uid://fe402l64t2ue" path="res://Assets/sfx/voices/death/Sean Lenhart/death_4_sean.wav" id="14_ogwli"]
+[ext_resource type="AudioStream" uid="uid://ctcktoxn5kk4m" path="res://Assets/sfx/voices/death/Sean Lenhart/death_5_sean.wav" id="15_sd1hr"]
+[ext_resource type="AudioStream" uid="uid://bvh0gjwn1jp8c" path="res://Assets/sfx/voices/death/Sean Lenhart/death_6_sean.wav" id="16_ifv6o"]
+[ext_resource type="AudioStream" uid="uid://ccq2d8oucybpd" path="res://Assets/sfx/voices/death/Sean Lenhart/death_7_sean.wav" id="17_fwquc"]
+[ext_resource type="AudioStream" uid="uid://bwtxg7ve1owh4" path="res://Assets/sfx/voices/death/Sean Lenhart/death_8_sean.wav" id="18_js31c"]
+[ext_resource type="AudioStream" uid="uid://dlc1dotju86g8" path="res://Assets/sfx/voices/death/Sean Lenhart/death_9_sean.wav" id="19_bhqte"]
+[ext_resource type="AudioStream" uid="uid://bseiwk1gk8avs" path="res://Assets/sfx/voices/death/Sean Lenhart/death_10_sean.wav" id="20_6skvu"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4gspc"]
+streams_count = 10
+stream_0/stream = ExtResource("1_w12nx")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_n41n2")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_tg2vj")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_xvpp1")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_y4pjo")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("6_0x77n")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("7_x35bf")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("8_unpmq")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("9_bf3q4")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("10_qhnu2")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vtu3h"]
+streams_count = 10
+stream_0/stream = ExtResource("11_qd0w6")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("12_ft1rs")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("13_xhcu8")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("14_ogwli")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("15_sd1hr")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("16_ifv6o")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("17_fwquc")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("18_js31c")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("19_bhqte")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("20_6skvu")
+stream_9/weight = 1.0
+
+[node name="Voice" type="Node2D"]
+
+[node name="HitPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_4gspc")
+max_distance = 500.0
+
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_vtu3h")

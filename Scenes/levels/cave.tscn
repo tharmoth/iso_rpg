@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxu8n1lyku1vq"]
+[gd_scene load_steps=7 format=3 uid="uid://dxu8n1lyku1vq"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_xniy8"]
 [ext_resource type="Texture2D" uid="uid://dvflr603dclxl" path="res://Assets/scenes/cave.png" id="1_ymcb5"]
-[ext_resource type="PackedScene" uid="uid://db1x5tigwum0m" path="res://Scenes/lootable.tscn" id="3_resu1"]
-[ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/exit.tscn" id="4_oo6o8"]
+[ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/interactables/exit.tscn" id="3_7mxue"]
+[ext_resource type="Texture2D" uid="uid://ya4pa17tna70" path="res://Assets/rpgtools/items/Sword1_0005.png" id="4_370yp"]
+[ext_resource type="PackedScene" uid="uid://db1x5tigwum0m" path="res://Scenes/interactables/lootable.tscn" id="4_oj2t4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_st5yp"]
 vertices = PackedVector2Array(80, -230, 195, -212, 264, -126, 269, 46, 212, 76, -4, -110, -15, -169, -43, -234, -48, -236, -115, -211, -165, -198, -127, -119, -191, -60, -97, -61, -163, 20, -191, 17, -119, 125, 209, 131, 55, 224, -164, 225, -122, 101, -152, 70, -241, 26, -200, 107, -244, 133, -190, 128, -203, 167, -182, 183, 239, 200, 116, 277)
@@ -18,24 +19,52 @@ texture = ExtResource("1_ymcb5")
 metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_st5yp")
 metadata/_edit_lock_ = true
 
-[node name="Exit" parent="." instance=ExtResource("4_oo6o8")]
-position = Vector2(137, 193)
+[node name="Sword" parent="." instance=ExtResource("4_oj2t4")]
+position = Vector2(217, -92)
+item = 8
+
+[node name="CollisionPolygon2D" parent="Sword" index="0"]
+polygon = PackedVector2Array(-23, -5, -14, -6, 30, 23, 33, 21, -9, -11, -7, -16, -14, -14, -29, -22, -20, -11)
+
+[node name="Sprite2D" parent="Sword" index="1"]
+texture = ExtResource("4_370yp")
+
+[node name="Exit" parent="." instance=ExtResource("3_7mxue")]
+position = Vector2(157, 213)
+target_scene = "res://Scenes/levels/forest.tscn"
 
 [node name="CollisionPolygon2D" parent="Exit" index="0"]
-polygon = PackedVector2Array(-22, 81, 101, 6, 90, -20, -45, 61)
+polygon = PackedVector2Array(-67, 39, -42, 62, 82, -13, 67, -45)
 
-[node name="Exit2" parent="." instance=ExtResource("4_oo6o8")]
-position = Vector2(82, 56)
-target_scene = "default"
+[node name="Exit2" parent="." instance=ExtResource("3_7mxue")]
 
-[node name="Lootable" parent="." instance=ExtResource("3_resu1")]
-item = 6
+[node name="Mushroom1" parent="." instance=ExtResource("4_oj2t4")]
+position = Vector2(-165, 195)
+item = 18
 
-[node name="CollisionPolygon2D" parent="Lootable" index="0"]
-polygon = PackedVector2Array(-169, 193, -161, 194, -163, 202, -171, 200)
+[node name="CollisionPolygon2D" parent="Mushroom1" index="0"]
+polygon = PackedVector2Array(-7, 4, 8, 9, 17, 5, 2, -10)
 
+[node name="Mushroom2" parent="." instance=ExtResource("4_oj2t4")]
+position = Vector2(-180, -125)
+item = 18
+
+[node name="CollisionPolygon2D" parent="Mushroom2" index="0"]
+polygon = PackedVector2Array(-17, 10, 8, 21, 23, -3, 7, -17, -19, -9)
+
+[node name="Mushroom3" parent="." instance=ExtResource("4_oj2t4")]
+position = Vector2(178, -198)
+item = 18
+
+[node name="CollisionPolygon2D" parent="Mushroom3" index="0"]
+polygon = PackedVector2Array(-17, 0, 8, 16, 16, 3, 5, -11)
+
+[editable path="Sword"]
 [editable path="Exit"]
-[editable path="Lootable"]
+[editable path="Mushroom1"]
+[editable path="Mushroom2"]
+[editable path="Mushroom3"]

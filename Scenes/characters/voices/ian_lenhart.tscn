@@ -1,0 +1,78 @@
+[gd_scene load_steps=23 format=3 uid="uid://b4img0lbdnber"]
+
+[ext_resource type="AudioStream" uid="uid://b6ky28ryiblsd" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_1_ian.wav" id="1_dp4ej"]
+[ext_resource type="AudioStream" uid="uid://b57yqs4bcim7h" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_2_ian.wav" id="2_6e5xq"]
+[ext_resource type="AudioStream" uid="uid://pbmhr8v34qgw" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_3_ian.wav" id="3_hgux8"]
+[ext_resource type="AudioStream" uid="uid://d2o0mwaeojmlk" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_4_ian.wav" id="4_7cf1v"]
+[ext_resource type="AudioStream" uid="uid://vdv3qkkb5c1s" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_5_ian.wav" id="5_ayxum"]
+[ext_resource type="AudioStream" uid="uid://bqhfi1kpnaa38" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_6_ian.wav" id="6_4nu17"]
+[ext_resource type="AudioStream" uid="uid://ch8pv1dvybttr" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_7_ian.wav" id="7_ii6v5"]
+[ext_resource type="AudioStream" uid="uid://ci60wkfi667bf" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_8_ian.wav" id="8_i4ute"]
+[ext_resource type="AudioStream" uid="uid://cj6y2ki2d8uda" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_9_ian.wav" id="9_typoi"]
+[ext_resource type="AudioStream" uid="uid://br0sgjo66oc65" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_10_ian.wav" id="10_syt7j"]
+[ext_resource type="AudioStream" uid="uid://dxlvpcvawic84" path="res://Assets/sfx/voices/death/Ian Lampert/death_1_ian.wav" id="11_yu35w"]
+[ext_resource type="AudioStream" uid="uid://7gf2vbf6ldl2" path="res://Assets/sfx/voices/death/Ian Lampert/death_2_ian.wav" id="12_u0uj6"]
+[ext_resource type="AudioStream" uid="uid://bpxe773gfgukx" path="res://Assets/sfx/voices/death/Ian Lampert/death_3_ian.wav" id="13_4gcg6"]
+[ext_resource type="AudioStream" uid="uid://shk75us6v7yn" path="res://Assets/sfx/voices/death/Ian Lampert/death_4_ian.wav" id="14_d08rn"]
+[ext_resource type="AudioStream" uid="uid://bdrhftw4ya4q2" path="res://Assets/sfx/voices/death/Ian Lampert/death_5_ian.wav" id="15_ccc30"]
+[ext_resource type="AudioStream" uid="uid://j3x2b1enmwpf" path="res://Assets/sfx/voices/death/Ian Lampert/death_6_ian.wav" id="16_t2yf5"]
+[ext_resource type="AudioStream" uid="uid://w8daultvab7f" path="res://Assets/sfx/voices/death/Ian Lampert/death_7_ian.wav" id="17_iprry"]
+[ext_resource type="AudioStream" uid="uid://b3q1xlbl8h2pp" path="res://Assets/sfx/voices/death/Ian Lampert/death_8_ian.wav" id="18_pbwdk"]
+[ext_resource type="AudioStream" uid="uid://d2sq2c3ltw08u" path="res://Assets/sfx/voices/death/Ian Lampert/death_9_ian.wav" id="19_gumi0"]
+[ext_resource type="AudioStream" uid="uid://b1ydg83y0eqkp" path="res://Assets/sfx/voices/death/Ian Lampert/death_10_ian.wav" id="20_1f1r8"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uc00k"]
+streams_count = 10
+stream_0/stream = ExtResource("1_dp4ej")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_6e5xq")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_hgux8")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_7cf1v")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_ayxum")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("6_4nu17")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("7_ii6v5")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("8_i4ute")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("9_typoi")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("10_syt7j")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3ewbc"]
+streams_count = 10
+stream_0/stream = ExtResource("11_yu35w")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("12_u0uj6")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("13_4gcg6")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("14_d08rn")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("15_ccc30")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("16_t2yf5")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("17_iprry")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("18_pbwdk")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("19_gumi0")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("20_1f1r8")
+stream_9/weight = 1.0
+
+[node name="Voice" type="Node2D"]
+
+[node name="HitPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_uc00k")
+max_distance = 500.0
+
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_3ewbc")
+max_distance = 500.0

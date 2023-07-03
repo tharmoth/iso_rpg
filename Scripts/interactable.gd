@@ -2,13 +2,13 @@ extends Area2D
 
 class_name Interactable
 
-var selected := false
+var selected = false
 
 func _ready():
 	mouse_entered.connect(_on_mouse_entered)
-	mouse_entered.connect(_on_mouse_exited)
+	mouse_exited.connect(_on_mouse_exited)
 
-func loot(player : Character):
+func loot(player : BCharacter):
 	push_error("Implement me!")
 
 func _on_mouse_entered():
@@ -22,6 +22,7 @@ func set_selected(select : bool):
 	queue_redraw()
 	
 func _draw():
+#	if selected or $CollisionPolygon2D.polygon.size() > 0:
 	if selected:
 		draw_polygon($CollisionPolygon2D.polygon, PackedColorArray([Color(0, .5, .5, .3)]))
 		
