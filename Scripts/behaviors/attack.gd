@@ -9,7 +9,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 
 	actor.target = focus.character
 
-	if actor.current_animation == "Attack":
+	if actor.animation_current == "Attack":
 		return RUNNING
 
 	if actor.attack():

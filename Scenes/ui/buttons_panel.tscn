@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://bkvh6q302uw2q"]
+[gd_scene load_steps=3 format=3 uid="uid://dmrhnsyjqpknm"]
+
+[ext_resource type="Script" path="res://Scripts/ui/gui_buttons.gd" id="1_rr6m2"]
+[ext_resource type="PackedScene" uid="uid://8t53t4rmile7" path="res://Scenes/ui/button_press_audio_player.tscn" id="2_f8vg5"]
 
 [node name="Buttons" type="PanelContainer"]
-z_index = 1
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 2
+script = ExtResource("1_rr6m2")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -26,6 +26,17 @@ size_flags_vertical = 0
 text = "Exit"
 
 [node name="InventoryButton" type="Button" parent="MarginContainer/Buttons"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+toggle_mode = true
 text = "Gear"
+
+[node name="CameraButton" type="Button" parent="MarginContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+toggle_mode = true
+text = "Cam"
+
+[node name="ButtonPressAudioPlayer" parent="." instance=ExtResource("2_f8vg5")]

@@ -1,17 +1,18 @@
 class_name Persistant extends Node
 
-var player : Node2D
-var gui : CanvasLayer
+var players : Array[Player]
 var console : RichTextLabel
+
+var lock_camera = false
+var party_size = 2
 
 func _ready():
 	reset()
 	
 func reset():
-	player = preload("res://Scenes/characters/player_character.tscn").instantiate()
-	gui = preload("res://Scenes/ui/gui.tscn").instantiate()
-	console = gui.get_node("%Console")
-	GlobalPersistant.player.add_child.call_deferred(gui)
+	for i in range(0, 2):
+		players.append(preload("res://Scenes/characters/player_character.tscn").instantiate())
+	console = GUI.get_node("%Console")
 	
 func change_scene(target_scene : String):
 	if GlobalPersistant.player.get_parent() != null:
@@ -24,7 +25,7 @@ func change_scene(target_scene : String):
 
 	GlobalCursor.reset()
 
-func print(text : String) -> void:
+func post(text : String) -> void:
 	GlobalPersistant.console.text = GlobalPersistant.console.text + text + "\n"
 	GlobalPersistant.console.scroll_to_line(GlobalPersistant.console.get_line_count()-1)
 	print(text)
@@ -34,10 +35,9 @@ func print(text : String) -> void:
 #############################################
 @onready var filepath = "user://savegame_Player.save"
 func save_player():
-	print("save " + filepath)
 	var save_game = FileAccess.open(filepath, FileAccess.WRITE)
 #	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	var save_nodes = [player]
+	var save_nodes = players
 	for node in save_nodes:
 		# Check the node is an instanced scene so it can be instanced again during load.
 		if node.scene_file_path.is_empty():
@@ -63,7 +63,6 @@ func save_player():
 		save_game.store_line(json_string)
 
 func load_player():
-	print("load " + filepath)
 	if not FileAccess.file_exists(filepath):
 		return # Error! We don't have a save to load.
 
@@ -92,7 +91,4 @@ func load_player():
 		for i in node_data.keys():
 			loaded_player.set(i, jsonify.godotify(node_data[i]))
 			
-		player = loaded_player
-		gui = preload("res://Scenes/ui/gui.tscn").instantiate()
-		console = gui.get_node("%Console")
-		GlobalPersistant.player.add_child.call_deferred(gui)
+		players.append(loaded_player)

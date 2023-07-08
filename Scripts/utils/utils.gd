@@ -5,15 +5,16 @@ class_name UTILS extends Node
 const HOSTILE_COLOR := Color(.7, .1, .1)
 const PLAYER_COLOR := Color(.1, .7, .1)
 const SELECTED_COLOR := Color(1, 1, 1)
-
+const INFINITY : int = 999999 # for json compat
+const MINUS_INFINITY : int = -1 * INFINITY # for json compat
 
 static func find_closest_ray(rays : Array, ray : Vector2) -> Vector2:
-	var max = 0
+	var maxvalue = 0
 	var dir = Vector2.ZERO
 	for i in len(rays):
 		var value = ray.dot(rays[i])
-		if value > max :
-			max = value
+		if value > maxvalue :
+			maxvalue = value
 			dir = rays[i]
 
 	return dir
@@ -37,9 +38,9 @@ static func array_sum_vector2(array : Array) -> Vector2:
 	return sum
 	
 static func clamp_rotation(old_rotation : Vector2, new_rotation : Vector2, clamp_angle_degrees : float) -> Vector2:
-	var clamp_rotation = find_closest_ray(cardinal_rays(), new_rotation)	
+	var clamped_rotation = find_closest_ray(cardinal_rays(), new_rotation)	
 	if rad_to_deg(abs(old_rotation.angle_to(new_rotation))) > clamp_angle_degrees or old_rotation == Vector2.ZERO:
-		return clamp_rotation
+		return clamped_rotation
 	return old_rotation
 
 static func cardinal_rays() -> Array:

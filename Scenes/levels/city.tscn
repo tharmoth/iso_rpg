@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://brmkmc3icd8ur"]
+[gd_scene load_steps=8 format=3 uid="uid://brmkmc3icd8ur"]
 
 [ext_resource type="Texture2D" uid="uid://c71nm0qi4yfyt" path="res://Assets/scenes/city.png" id="1_8jma5"]
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_efb07"]
 [ext_resource type="PackedScene" uid="uid://db1x5tigwum0m" path="res://Scenes/interactables/lootable.tscn" id="3_llvvo"]
 [ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/interactables/exit.tscn" id="3_qirx3"]
-[ext_resource type="Texture2D" uid="uid://dp4n4uo5bgwo2" path="res://Assets/rpgtools/items/Top_Knight1_5.png" id="4_0pogo"]
+[ext_resource type="Texture2D" uid="uid://8edoftep70uu" path="res://Assets/characters/items/full_plate.png" id="4_0pogo"]
+[ext_resource type="PackedScene" uid="uid://n6iobgqwvpcd" path="res://Scenes/rng/woods.tscn" id="6_7re0q"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_si37x"]
 vertices = PackedVector2Array(388, 593, 472, 568, 386, 630, 709, 585, 707, 585, 777, 552, 979, 694, 907, 713, 814, 716, 680, 809, 837, 874, 654, 849, -943, -100, -880, -516, -684, -357, 881, 879, 906, 792, 1069, 636, 1078, 838, 1077, 888, 1020, 925, 670, 750, -205, -202, 266, -355, 296, -263, 232, 13, -244, -104, 385, 469, 477, 463, -460, -511, -336, -300, -464, -364, -413, -322, 1033, 1005, -865, 1296, -905, 1197, -896, 979, 576, 875, 1301, 854, 1328, 996, 1192, 999, 529, 869, 565, 849, 1492, 1151, 1492, 1495, -868, 1377, 629, 738, 628, 683, -1065, 1501, -930, 1386, -1059, 1031, -994, 1198, 312, 592, -475, -215, -988, 245, 1148, 1030, 1496, 1116, -283, -32, 326, 253, -834, 580, -410, -158, -444, -91, 311, 470, 491, 260, 548, 374, 384, 762, -418, -105, -412, -32, -996, 979, -927, 1342)
@@ -11,6 +13,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(
 outlines = Array[PackedVector2Array]([PackedVector2Array(1496, 1116, 1328, 996, 1301, 854, 1078, 838, 1069, 636, 979, 694, 777, 552, 707, 585, 709, 585, 477, 463, 548, 374, 491, 260, 326, 253, 232, 13, 296, -263, 266, -355, -460, -511, -464, -364, -684, -357, -880, -516, -943, -100, -988, 245, -834, 580, -1059, 1031, -1065, 1501, 1492, 1495, 1492, 1151), PackedVector2Array(-996, 979, -994, 1198, -905, 1197, -896, 979), PackedVector2Array(529, 869, 565, 849, 576, 875, 654, 849, 680, 809, 670, 750, 629, 738, 628, 683, 472, 568, 386, 630, 384, 762), PackedVector2Array(-444, -91, -412, -32, -283, -32, -244, -104, -205, -202, -336, -300, -413, -322, -475, -215, -410, -158, -418, -105), PackedVector2Array(311, 470, 312, 592, 388, 593, 385, 469), PackedVector2Array(814, 716, 837, 874, 881, 879, 906, 792, 907, 713), PackedVector2Array(1020, 925, 1033, 1005, 1148, 1030, 1192, 999, 1077, 888), PackedVector2Array(-927, 1342, -930, 1386, -868, 1377, -865, 1296)])
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_efb07")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_8jma5")
@@ -30,13 +33,21 @@ polygon = PackedVector2Array(-430, -16, -389, 65, 676, 68, 478, -26)
 
 [node name="Armor" parent="." instance=ExtResource("3_llvvo")]
 position = Vector2(339, 511)
-item = 11
+item = "full_plate"
 
 [node name="CollisionPolygon2D" parent="Armor" index="0"]
-polygon = PackedVector2Array(-28, 22, -17, 2, -2, 15, 23, -3, 3, -13, 33, -16, 34, -22, -20, -25, -33, -12)
+polygon = PackedVector2Array(21, -2, 4, 16, -22, 1, -4, -11, -36, -19, 13, -25, 36, -12, 28, 26)
 
 [node name="Sprite2D" parent="Armor" index="1"]
 texture = ExtResource("4_0pogo")
 
+[node name="Woods" parent="." instance=ExtResource("6_7re0q")]
+position = Vector2(334, -1006)
+
+[node name="CollisionPolygon2D" parent="Woods" index="0"]
+visible = false
+polygon = PackedVector2Array(1154, 627, 1141, 960, 901, 618, 546, 609, 303, 497, 272, 602, -94, 616, -565, 555, -615, -184, -1086, -206, -1266, 79, -1199, 486, -1838, 479, -1834, -487, 1159, -491)
+
 [editable path="Exit"]
 [editable path="Armor"]
+[editable path="Woods"]

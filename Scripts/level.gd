@@ -1,10 +1,18 @@
 extends Node2D
 
-var loaded = false
-@onready var filepath = "user://savegame_" + name + ".save"
+var camera = RTSCam.new()
 
 func _ready():
 	load_level()
+	add_child(camera)
+	camera.position = GlobalPersistant.player.position
+
+######################################
+# Level Saving and Loading Functions #
+######################################
+@onready var filepath = "user://savegame_" + name + ".save"
+var loaded = false
+
 
 func save_level():
 	var save_game = FileAccess.open(filepath, FileAccess.WRITE)
@@ -70,3 +78,13 @@ func load_level():
 		# Now we set the remaining variables.
 		for i in node_data.keys():
 			new_object.set(i, jsonify.godotify(node_data[i]))
+			
+
+###########################
+# Randomization Functions #
+###########################
+var seed : int = 0
+
+
+func get_seed() -> int:
+	return seed

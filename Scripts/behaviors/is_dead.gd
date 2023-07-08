@@ -1,7 +1,7 @@
 extends ConditionLeaf
 
 func tick(actor: Node, _blackboard: Blackboard) -> int:
-	if actor.health <= 0:
-		return SUCCESS
-	else:
+	if actor.alive:
 		return FAILURE
+	else:
+		return SUCCESS

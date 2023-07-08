@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_xniy8"]
 [ext_resource type="Texture2D" uid="uid://dvflr603dclxl" path="res://Assets/scenes/cave.png" id="1_ymcb5"]
 [ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/interactables/exit.tscn" id="3_7mxue"]
-[ext_resource type="Texture2D" uid="uid://ya4pa17tna70" path="res://Assets/rpgtools/items/Sword1_0005.png" id="4_370yp"]
+[ext_resource type="Texture2D" uid="uid://dxg0mchoe2p2a" path="res://Assets/characters/items/longsword.png" id="4_370yp"]
 [ext_resource type="PackedScene" uid="uid://db1x5tigwum0m" path="res://Scenes/interactables/lootable.tscn" id="4_oj2t4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_st5yp"]
@@ -25,7 +25,7 @@ metadata/_edit_lock_ = true
 
 [node name="Sword" parent="." instance=ExtResource("4_oj2t4")]
 position = Vector2(217, -92)
-item = 8
+item = "longsword"
 
 [node name="CollisionPolygon2D" parent="Sword" index="0"]
 polygon = PackedVector2Array(-23, -5, -14, -6, 30, 23, 33, 21, -9, -11, -7, -16, -14, -14, -29, -22, -20, -11)
@@ -44,21 +44,21 @@ polygon = PackedVector2Array(-67, 39, -42, 62, 82, -13, 67, -45)
 
 [node name="Mushroom1" parent="." instance=ExtResource("4_oj2t4")]
 position = Vector2(-165, 195)
-item = 18
+item = "potion_of_healing"
 
 [node name="CollisionPolygon2D" parent="Mushroom1" index="0"]
 polygon = PackedVector2Array(-7, 4, 8, 9, 17, 5, 2, -10)
 
 [node name="Mushroom2" parent="." instance=ExtResource("4_oj2t4")]
 position = Vector2(-180, -125)
-item = 18
+item = "potion_of_healing"
 
 [node name="CollisionPolygon2D" parent="Mushroom2" index="0"]
 polygon = PackedVector2Array(-17, 10, 8, 21, 23, -3, 7, -17, -19, -9)
 
 [node name="Mushroom3" parent="." instance=ExtResource("4_oj2t4")]
 position = Vector2(178, -198)
-item = 18
+item = "potion_of_healing"
 
 [node name="CollisionPolygon2D" parent="Mushroom3" index="0"]
 polygon = PackedVector2Array(-17, 0, 8, 16, 16, 3, 5, -11)

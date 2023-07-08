@@ -30,9 +30,9 @@ var selected : Node2D = null :
 		if selected != null and selected.has_method("set_selected"):
 			selected.set_selected(true)
 		
-		if selected is Interactable and current_state == State.CAN_INTERACT:
+		if selected is Interactable or (selected is BCharacter and not selected.alive) and current_state == State.CAN_INTERACT:
 			current_state = State.INTERACTING
-		elif selected is Interactable:
+		elif selected is Interactable or (selected is BCharacter and not selected.alive):
 			current_state = State.CAN_INTERACT
 		elif selected is BCharacter and not selected is Player:
 			current_state = State.ATTACK

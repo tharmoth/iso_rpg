@@ -2,7 +2,7 @@ class_name Lootable extends Interactable
 
 enum TEST_ENUM {A, B, C}
 
-@export var item : Items.ITEM_NAME
+@export var item : String
 var looted := false :
 	set(value):
 		looted = value
@@ -34,7 +34,7 @@ func _on_mouse_exited():
 func loot(player : BCharacter):
 	GlobalCursor.mouse_exit(self)
 	looted = true
-	return Items.items.get(item)
+	return item
 
 
 ########################################

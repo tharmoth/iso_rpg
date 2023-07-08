@@ -1,0 +1,117 @@
+{
+  "weapon": {
+    "unarmed": {
+      "value": -1,
+      "weight": 0,
+      "dice": 1
+    },
+    "battle_axe": {
+      "value": 8,
+      "weight": 7,
+      "dice": "1d8"
+    },
+    "dagger": {
+      "value": 2,
+      "weight": 1,
+      "dice": "1d4"
+    },
+    "mace": {
+      "value": 8,
+      "weight": 10,
+      "dice": "1d6+1"
+    },
+    "longsword": {
+      "value": 15,
+      "weight": 4,
+      "dice": "1d8"
+    },
+    "bastard_sword": {
+      "value": 50,
+      "weight": 10,
+      "dice": "2d4"
+    }
+  },
+  "armor": {
+    "full_plate": {
+      "value": 7000,
+      "weight": 70,
+      "ac": 19
+    },
+    "plate_mail": {
+      "value": 600,
+      "weight": 50,
+      "ac": 17
+    },
+    "chain_mail": {
+      "value": 80,
+      "weight": 40,
+      "ac": 16
+    },
+    "chain_shirt": {
+      "value": 75,
+      "weight": 40,
+      "ac": 15
+    },
+    "hide": {
+      "value": 120,
+      "weight": 40,
+      "ac": 14
+    },
+    "studded_leather": {
+      "value": 20,
+      "weight": 25,
+      "ac": 13
+    },
+    "leather": {
+      "value": 5,
+      "weight": 15,
+      "ac": 12
+    },
+    "robe": {
+      "value": 5,
+      "weight": 1,
+      "ac": 10
+    },
+    "green_robe": {
+      "value": 5,
+      "weight": 1,
+      "ac": 10
+    },
+    "clothing": {
+      "value": -1,
+      "weight": 0,
+      "ac": 10
+    }
+  },
+  "shield": {
+    "unarmed_oh": {
+      "value": -1,
+      "weight": 0,
+      "ac_bonus": 0
+    },
+    "tower_shield": {
+      "value": 10,
+      "weight": 15,
+      "ac_bonus": 1
+    },
+    "medium_shield": {
+      "value": 7,
+      "weight": 10,
+      "ac_bonus": 1
+    }
+  },
+  "item": {
+    "ring_of_protection": {
+      "value ": 1000,
+      "weight": 0,
+      "effect": "ac, 1"
+    }
+  },
+  "consumable": {
+    "potion_of_healing": {
+      "value": 75,
+      "weight": 1,
+      "effect": "health 2d4+2"
+    }
+  }
+}

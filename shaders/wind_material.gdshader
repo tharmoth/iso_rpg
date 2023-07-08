@@ -36,8 +36,9 @@ float getWind(vec2 vertex, vec2 uv, float time){
 }
 
 void vertex() {
-    vec4 pos = MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0);
-    //float time = TIME * speed + offset;
+	// Constraned the random seed to a range or else strange jiggles happen
+    vec4 pos = normalize(MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)) * vec4(10, 10, 10, 10);
+//    float time = TIME * speed + offset;
     float time = TIME * speed + pos.x * pos.y;
     VERTEX.x += getWind(VERTEX.xy, UV, time);
 }

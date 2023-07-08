@@ -35,7 +35,7 @@ script = ExtResource("5_mw5l7")
 
 [node name="FocusInRange" type="Node" parent="SelectorReactiveComposite/Attack" node_paths=PackedStringArray("focus")]
 script = ExtResource("6_s26f6")
-range = 500
+action_range = 500
 focus = NodePath("../FocusPlayer")
 
 [node name="SelectorReactiveComposite" type="Node" parent="SelectorReactiveComposite/Attack"]
@@ -46,7 +46,7 @@ script = ExtResource("7_ryhsr")
 
 [node name="FocusInRange" type="Node" parent="SelectorReactiveComposite/Attack/SelectorReactiveComposite/Attack" node_paths=PackedStringArray("focus")]
 script = ExtResource("6_s26f6")
-range = 100
+action_range = 50
 focus = NodePath("../../../FocusPlayer")
 
 [node name="CanInteract" type="Node" parent="SelectorReactiveComposite/Attack/SelectorReactiveComposite/Attack" node_paths=PackedStringArray("focus")]
@@ -62,7 +62,7 @@ script = ExtResource("4_0ifgg")
 
 [node name="FocusInRange" type="Node" parent="SelectorReactiveComposite/Attack/SelectorReactiveComposite/InRange" node_paths=PackedStringArray("focus")]
 script = ExtResource("6_s26f6")
-range = 100
+action_range = 50
 focus = NodePath("../../../FocusPlayer")
 
 [node name="Wait" type="Node" parent="SelectorReactiveComposite/Attack/SelectorReactiveComposite/InRange"]

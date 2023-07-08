@@ -1,8 +1,9 @@
-[gd_scene load_steps=557 format=3 uid="uid://d1f3qs13lmqom"]
+[gd_scene load_steps=558 format=3 uid="uid://d1f3qs13lmqom"]
 
-[ext_resource type="Texture2D" uid="uid://dlpy4atg2h7lp" path="res://Assets/rpgtools/male/Shadow/shadow.png" id="1_x8diy"]
-[ext_resource type="Texture2D" uid="uid://c376h2wtqg07a" path="res://Assets/rpgtools/male/Base/body-1.png" id="2_3cklg"]
-[ext_resource type="Texture2D" uid="uid://b2yo1o7tnr875" path="res://Assets/rpgtools/male/Hair/Hair-2.png" id="3_exnb7"]
+[ext_resource type="Texture2D" uid="uid://c376h2wtqg07a" path="res://Assets/characters/male/Base/body-1.png" id="1_280cp"]
+[ext_resource type="Texture2D" uid="uid://dlpy4atg2h7lp" path="res://Assets/characters/male/Shadow/shadow.png" id="1_xrtjo"]
+[ext_resource type="Texture2D" uid="uid://cj670dsqa67lm" path="res://Assets/characters/male/FacialHair/FacialHair-4.png" id="2_iplt3"]
+[ext_resource type="Texture2D" uid="uid://bskxdg4h02pne" path="res://Assets/characters/male/Hair/Hair-3.png" id="3_tyyox"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://c6i2l3qpvvjl2" path="res://BlendsSpaces/attack.tres" id="4_hdpqt"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://dqmy7m77dpy7g" path="res://BlendsSpaces/death.tres" id="5_tjc7n"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://dnnuowekqhhob" path="res://BlendsSpaces/interact.tres" id="6_x0ua3"]
@@ -60407,21 +60408,21 @@ _data = {
 [node name="Sprites" type="CanvasGroup"]
 
 [node name="Shadow" type="Sprite2D" parent="."]
-texture = ExtResource("1_x8diy")
+texture = ExtResource("1_xrtjo")
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
 
 [node name="Base" type="Sprite2D" parent="."]
 editor_description = "YXNlcHJpdGVfd2l6YXJkX2NvbmZpZwpwbGF5ZXJ8PUFuaW1hdGlvblBsYXllcgpzb3VyY2V8PUQ6L19Qcm9ncmFtbWluZy9Bc3NldHMvUFZHYW1lcy9SUEdUb29scy9DaGFyYWN0ZXJzL01hbGUvTWFsZS5hc2Vwcml0ZQpsYXllcnw9Cm9wX2V4cHw9ZmFsc2UKb19mb2xkZXJ8PQpvX25hbWV8PQpvbmx5X3Zpc2libGV8PWZhbHNlCm9fZXhfcHw9Cg=="
 y_sort_enabled = true
 texture_filter = 1
-texture = ExtResource("2_3cklg")
+texture = ExtResource("1_280cp")
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -60433,50 +60434,51 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://Assets/pvg/male/body/Knight.ase"
 }
 
-[node name="Top" type="Sprite2D" parent="."]
-offset = Vector2(0, -40)
-hframes = 50
-vframes = 50
-frame = 128
-
 [node name="Bottom" type="Sprite2D" parent="."]
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
+
+[node name="Top" type="Sprite2D" parent="."]
+offset = Vector2(0, -40)
+hframes = 50
+vframes = 50
+frame = 1174
 
 [node name="FacialHair" type="Sprite2D" parent="."]
+texture = ExtResource("2_iplt3")
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
 
 [node name="Hair" type="Sprite2D" parent="."]
-texture = ExtResource("3_exnb7")
+texture = ExtResource("3_tyyox")
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
 
 [node name="Head" type="Sprite2D" parent="."]
 visible = false
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
 
 [node name="Shield" type="Sprite2D" parent="."]
 y_sort_enabled = true
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
 
 [node name="Weapon" type="Sprite2D" parent="."]
 offset = Vector2(0, -40)
 hframes = 50
 vframes = 50
-frame = 128
+frame = 1174
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_2hkex")

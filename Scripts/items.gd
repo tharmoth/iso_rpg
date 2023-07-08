@@ -1,38 +1,60 @@
 class_name Items extends Node
 
-enum ITEM_NAME {unarmed, battle_axe, long_bow, short_bow, dagger, halberd, mace, quarterstaff, longsword, bastard_sword, crossbow, full_plate, chain, hide, clothing, unarmed_oh, shield, buckler, food}
+var _filepath = "res://data/isorpg_loot_data.json"
+var item_data : Dictionary
 
-const items = {
-	# Weapons
-	ITEM_NAME.unarmed       : {"slot" : "weapon", "damage" : "1",     "texture" : null,                                             "price" : "0",  "animation" : "UNARMED"},
-	ITEM_NAME.battle_axe    : {"slot" : "weapon", "damage" : "1d8",   "texture" : "res://Assets/rpgtools/male/Weapons/axe.png",     "price" : "5",  "animation" : "1H"},
-	ITEM_NAME.long_bow      : {"slot" : "weapon", "damage" : "1d8",   "texture" : "res://Assets/rpgtools/male/Weapons/bow.png",     "price" : "75", "animation" : "BOW"},
-	ITEM_NAME.short_bow     : {"slot" : "weapon", "damage" : "1d6",   "texture" : "res://Assets/rpgtools/male/Weapons/bow.png",     "price" : "30", "animation" : "BOW"},
-	ITEM_NAME.dagger        : {"slot" : "weapon", "damage" : "1d4",   "texture" : "res://Assets/rpgtools/male/Weapons/dagger.png",  "price" : "2",  "animation" : "1H"},
-	ITEM_NAME.halberd       : {"slot" : "weapon", "damage" : "2d4",   "texture" : "res://Assets/rpgtools/male/Weapons/halberd.png", "price" : "10", "animation" : "POLEARM"},
-	ITEM_NAME.mace          : {"slot" : "weapon", "damage" : "1d6+1", "texture" : "res://Assets/rpgtools/male/Weapons/mace.png",    "price" : "8",  "animation" : "1H"},
-	ITEM_NAME.quarterstaff  : {"slot" : "weapon", "damage" : "1d6",   "texture" : "res://Assets/rpgtools/male/Weapons/staff.png",   "price" : "0",  "animation" : "POLEARM"},
-	ITEM_NAME.longsword     : {"slot" : "weapon", "damage" : "1d8",   "texture" : "res://Assets/rpgtools/male/Weapons/sword.png",   "price" : "15", "animation" : "1H"},
-	ITEM_NAME.bastard_sword : {"slot" : "weapon", "damage" : "1d8",   "texture" : "res://Assets/rpgtools/male/Weapons/sword-2.png", "price" : "25", "animation" : "1H"},
-	ITEM_NAME.crossbow      : {"slot" : "weapon", "damage" : "1d4+1", "texture" : "res://Assets/rpgtools/male/Weapons/xbow.png",    "price" : "50", "animation" : "XBOW"},
-
-	# Armors
-	ITEM_NAME.full_plate : {"slot" : "body", "ac" : 19, "top_texture" : "res://Assets/rpgtools/male/Top/plate-shiny.png", "bottom_texture" : "res://Assets/rpgtools/male/Bottom/plate-shiny.png", "price" : "7000"},
-	ITEM_NAME.chain      : {"slot" : "body", "ac" : 14, "top_texture" : "res://Assets/rpgtools/male/Top/scale.png",       "bottom_texture" : "res://Assets/rpgtools/male/Bottom/leather-red.png", "price" : "200"},
-	ITEM_NAME.hide       : {"slot" : "body", "ac" : 12, "top_texture" : "res://Assets/rpgtools/male/Top/hide.png",        "bottom_texture" : "res://Assets/rpgtools/male/Bottom/hide.png",        "price" : "5"},
-	ITEM_NAME.clothing   : {"slot" : "body", "ac" : 10, "top_texture" : "res://Assets/rpgtools/male/Top/shirt.png",       "bottom_texture" : "res://Assets/rpgtools/male/Bottom/black.png",       "price" : "0"},
-
-	# Shields
-	ITEM_NAME.unarmed_oh : {"slot" : "shield", "ac" : 0, "texture" : null},
-	ITEM_NAME.shield : {"slot" : "shield", "ac" : 2, "texture" : "res://Assets/rpgtools/male/Weapons/shield.png"},
-	ITEM_NAME.buckler : {"slot" : "shield", "ac" : 1, "texture" : "res://Assets/rpgtools/male/Weapons/shield-2.png"},
+func _ready():
+	_load()
 	
-	# Items
-	ITEM_NAME.food : {"slot" : "mouth", "healing" : "1d4"}
-}
+
+func _load():
+	var item_data_file = FileAccess.open(_filepath, FileAccess.READ)
+	var item_data_json = JSON.parse_string(item_data_file.get_as_text())
+	item_data_file.close()
+	for key in item_data_json.keys():
+		var value = item_data_json.get(key)
+		for item_key in value.keys():
+			var item_value = value.get(item_key)
+			item_value["name"] = item_key
+			item_value["slot"] = key
+			item_data[item_key] = item_value
 
 
-static func roll_dice(damage_string : String) -> int:
+func get_item(item_name : String) -> Dictionary:
+	if item_data.is_empty():
+		_load()
+	var item = item_data.get(item_name)
+	if item != null:
+		return item
+	return {}
+
+
+func get_item_value(item_name : String) -> int:
+	if item_data.is_empty():
+		_load()
+	var item = item_data.get(item_name)
+	if item != null and item.value != null:
+		return item.value
+	return -1
+	
+	
+func get_item_icon(item_name : String):
+	var texture = null
+	var texture_path = "res://Assets/characters/icons/" + item_name + ".png"
+	if item_name != null and ResourceLoader.exists(texture_path):
+		texture = load(texture_path)
+	if item_name != null and texture == null:
+		texture_path = "res://Assets/characters/items/" + item_name + ".png"
+		if ResourceLoader.exists(texture_path):
+			texture = load(texture_path)
+	if texture == null:
+		texture = load("res://Assets/characters/items/unknown.png")
+		push_error("Failed to find icon texture for " + item_name)
+	return texture
+
+
+static func roll_dice(damage_string) -> int:
+	damage_string = str(damage_string)
 	var damage := 0
 	
 	var num_dice_loc = damage_string.find("d")
@@ -54,8 +76,19 @@ static func roll_dice(damage_string : String) -> int:
 	if dice_loc == -1 and num_dice_loc == -1:
 		damage = int(damage_string)
 
-	for i in num_dice:
+	for i in range(0, int(num_dice), 1):
 		damage += RandomNumberGenerator.new().randi_range(1, int(dice))
 
 	damage += int(addition)
 	return damage
+
+static func empty_slot(slot : String) -> String:
+	match slot:
+		"weapon":
+			return "unarmed"
+		"shield":
+			return "unarmed_oh"
+		"armor":
+			return "clothing"
+		_:
+			return slot

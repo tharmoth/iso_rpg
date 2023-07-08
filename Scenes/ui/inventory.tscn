@@ -1,13 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqppxnh6723j1"]
+[gd_scene load_steps=8 format=3 uid="uid://tpnovc550grl"]
 
 [ext_resource type="PackedScene" uid="uid://8t53t4rmile7" path="res://Scenes/ui/button_press_audio_player.tscn" id="1_6j3pp"]
 [ext_resource type="Theme" uid="uid://8innpdu1og7a" path="res://Scenes/ui/theme.tres" id="2_2b3df"]
-[ext_resource type="PackedScene" uid="uid://bkvh6q302uw2q" path="res://Scenes/ui/buttons_panel.tscn" id="3_vq087"]
-[ext_resource type="Texture2D" uid="uid://bt3vn8bgiti58" path="res://Assets/rpgtools/items/Shield1_0008.png" id="4_ufwqk"]
-[ext_resource type="Script" path="res://Scenes/ui/InventorySlot.gd" id="5_j046i"]
+[ext_resource type="PackedScene" uid="uid://dmrhnsyjqpknm" path="res://Scenes/ui/buttons_panel.tscn" id="3_vq087"]
+[ext_resource type="PackedScene" uid="uid://1kp0ta1pc4ut" path="res://Scenes/ui/inventory_slot.tscn" id="4_eqsrf"]
+[ext_resource type="Script" path="res://Scripts/ui/stats.gd" id="5_f201j"]
 [ext_resource type="PackedScene" uid="uid://c1xl50qrl5lhh" path="res://Scenes/ui/characters_panel.tscn" id="6_su23s"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[sub_resource type="SystemFont" id="SystemFont_5vq6a"]
+font_names = PackedStringArray("Courier New")
+
+[node name="Inventory" type="CanvasLayer"]
 
 [node name="ButtonPressAudioPlayer" parent="." instance=ExtResource("1_6j3pp")]
 
@@ -26,37 +29,125 @@ size_flags_vertical = 3
 theme = ExtResource("2_2b3df")
 
 [node name="Buttons" parent="MarginContainer/HBoxContainer" instance=ExtResource("3_vq087")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryRow1" type="HBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="InventorySlot1" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="InventorySlot2" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="InventorySlot3" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventoryRow2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="CharacterRow" type="HBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="weapon" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="TextureRect" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow/weapon/MarginContainer" index="1"]
+slot = "weapon"
+
+[node name="armor" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="TextureRect" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow/armor/MarginContainer" index="1"]
+slot = "armor"
+
+[node name="shield" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow" instance=ExtResource("4_eqsrf")]
+layout_mode = 2
+
+[node name="TextureRect" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow/shield/MarginContainer" index="1"]
+slot = "shield"
+
+[node name="CharacterDetails" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterDetails"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.207843, 0.207843, 0.207843, 0.686275)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterDetails"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterDetails/MarginContainer"]
 layout_mode = 2
-color = Color(0, 0, 0, 0.686275)
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-texture = ExtResource("4_ufwqk")
-script = ExtResource("5_j046i")
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = SubResource("SystemFont_5vq6a")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Test"
+script = ExtResource("5_f201j")
 
 [node name="Characters" parent="MarginContainer/HBoxContainer" instance=ExtResource("6_su23s")]
+unique_name_in_owner = true
 layout_mode = 2
+
+[editable path="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1/InventorySlot1"]
+[editable path="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow1/InventorySlot2"]
+[editable path="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2/InventorySlot9"]
+[editable path="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/InventoryRow2/InventorySlot10"]
+[editable path="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow/weapon"]
+[editable path="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow/armor"]
+[editable path="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/CharacterRow/shield"]

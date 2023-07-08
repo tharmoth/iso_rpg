@@ -1,8 +1,8 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://8innpdu1og7a"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://8innpdu1og7a"]
 
-[ext_resource type="Texture2D" uid="uid://dn6l8iituy06j" path="res://Assets/ui/buttons/buttonUP.png" id="1_25lu3"]
-[ext_resource type="Texture2D" uid="uid://b0ns6chgn6spw" path="res://Assets/ui/buttons/buttonDown.png" id="2_ct628"]
-[ext_resource type="Texture2D" uid="uid://cr7qw57vl2mlu" path="res://Assets/ui/panel.png" id="4_pklo6"]
+[ext_resource type="Texture2D" uid="uid://dn6l8iituy06j" path="res://Assets/ui/buttons/buttonUP.png" id="1_acye3"]
+[ext_resource type="Texture2D" uid="uid://b0ns6chgn6spw" path="res://Assets/ui/buttons/buttonDown.png" id="2_n3iod"]
+[ext_resource type="Texture2D" uid="uid://cr7qw57vl2mlu" path="res://Assets/ui/panel.png" id="3_8oyau"]
 
 [sub_resource type="SystemFont" id="SystemFont_rc817"]
 font_names = PackedStringArray("Copperplate Gothic")
@@ -23,7 +23,7 @@ corner_detail = 5
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4lngn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bull1"]
-texture = ExtResource("1_25lu3")
+texture = ExtResource("1_acye3")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
 texture_margin_right = 6.0
@@ -33,7 +33,7 @@ axis_stretch_vertical = 1
 region_rect = Rect2(236, 190, 167, 45)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f765g"]
-texture = ExtResource("1_25lu3")
+texture = ExtResource("1_acye3")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
 texture_margin_right = 6.0
@@ -43,7 +43,7 @@ axis_stretch_vertical = 1
 region_rect = Rect2(236, 190, 167, 45)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3hkj7"]
-texture = ExtResource("2_ct628")
+texture = ExtResource("2_n3iod")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
 texture_margin_right = 6.0
@@ -53,7 +53,17 @@ axis_stretch_vertical = 1
 region_rect = Rect2(236, 190, 167, 45)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ksuv"]
-texture = ExtResource("4_pklo6")
+texture = ExtResource("3_8oyau")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(20, 20, 560, 560)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3r0my"]
+texture = ExtResource("3_8oyau")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
@@ -86,3 +96,4 @@ Button/styles/hover = SubResource("StyleBoxTexture_bull1")
 Button/styles/normal = SubResource("StyleBoxTexture_f765g")
 Button/styles/pressed = SubResource("StyleBoxTexture_3hkj7")
 Panel/styles/panel = SubResource("StyleBoxTexture_0ksuv")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_3r0my")

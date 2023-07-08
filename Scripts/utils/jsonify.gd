@@ -54,7 +54,6 @@ static func jsonify(data):
 		_:
 			# Unhandled data type
 			printerr("Unhandled data: ", data)
-			assert(false)
 
 
 static func godotify(data):

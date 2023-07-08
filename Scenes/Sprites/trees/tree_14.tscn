@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmplig70ii8so"]
+
+[ext_resource type="Material" uid="uid://och6et0w3vug" path="res://shaders/wind_material.tres" id="1_8o0s3"]
+[ext_resource type="Texture2D" uid="uid://cf830cbw0fpw2" path="res://Assets/sprites/Tree14_1.png" id="2_1lewg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ao50p"]
+radius = 30.0
+
+[node name="Tree14" type="StaticBody2D"]
+y_sort_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.96046e-08, -12)
+scale = Vector2(0.35, 0.35)
+shape = SubResource("CircleShape2D_ao50p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+material = ExtResource("1_8o0s3")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_1lewg")
+offset = Vector2(20, -140)
+metadata/_edit_lock_ = true

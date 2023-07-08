@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://1kp0ta1pc4ut"]
+
+[ext_resource type="Script" path="res://Scripts/ui/inventory_slot.gd" id="1_sr18e"]
+
+[node name="InventorySlot" type="PanelContainer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.592157, 0.592157, 0.592157, 0.686275)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+script = ExtResource("1_sr18e")

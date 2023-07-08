@@ -1,49 +1,42 @@
 class_name BCharacter extends CharacterBody2D
 
+#NPC Vars
+var xp_value = 2000
 @onready var start_point = position
-var target = null
-
 @export var display_name = "Unknown"
 
-const MAX_HEALTH = 10
-signal health_changed
-@export var health := MAX_HEALTH :
-	set(value):
-		if value < health and value > 0:
-			$Voice/HitPlayer.play()
-		health = min(MAX_HEALTH, max(0, value))
-		health_changed.emit()
-		if health <= 0:
-			on_death()
-		else:
-			$HealthBar.value = health
-
-
+#############
+# Initalize #
+#############
 func _ready():
 	_init_actions()
-	_init_selection()
+	_init_animation()
+	_init_fx()
 	_init_equipment()
 
-	$HealthBar.max_value = MAX_HEALTH
-	
 
 func _physics_process(delta) -> void:
-	if health <= 0:
+	if not alive or get_parent() == null:
 		return
 	_physics_process_animation(delta)
 	_physics_process_navigation(delta)
+	_physics_process_fx(delta)
 	queue_redraw()
-	
-func get_target_position():
-	if target is Vector2:
-		return target
-	return null
+
 
 ####################################
 # Navigation variables and methods #
 ####################################
 @onready var navigation_agent = $NavigationAgent2D
 var SPEED = 150.0
+var target = null
+
+
+func get_target_position():
+	if target is Vector2:
+		return target
+	return null
+
 
 func _physics_process_navigation(delta):
 	navigate_to_target()
@@ -51,25 +44,41 @@ func _physics_process_navigation(delta):
 
 func navigate_to_target():
 	if get_target_position() != null:
-		if not $Sounds/FootstepPlayer.playing:
-			$Sounds/FootstepPlayer.play()
+		interaction.emit(INTERACTION.WALK)
 		navigation_agent.target_position = get_target_position()
 		if navigation_agent.is_navigation_finished():
 			target = null
-			$Sounds/FootstepPlayer.stop()
+			interaction.emit(INTERACTION.IDLE)
 	else:
 		navigation_agent.target_position = position
 
 
 ####################################
-# Interaction variables and method #
+#           Game Logic             #
 ####################################
 var cooldown := Timer.new()
+var alive = true
+var rpg_character = RPGCharacter.new() :
+	set(value):
+		if value is Dictionary:
+			for i in value.keys():
+				rpg_character.set(i, jsonify.godotify(value[i]))
+		elif value is RPGCharacter:
+			rpg_character = value
+		else:
+			push_error("Tried to assign a non-RPGCharacter value to rpg_character!")
+
+enum INTERACTION {MISS, ATTACK, INTERACT, DEATH, HIT, WALK, IDLE}
+signal interaction(result : INTERACTION)
 
 func _init_actions():
 	cooldown.wait_time = 3
 	cooldown.one_shot = true
 	add_child(cooldown)
+	
+	rpg_character.health_changed.connect(_update_health)
+	rpg_character.equipment_changed.connect(_update_sprites)
+	add_child(rpg_character)
 
 
 func attack() -> bool:
@@ -77,25 +86,28 @@ func attack() -> bool:
 		return false
 	if target == null:
 		return false
-		
-	animation_to_play = "Attack" # Play the attack animation
-	
 
-	var rand = RandomNumberGenerator.new()	
-	var attack_roll = rand.randi_range(1, 20)
+	var attack_roll = rpg_character.attack()
 	var target_ac = target.get_ac()
-	var damage_out = Items.roll_dice(weapon.damage)
+	var damage_out = rpg_character.damage()
 
 	if attack_roll > target_ac or attack_roll == 20:
-		GlobalPersistant.print(display_name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to hit " + target.display_name + " dealing " + str(damage_out) + " damage!")
-		target.health = target.health - damage_out
-		$Sounds/SwordStrikePlayer.play()
+		if attack_roll == UTILS.INFINITY:
+			GlobalPersistant.post(display_name + " rolled a natural 20 to hit " + target.display_name + " dealing " + str(damage_out) + " damage!")
+		else:
+			GlobalPersistant.post(display_name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to hit " + target.display_name + " dealing " + str(damage_out) + " damage!")
+		target.damage(damage_out)
+		if not target.alive:
+			target_slain(target)
+
+		interaction.emit(INTERACTION.ATTACK)
 	else:
-		GlobalPersistant.print(display_name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to miss " + target.display_name + "!")
-		$Sounds/SwingPlayer.play()
+		GlobalPersistant.post(display_name + " rolled " + str(attack_roll) + " against AC " + str(target_ac) + " to miss " + target.display_name + "!")
+		interaction.emit(INTERACTION.MISS)
 
 	cooldown.start()
 	return true
+
 
 func interact() -> bool:
 	if not cooldown.is_stopped():
@@ -103,34 +115,100 @@ func interact() -> bool:
 	if target == null:
 		return false
 	
-	$Sounds/InteractPlayer.play()
-	animation_to_play = "Interact"
-		
+	interaction.emit(INTERACTION.INTERACT)
+
 	cooldown.start()
 	return true
-	
+
+
 func _on_interact_complete() -> void:
 	if target is Interactable:
 		var item = target.loot(self)
-		if item != null:
-			equip(item) 
+		if rpg_character.add_item_to_inventory(item):
+			GlobalPersistant.post(ItemDatabase.get_item(item).name + " added to inventory!")
+	if target is BCharacter:
+		var items = target.loot(self)
+		for item in items:
+			if rpg_character.add_item_to_inventory(item):
+				GlobalPersistant.post(ItemDatabase.get_item(item).name + " added to inventory!")
+
+
+func on_death():
+	alive = false
+	target = null
+	
+	remove_child($CollisionShape2D)
+	remove_child($NavigationAgent2D)
+	$HealthBar.visible = false
+	
+	interaction.emit(INTERACTION.DEATH)
+	queue_redraw()
+
+
+func _update_health(old_health, new_health):
+	if new_health <  old_health and old_health > 0:
+		interaction.emit(INTERACTION.HIT)
+	if new_health <= 0:
+		on_death()
+
+
+func damage(value):
+	rpg_character.health -= value
+
+
+func equip(item_slot : String, item_name : String) -> void:
+	rpg_character.equip(item_slot, item_name)
+
+
+func get_ac() -> int:
+	return rpg_character.ac()	
+
+
+func target_slain(dead_character : BCharacter) -> void:
+	pass
+
+
+func loot(player : BCharacter) -> Array:
+	var valuables = rpg_character.get_all_items()
+	rpg_character.strip()
+	return valuables
 
 
 ###################################
 # Animation variables and methods #
 ###################################
 @onready var animation_state : AnimationNodeStateMachinePlayback = $Sprites/AnimationTree.get("parameters/playback")
-var current_animation = null
+var animation_current = null
 var animation_rotation := Vector2.ZERO
 var animation_to_play := ""
+var animation_offset = Vector2.ZERO
+var animaiton_offset_target = Vector2.ZERO
+var animation_offset_tween
+
+func _init_animation():
+	interaction.connect(func(action):
+		match action:
+			INTERACTION.DEATH:
+				on_death_animation()
+			INTERACTION.ATTACK:
+				animation_to_play = "Attack"
+			INTERACTION.MISS:
+				animation_to_play = "Attack"
+			INTERACTION.INTERACT:
+				animation_to_play = "Interact"
+			_:
+				pass
+	)
+	pass
+
 
 func _physics_process_animation(delta):
-	if animation_state.get_current_node() != current_animation:
+	if animation_state.get_current_node() != animation_current:
 		on_animation_state_change(animation_state.get_current_node())
 	_set_animation()
 	_turn()
-	
-	
+
+
 func _turn():
 	var new_rotation = null
 	
@@ -149,6 +227,15 @@ func _turn():
 		$Sprites/AnimationTree.set("parameters/Attack/blend_position", animation_rotation)
 		$Sprites/AnimationTree.set("parameters/Interact/blend_position", animation_rotation)
 		
+	var new_animaiton_offset_target = animation_rotation.normalized() * -15 if velocity == Vector2.ZERO else Vector2.ZERO
+	if animaiton_offset_target != new_animaiton_offset_target:
+		animaiton_offset_target = new_animaiton_offset_target
+		if animation_offset_tween:
+			animation_offset_tween.kill() # Abort the previous animation.
+		animation_offset_tween = create_tween()
+		if animation_offset_tween:
+			animation_offset_tween.set_trans(Tween.TRANS_QUART)
+			animation_offset_tween.tween_property(self, "animation_offset", animaiton_offset_target, .15)
 
 
 func _set_animation():
@@ -164,157 +251,154 @@ func _set_animation():
 
 
 func on_animation_state_change(new_animtion : String):
-	if current_animation == animation_to_play:
+	if animation_current == animation_to_play:
 		animation_to_play = ""
-	current_animation = new_animtion
-
-
-func on_death():
-	animation_state.travel("Death")
-	target = null
-#	remove_child($SelectionArea)
-	remove_child($CollisionShape2D)
-	remove_child($NavigationAgent2D)
-	remove_child($HealthBar)
-	$Voice/DeathPlayer.play()
-	queue_redraw()
-#	circle_color = Color(0, 0, 0, 0)
-
-
-###################################
-# Selection variables and methods #
-###################################
-@onready var body = $Sprites/Base
-var selection_color_tween
-
-func _init_selection():
-	$SelectionArea.mouse_entered.connect(_on_mouse_over_mouse_entered)
-	$SelectionArea.mouse_exited.connect(_on_mouse_over_mouse_exited)
-
-func _on_mouse_over_mouse_entered():
-	GlobalCursor.mouse_enter(self)
-
-
-func _on_mouse_over_mouse_exited():
-	GlobalCursor.mouse_exit(self)
+	animation_current = new_animtion
 
 
 func set_selected(select : bool):
-	if health <= 0:
-		return
-	
-	var default_color = UTILS.PLAYER_COLOR if self is Player else UTILS.HOSTILE_COLOR
-	if select:
-		body.set_material(load("res://shaders/outline_material.tres"))
-		selection_color_tween = create_tween()
-		blink()
+	if not alive and rpg_character.get_all_items().is_empty():
+		$SelectionArea.set_selected(false)
 	else:
-		body.set_material(null)
-		selection_color_tween.kill()
-		circle_color = default_color
+		$SelectionArea.set_selected(select)
 
-func blink() -> void:
-	if selection_color_tween:
-		selection_color_tween.kill() # Abort the previous animation.
-	selection_color_tween = create_tween()
-	var default_color = UTILS.PLAYER_COLOR if self is Player else UTILS.HOSTILE_COLOR
-	selection_color_tween.tween_property(self, "circle_color", UTILS.SELECTED_COLOR, .5)
-	selection_color_tween.tween_property(self, "circle_color", default_color, .5)
-	selection_color_tween.tween_callback(blink)
 
-##################################
-# Equpment Variables and Methods #
-##################################
-@export var weapon = Items.ITEM_NAME.unarmed :
+func on_death_animation():
+	set_selected(false)
+	animation_state.start("Death")
+	if rpg_character.health == UTILS.MINUS_INFINITY:
+		$Sprites/AnimationTree.advance(100)
+
+
+############################
+# FX Variables and Methods #
+############################
+@onready var blood_offset = $Blood.position
+
+func _init_fx():
+	interaction.connect(func(action):
+		match action:
+			INTERACTION.WALK:
+				on_walk_fx()
+			INTERACTION.IDLE:
+				on_idle_fx()
+			INTERACTION.ATTACK:
+				on_attack_fx()
+			INTERACTION.MISS:
+				on_miss_fx()
+			INTERACTION.INTERACT:
+				on_interact_fx()
+			INTERACTION.DEATH:
+				on_death_fx()
+			INTERACTION.HIT:
+				on_hit_fx()
+			_:
+				pass
+	)
+
+
+func _physics_process_fx(delta):
+	if $Blood.position != animaiton_offset_target + blood_offset:
+		$Blood.position = animation_offset + blood_offset
+
+
+func on_walk_fx():
+	if not $Sounds/FootstepPlayer.playing:
+		$Sounds/FootstepPlayer.play()
+
+
+func on_idle_fx():
+	$Sounds/FootstepPlayer.stop()
+
+
+func on_attack_fx():
+	$Sounds/SwordStrikePlayer.play()
+
+
+func on_miss_fx():
+	$Sounds/SwingPlayer.play()
+
+
+func on_interact_fx():
+	$Sounds/InteractPlayer.play()
+
+
+func on_hit_fx():
+	if rpg_character.health > UTILS.MINUS_INFINITY and alive:
+		$Voice/HitPlayer.play()
+		$Blood.emitting = true
+
+
+func on_death_fx():
+	if rpg_character.health > UTILS.MINUS_INFINITY:
+		$Voice/DeathPlayer.play()
+		$Blood.emitting = true
+
+
+################################
+# Sprite Variables and Methods #
+################################
+var weapon = "unarmed" :
 	set(value):
-		if value is Items.ITEM_NAME:
-			value = Items.items.get(value)
+		if value == null:
+			return
+			
 		weapon = value
 		
 		var texture = null
-		if value != null && weapon.texture != null:
-			texture = load(weapon.texture)
+		var texture_path = "res://Assets/characters/male/Weapons/" + weapon + ".png"
+		if value != null and ResourceLoader.exists(texture_path):
+			texture = load(texture_path)
 		$Sprites/Weapon.texture = texture
-@export var armor = Items.ITEM_NAME.clothing :
+var armor = "clothing" :
 	set(value):
-		if value is Items.ITEM_NAME:
-			value = Items.items.get(value)
+		if value == null:
+			return
 		armor = value
 		
 		var top_texture = null
 		var bottom_texture = null
-		if value != null and armor.top_texture != null and armor.bottom_texture != null:
-			top_texture = load(armor.top_texture)
-			bottom_texture = load(armor.bottom_texture)
+		var top_texture_path = "res://Assets/characters/male/Top/" + armor + ".png"
+		var bottom_texture_path = "res://Assets/characters/male/Bottom/" + armor + ".png"
+		if value != null and ResourceLoader.exists(top_texture_path) and ResourceLoader.exists(bottom_texture_path):
+			top_texture = load(top_texture_path)
+			bottom_texture = load(bottom_texture_path)
 		$Sprites/Top.texture = top_texture
 		$Sprites/Bottom.texture = bottom_texture
-@export var shield = Items.ITEM_NAME.unarmed_oh :
+var shield = "unarmed_oh" :
 	set(value):
-		if value is Items.ITEM_NAME:
-			value = Items.items.get(value)
+		if value == null:
+			return
 		shield = value
 		
 		var texture = null
-		if value != null and shield.texture != null:
-			texture = load(shield.texture)
+		var texture_path = "res://Assets/characters/male/Weapons/" + shield + ".png"
+		if value != null and ResourceLoader.exists(texture_path):
+			texture = load(texture_path)
 		$Sprites/Shield.texture = texture
 
-func _init_equipment():
-	weapon = weapon
-	armor = armor
-	shield = shield
 
-# Routes and Item to the correct slot.
-func equip(item) -> void:
-	if item is Items.ITEM_NAME:
-		item = Items.items.get(item)
-	
-	if item.slot == "weapon":
-		weapon = item
-	elif item.slot == "body":
-		armor = item
-	elif item.slot == "shield":
-		shield = item
-	elif item.slot == "mouth":
-		var healing = min(Items.roll_dice(item.healing), MAX_HEALTH - health)
-		GlobalPersistant.print(display_name + " ate food healing " + str(healing) + " hitpoints!")
-		health += healing
-		
-		
-func get_ac() -> int:
-	var ac = 0
-	if armor != null:
-		ac += armor.ac
-	else:
-		ac = 10
-		
-	if shield != null:
-		ac += shield.ac
-		
-	return ac
+func _init_equipment():
+	weapon = rpg_character.weapon
+	armor = rpg_character.armor
+	shield = rpg_character.shield
+
+
+func _update_sprites(slot, value):
+	if get(slot) != null:
+		set(slot, value)
+
 
 ###################################
 # Drawing Variables and Functions #
 ###################################
 var CIRLCE_SIZE = 30
-var circle_color = UTILS.PLAYER_COLOR if self is Player else UTILS.HOSTILE_COLOR
-var circle_offset = Vector2.ZERO
-var target_offset = Vector2.ZERO
-var circle_location_tween
+@onready var circle_color = $SelectionArea.circle_color
 
 func _draw():
-	if health > 0:
-		var new_target_offset = animation_rotation.normalized() * -15 if velocity == Vector2.ZERO else Vector2.ZERO
-		if target_offset != new_target_offset:
-			target_offset = new_target_offset
-			if circle_location_tween:
-				circle_location_tween.kill() # Abort the previous animation.
-			circle_location_tween = create_tween()
-			circle_location_tween.set_trans(Tween.TRANS_QUART)
-			circle_location_tween.tween_property(self, "circle_offset", target_offset, .15)
-		
+	if alive:
 		draw_set_transform(Vector2(0, 0), 0, Vector2(1, .5))
-		draw_arc(circle_offset, CIRLCE_SIZE, 0, 360, 100, circle_color)
+		draw_arc(animation_offset, CIRLCE_SIZE, 0, 360, 100, circle_color)
 		draw_set_transform(Vector2(0, 0), 0, Vector2(1, 1))
   
 #	for i in steering.num_rays:
@@ -361,14 +445,12 @@ func save():
 		# Metadata
 		"filename" : get_scene_file_path(),
 		"parent" : get_parent().get_path(),
-		
+		"display_name" : display_name,
+ 		
 		# Stats
-		"health" : health,
 		"position" : jsonify.jsonify(position),
 		"start_point" : jsonify.jsonify(start_point),
 		
 		# Equipment
-		"weapon" : weapon,
-		"armor" : armor,
-		"shield" : shield,
+		"rpg_character" : rpg_character.save(),
 	}
