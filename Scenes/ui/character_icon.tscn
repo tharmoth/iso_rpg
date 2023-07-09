@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://xgx0u2vs3k54"]
+
+[ext_resource type="Texture2D" uid="uid://c6crx05wy1345" path="res://Assets/corax/coraxdigitalart-realistic-human-heroes (319).png" id="1_4c2lx"]
+[ext_resource type="Script" path="res://Scripts/ui/character_icon.gd" id="2_lhaix"]
+[ext_resource type="Script" path="res://Scripts/ui/health_tracker.gd" id="3_48rfn"]
+[ext_resource type="Texture2D" uid="uid://ckhhs4yt1d6ji" path="res://Assets/ui/selected_outline.png" id="4_kwvy7"]
+
+[node name="Character0" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 100)
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="PortratCharacter" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_4c2lx")
+expand_mode = 1
+script = ExtResource("2_lhaix")
+
+[node name="HealthBarCharacter" type="ProgressBar" parent="."]
+modulate = Color(0.909804, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_filter = 2
+max_value = 10.0
+step = 1.0
+fill_mode = 3
+show_percentage = false
+script = ExtResource("3_48rfn")
+reverse = true
+
+[node name="HealthLabelCharacter" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "10/10"
+script = ExtResource("3_48rfn")
+
+[node name="SelectedOutline" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("4_kwvy7")
+expand_mode = 1

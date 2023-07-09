@@ -16,6 +16,7 @@ var target_velocity = Vector2.ZERO
 
 func _ready():
 	get_viewport().size_changed.connect(func(): viewport_size = get_viewport().size)
+	add_child(AudioListener2D.new())
 
 func _physics_process(delta):
 	if not focused:
@@ -29,7 +30,7 @@ func _physics_process(delta):
 		viewport_size = get_viewport().size
 		
 	if GlobalPersistant.lock_camera:
-		position = GlobalPersistant.player.position
+		position = GlobalPersistant.selected_player.position
 	else:
 		move_camera(delta)
 

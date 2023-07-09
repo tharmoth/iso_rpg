@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://1kp0ta1pc4ut"]
+[gd_scene load_steps=6 format=3 uid="uid://1kp0ta1pc4ut"]
 
 [ext_resource type="Script" path="res://Scripts/ui/inventory_slot.gd" id="1_sr18e"]
+[ext_resource type="AudioStream" uid="uid://cwfiy2edw0xkk" path="res://Assets/sfx/ui/weapon_draw.mp3" id="2_i34uv"]
+[ext_resource type="AudioStream" uid="uid://d1bkkhu37nq0d" path="res://Assets/sfx/ui/weapon_draw_reverse.wav" id="3_umcql"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_keqq0"]
+streams_count = 1
+random_volume_offset_db = 7.0
+stream_0/stream = ExtResource("2_i34uv")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oieml"]
+streams_count = 1
+stream_0/stream = ExtResource("3_umcql")
+stream_0/weight = 1.0
 
 [node name="InventorySlot" type="PanelContainer"]
 
@@ -15,8 +28,16 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 color = Color(0.592157, 0.592157, 0.592157, 0.686275)
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" groups=["Inventory"]]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 expand_mode = 1
 script = ExtResource("1_sr18e")
+
+[node name="DrawPlayer" type="AudioStreamPlayer" parent="MarginContainer"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_keqq0")
+
+[node name="SheathPlayer" type="AudioStreamPlayer" parent="MarginContainer"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_oieml")

@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqbg1hw3dxj1m"]
+[gd_scene load_steps=13 format=3 uid="uid://dqbg1hw3dxj1m"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_ik8ot"]
 [ext_resource type="Texture2D" uid="uid://bk8v8gsd0qupa" path="res://Assets/scenes/forest.png" id="3_h6g5a"]
 [ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/interactables/exit.tscn" id="4_tw86v"]
 [ext_resource type="Texture2D" uid="uid://k8xh5qk3pmtj" path="res://Assets/sprites/Town_4.png" id="5_q4dvc"]
-[ext_resource type="PackedScene" uid="uid://btrc6kotue7ux" path="res://Scenes/characters/hostile_npc.tscn" id="6_10hjr"]
 [ext_resource type="PackedScene" uid="uid://db1x5tigwum0m" path="res://Scenes/interactables/lootable.tscn" id="7_3nygm"]
 [ext_resource type="Texture2D" uid="uid://o0tx6376f8uc" path="res://Assets/characters/items/chain_mail.png" id="7_h3pcl"]
 [ext_resource type="Texture2D" uid="uid://ckcabmxh77rdy" path="res://Assets/characters/items/dagger.png" id="7_suq7k"]
@@ -12,7 +11,6 @@
 [ext_resource type="AudioStream" uid="uid://efy8n1af3sx3" path="res://Assets/sfx/ambiance/forest - wind, birds.wav" id="11_r3tq2"]
 [ext_resource type="PackedScene" uid="uid://n6iobgqwvpcd" path="res://Scenes/rng/woods.tscn" id="12_w48gw"]
 [ext_resource type="Texture2D" uid="uid://vwu4rqu6u8gq" path="res://Assets/sprites/sign.png" id="12_yeq07"]
-[ext_resource type="PackedScene" uid="uid://dv7oa15hepm5x" path="res://Scenes/characters/player_character.tscn" id="13_x0d12"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n37w1"]
 vertices = PackedVector2Array(-297, -1315, 249, -1027, 99, -1024, -974, -1031, -345, -1316, -1109, 977, 766, 878, 800, 879, 566, 1376, -1498, 1230, 662, -527, 544, -932, 1498, -1496, 1496, 1488, 591, -486, 642, -489, 803, 813, 760, 806, -120, 201, -142, 145, -103, -588, -223, -663, -146, -660, 523, -866, 613, -564, 523, -818, 824, 852, 752, 1497, 733, 840, -1114, 908, -180, 178, -1205, 976, 39, -968, 99, -942, 26, -900, 104, -523, 299, -523, 513, -521, -751, -445, -754, -472, -112, -520, -1248, 954, -1248, 921, -1496, 6.08154, -1293, 31, 105, -589, 249, -941, 338, -1003, 337, -907, 298, -593, -1207, 910, -1365, -780, -1496, -756, -1496, -1496, -1086, -1039, -1104, -968, 511, -593, 579, -530, -399, -932, -1299, -672, -1348, -660, -1006, -959, 496, -895, -762, -391, -764, -368, -785, -418, -808, -347, -1235.37, 0.504059, -1276, -97, -1231, -116, -1206, -80, -1150, -46, 461, -821, -257, -625, -72, -828, -96, -760, -401, -866, -259, -783, -824, -516, -13, -998, -857, -384, -1087, -78, -1054, -245, -833, -436, -1065, -402, -855, -480, 435, -992, -285, -1338, -348, -1404, -363, -1342, -1182, -474, -145, -722, -193, -822, -152, -881, -245, -832)
@@ -31,26 +29,6 @@ metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_n37w1")
-
-[node name="Hostiles" type="Node2D" parent="."]
-y_sort_enabled = true
-metadata/_edit_lock_ = true
-
-[node name="Bandit" parent="Hostiles" instance=ExtResource("6_10hjr")]
-position = Vector2(154, -895)
-display_name = "Bandit"
-
-[node name="Bandit2" parent="Hostiles" instance=ExtResource("6_10hjr")]
-position = Vector2(-30, -822)
-display_name = "Bandit"
-
-[node name="Bandit3" parent="Hostiles" instance=ExtResource("6_10hjr")]
-position = Vector2(339, -842)
-display_name = "Bandit"
-
-[node name="BanditClothing" parent="Hostiles" instance=ExtResource("6_10hjr")]
-position = Vector2(-1176, -1104)
-display_name = "Bandit"
 
 [node name="Loot" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -198,9 +176,6 @@ position = Vector2(1345, -508)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("12_yeq07")
 offset = Vector2(35, -115)
-
-[node name="PlayerCharacter" parent="." instance=ExtResource("13_x0d12")]
-position = Vector2(-895, 1155)
 
 [editable path="Loot/Food"]
 [editable path="Loot/Mushroom1"]

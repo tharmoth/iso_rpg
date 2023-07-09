@@ -12,9 +12,11 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6), Packe
 outlines = Array[PackedVector2Array]([PackedVector2Array(116, 277, 239, 200, 209, 131, 212, 76, 269, 46, 264, -126, 195, -212, 80, -230, -48, -236, -165, -198, -191, -60, -241, 26, -244, 133, -164, 225, 55, 224), PackedVector2Array(-119, 125, -122, 101, -152, 70, -163, 20, -191, 17, -200, 107, -190, 128, -203, 167, -182, 183), PackedVector2Array(-97, -61, -4, -110, -15, -169, -43, -234, -115, -211, -127, -119)])
 
 [node name="Cave" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_xniy8")
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -1
 texture = ExtResource("1_ymcb5")
 metadata/_edit_lock_ = true
 

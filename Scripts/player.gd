@@ -8,7 +8,14 @@ var spawn_scene = null :
 			spawn = ""
 var parent = null
 var target_interactable = null
+var party_offset = Vector2.ZERO
 
+signal selection_changed()
+var selected = false :
+	set(value):
+		if selected != value:
+			selected = value
+			selection_changed.emit()
 
 func _ready():
 	super()
@@ -17,32 +24,46 @@ func _ready():
 	cooldown.wait_time = 2.9
 	tree_entered.connect(func(): spawn_scene = null)
 	rpg_character.leveled_up.connect(_on_level_up)
-	rpg_character.equip("weapon", "longsword")
-	rpg_character.equip("armor", "full_plate")
-
+	if GlobalPersistant.players.find(self) == -1:
+		party_offset = Vector2(0, GlobalPersistant.players.size() * 60)
+	else:
+		party_offset = Vector2(0, GlobalPersistant.players.find(self) * 60)
 
 func _physics_process(delta):
 	super(delta)
 	if not alive:
 		return
 	_set_target()
-
-
+	
+	
 func _unhandled_input(_event):
-	if Input.is_action_just_released("interact"):
+	if $SelectionArea.highlighted and Input.is_action_just_released("interact"):
+		print("player clicked!")
+		for player in GlobalPersistant.players:
+			player.selected = false
+		selected = true
+#		return
+	if not selected:
+		return
+
+	if Input.is_action_pressed("move"):
 		if GlobalCursor.current_state == GlobalCursor.State.MOVE:
-			target = get_global_mouse_position()
+			#TODO fix party rotation!
+#			var rotation = GlobalPersistant.players[0].position.angle_to_point(get_global_mouse_position())
+#			var offset_rotated = party_offset.rotated(rotation)
+
+			target = get_global_mouse_position() + party_offset
 			target_interactable = null
 		elif GlobalCursor.current_state == GlobalCursor.State.ATTACK:
-			target_interactable = GlobalCursor.selected
+			target_interactable = GlobalCursor.highlighted
 			target = target_interactable.position
-		elif GlobalCursor.current_state == GlobalCursor.State.CAN_INTERACT or GlobalCursor.current_state == GlobalCursor.State.INTERACTING:
-			target_interactable = GlobalCursor.selected
+		elif GlobalCursor.current_state == GlobalCursor.State.CAN_INTERACT or GlobalCursor.current_state == GlobalCursor.State.INTERACTING and GlobalPersistant.selected_player == self:
+			target_interactable = GlobalCursor.highlighted
 			target = target_interactable.position
 		else:
 			target = null
 	else:
-		if Input.is_action_pressed("interact") and GlobalCursor.current_state == GlobalCursor.State.MOVE and target != null:
+		if Input.is_action_pressed("move") and GlobalCursor.current_state == GlobalCursor.State.MOVE and target != null:
 			target = get_global_mouse_position()
 			target_interactable = null
 
@@ -79,7 +100,13 @@ func _start_screen():
 
 func on_death():
 	super()
-	GlobalPersistant.gui.get_node("%DeathLabel").visible = true
+	GlobalPersistant.players.erase(self)
+	
+	for player in GlobalPersistant.players:
+		if player.alive:
+			return
+		
+	GUI.get_node("%DeathLabel").visible = true
 	var timer = Timer.new()
 	timer.wait_time = 5
 	timer.one_shot = true
@@ -111,6 +138,7 @@ func save():
 		# Stats
 		"position" : jsonify.jsonify(position),
 		"start_point" : jsonify.jsonify(start_point),
+		"animation_rotation" : jsonify.jsonify(animation_rotation),
 		
 		# Equipment
 		"rpg_character" : rpg_character.save(),

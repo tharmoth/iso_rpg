@@ -46,6 +46,8 @@ func navigate_to_target():
 	if get_target_position() != null:
 		interaction.emit(INTERACTION.WALK)
 		navigation_agent.target_position = get_target_position()
+		velocity = to_local(navigation_agent.get_next_path_position()).normalized() * SPEED
+		move_and_slide()
 		if navigation_agent.is_navigation_finished():
 			target = null
 			interaction.emit(INTERACTION.IDLE)
@@ -58,7 +60,7 @@ func navigate_to_target():
 ####################################
 var cooldown := Timer.new()
 var alive = true
-var rpg_character = RPGCharacter.new() :
+var rpg_character = RPGCharacter.new() : 
 	set(value):
 		if value is Dictionary:
 			for i in value.keys():
@@ -124,7 +126,7 @@ func interact() -> bool:
 func _on_interact_complete() -> void:
 	if target is Interactable:
 		var item = target.loot(self)
-		if rpg_character.add_item_to_inventory(item):
+		if item != null and rpg_character.add_item_to_inventory(item):
 			GlobalPersistant.post(ItemDatabase.get_item(item).name + " added to inventory!")
 	if target is BCharacter:
 		var items = target.loot(self)
@@ -179,11 +181,20 @@ func loot(player : BCharacter) -> Array:
 ###################################
 @onready var animation_state : AnimationNodeStateMachinePlayback = $Sprites/AnimationTree.get("parameters/playback")
 var animation_current = null
-var animation_rotation := Vector2.ZERO
+var animation_rotation := Vector2.ZERO :
+	set(value):
+		animation_rotation = value	
+		$Sprites/AnimationTree.set("parameters/Walk/blend_position", animation_rotation)
+		$Sprites/AnimationTree.set("parameters/Idle/blend_position", animation_rotation)
+		$Sprites/AnimationTree.set("parameters/Death/blend_position", animation_rotation)
+		$Sprites/AnimationTree.set("parameters/Attack/blend_position", animation_rotation)
+		$Sprites/AnimationTree.set("parameters/Interact/blend_position", animation_rotation)
+		
 var animation_to_play := ""
 var animation_offset = Vector2.ZERO
 var animaiton_offset_target = Vector2.ZERO
 var animation_offset_tween
+var animation_advance_time = 0
 
 func _init_animation():
 	interaction.connect(func(action):
@@ -196,13 +207,21 @@ func _init_animation():
 				animation_to_play = "Attack"
 			INTERACTION.INTERACT:
 				animation_to_play = "Interact"
+			INTERACTION.WALK:
+				animation_to_play = "Walk"
+			INTERACTION.IDLE:
+				animation_to_play = "Idle"
 			_:
 				pass
 	)
-	pass
+	interaction.emit(INTERACTION.IDLE)
+	
+#	navigation_agent.velocity_computed.connect(func(computed_velocity): velocity = computed_velocity)
+
 
 
 func _physics_process_animation(delta):
+	var test = $Sprites/AnimationTree.get("parameters/StateMachine/playback")
 	if animation_state.get_current_node() != animation_current:
 		on_animation_state_change(animation_state.get_current_node())
 	_set_animation()
@@ -221,11 +240,6 @@ func _turn():
 
 	if new_rotation != null:
 		animation_rotation = UTILS.clamp_rotation(animation_rotation, new_rotation, 15)
-		$Sprites/AnimationTree.set("parameters/Walk/blend_position", animation_rotation)
-		$Sprites/AnimationTree.set("parameters/Idle/blend_position", animation_rotation)
-		$Sprites/AnimationTree.set("parameters/Death/blend_position", animation_rotation)
-		$Sprites/AnimationTree.set("parameters/Attack/blend_position", animation_rotation)
-		$Sprites/AnimationTree.set("parameters/Interact/blend_position", animation_rotation)
 		
 	var new_animaiton_offset_target = animation_rotation.normalized() * -15 if velocity == Vector2.ZERO else Vector2.ZERO
 	if animaiton_offset_target != new_animaiton_offset_target:
@@ -239,16 +253,17 @@ func _turn():
 
 
 func _set_animation():
-	if animation_to_play != "":
+	if animation_to_play != "" and animation_state.get_current_node() != animation_to_play:
+		print("playing animation " + animation_to_play)
+		
+		
+		animation_advance_time = RandomNumberGenerator.new().randf_range(0, 100)
+		var animation_speed = RandomNumberGenerator.new().randf_range(.95, 1.05)
+		print("advancing!" + str(animation_advance_time) + ", speed: " + str(animation_speed))
+#		$Sprites/AnimationTree.advance(animation_advance_time)
+#		$Sprites/AnimationTree.set("parameters/BlendTree/TimeScale/scale", animation_speed)
+#		$Sprites/AnimationTree.active = false
 		animation_state.travel(animation_to_play)
-	elif not navigation_agent.is_navigation_finished():
-		velocity = to_local(navigation_agent.get_next_path_position()).normalized() * SPEED
-		move_and_slide()
-		animation_state.travel("Walk")
-	else:
-		velocity = Vector2.ZERO
-		animation_state.travel("Idle")
-
 
 func on_animation_state_change(new_animtion : String):
 	if animation_current == animation_to_play:
@@ -256,15 +271,15 @@ func on_animation_state_change(new_animtion : String):
 	animation_current = new_animtion
 
 
-func set_selected(select : bool):
+func set_highlighted(select : bool):
 	if not alive and rpg_character.get_all_items().is_empty():
-		$SelectionArea.set_selected(false)
+		$SelectionArea.set_highlighted(false)
 	else:
-		$SelectionArea.set_selected(select)
+		$SelectionArea.set_highlighted(select)
 
 
 func on_death_animation():
-	set_selected(false)
+	set_highlighted(false)
 	animation_state.start("Death")
 	if rpg_character.health == UTILS.MINUS_INFINITY:
 		$Sprites/AnimationTree.advance(100)
@@ -400,7 +415,7 @@ func _draw():
 		draw_set_transform(Vector2(0, 0), 0, Vector2(1, .5))
 		draw_arc(animation_offset, CIRLCE_SIZE, 0, 360, 100, circle_color)
 		draw_set_transform(Vector2(0, 0), 0, Vector2(1, 1))
-  
+		$SelectionArea.position = animation_offset
 #	for i in steering.num_rays:
 #		var bad_color = Color(1, 0, 0)
 #		var good_color = Color(0, 1, 0)

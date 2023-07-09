@@ -28,17 +28,14 @@ var hit_dice : int    = 1
 ##############
 # Calculated #
 ##############
-@onready var hd_max_health : int = Items.roll_dice("1" + hit_die):
+var hd_max_health : int = Items.roll_dice("1" + hit_die):
 	set(value):
 		hd_max_health = value
 		max_health = hd_max_health + constitution_bonus_health()
-@onready var max_health : int :
+var max_health : int :
 	set(value):
 		max_health = value
-		if max_health > health:
-			health = max_health
-		else:
-			health = health
+		health = max_health
 var xp : int = 0 :
 	set(value):
 		xp = value
@@ -102,13 +99,16 @@ var cape      : String = Items.empty_slot("cape") :
 	set(value):
 		weapon = value
 		equipment_changed.emit("cape", cape)
-var quiver    : Array  = []
-var inventory : Array  = []
+var quiver    : Array  = ["", "", ""]
+var inventory : Array  = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 var consumable : String = "" :
 	set(value):
 		consume()
 		
 func _ready():
+	if get_parent() != null and get_parent().display_name != null:
+			if get_parent().display_name != "Bandit":
+				print("rpg char ready!")
 	hd_max_health = hd_max_health
 	if inventory == []:
 		inventory.resize(16)
@@ -162,7 +162,6 @@ func add_item_to_inventory(item : String) -> bool:
 	else:
 		GlobalPersistant.post("Cant add " + ItemDatabase.get_item(item).name + " to inventory. No Space!")
 		return false
-	weight = get_carry_weight()
 	
 func add_item_to_inventory_slot(slot : int, item : String) -> bool:
 	if item != null and slot > -1:

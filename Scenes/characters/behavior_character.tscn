@@ -1,8 +1,8 @@
-[gd_scene load_steps=52 format=3 uid="uid://dffrpu3t4k4aj"]
+[gd_scene load_steps=51 format=3 uid="uid://dffrpu3t4k4aj"]
 
 [ext_resource type="Script" path="res://Scripts/behavior_character.gd" id="1_hamvy"]
-[ext_resource type="PackedScene" uid="uid://d1f3qs13lmqom" path="res://Scenes/characters/sprites/rpgmaker_sprite.tscn" id="2_28wwc"]
 [ext_resource type="Script" path="res://Scripts/ui/health_tracker.gd" id="2_lq1kr"]
+[ext_resource type="PackedScene" uid="uid://d1f3qs13lmqom" path="res://Scenes/characters/sprites/rpgmaker_sprite.tscn" id="2_qjp3j"]
 [ext_resource type="AudioStream" uid="uid://cwjfu6dk6rmqo" path="res://Assets/sfx/footsteps/footstep dirt 1.wav" id="3_svc7s"]
 [ext_resource type="AudioStream" uid="uid://whhsrbnycg8m" path="res://Assets/sfx/footsteps/footstep dirt 2.wav" id="4_1xl2s"]
 [ext_resource type="Script" path="res://Scripts/selectable.gd" id="4_dwrmt"]
@@ -47,11 +47,8 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt351"]
 bg_color = Color(0.501961, 0.0313726, 0.0313726, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7xgrj"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wghc6"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_r48y4"]
 radius = 30.0
-height = 100.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nsx06"]
 streams_count = 28
@@ -144,7 +141,10 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="BehaviorCharacter" type="CharacterBody2D" groups=["Persist"]]
+y_sort_enabled = true
 script = ExtResource("1_hamvy")
+
+[node name="Sprites" parent="." instance=ExtResource("2_qjp3j")]
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 1
@@ -167,12 +167,8 @@ value = 10.0
 show_percentage = false
 script = ExtResource("2_lq1kr")
 
-[node name="Sprites" parent="." instance=ExtResource("2_28wwc")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_7xgrj")
-
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+max_speed = 300.0
 
 [node name="SelectionArea" type="Area2D" parent="."]
 monitoring = false
@@ -181,8 +177,8 @@ script = ExtResource("4_dwrmt")
 metadata/_edit_lock_ = true
 
 [node name="SelectionShape" type="CollisionShape2D" parent="SelectionArea"]
-position = Vector2(0, -35)
-shape = SubResource("CapsuleShape2D_wghc6")
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_r48y4")
 
 [node name="Sounds" type="Node2D" parent="."]
 

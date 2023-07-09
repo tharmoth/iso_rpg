@@ -2,6 +2,14 @@ class_name Persistant extends Node
 
 var players : Array[Player]
 var console : RichTextLabel
+var selected_player : Player :
+	set(value):
+		selected_player = value
+		if not selected_player.selected:
+			selected_player.selected = true
+		player_selected.emit(selected_player)
+
+signal player_selected(player : Player)
 
 var lock_camera = false
 var party_size = 2
@@ -10,13 +18,20 @@ func _ready():
 	reset()
 	
 func reset():
+	print("Resetting characters!")
+	players.clear()
 	for i in range(0, 2):
-		players.append(preload("res://Scenes/characters/player_character.tscn").instantiate())
+		var player = preload("res://Scenes/characters/player_character.tscn").instantiate()
+		player.party_offset = Vector2(0, i * 60)
+		players.append(player)
+		player.selection_changed.connect(set_first_selected_player_as_leader)
+		player.selected = true
 	console = GUI.get_node("%Console")
 	
 func change_scene(target_scene : String):
-	if GlobalPersistant.player.get_parent() != null:
-		GlobalPersistant.player.get_parent().remove_child(GlobalPersistant.player)
+	for player in players:
+		if player.get_parent() != null:
+			player.get_parent().remove_child(player)
 
 	if get_tree().current_scene.has_method("save_level"):
 		get_tree().current_scene.save_level()
@@ -30,6 +45,12 @@ func post(text : String) -> void:
 	GlobalPersistant.console.scroll_to_line(GlobalPersistant.console.get_line_count()-1)
 	print(text)
 
+func set_first_selected_player_as_leader():
+	for player in players:
+		if player.selected:
+			selected_player = player
+			return
+			
 #############################################
 # Saveing and Loading Variables and Methods #
 #############################################
@@ -66,6 +87,8 @@ func load_player():
 	if not FileAccess.file_exists(filepath):
 		return # Error! We don't have a save to load.
 
+	players.clear()
+
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.
 	var save_game = FileAccess.open(filepath, FileAccess.READ)
@@ -90,5 +113,9 @@ func load_player():
 		# Now we set the remaining variables.
 		for i in node_data.keys():
 			loaded_player.set(i, jsonify.godotify(node_data[i]))
-			
+		
+		
 		players.append(loaded_player)
+		loaded_player.selection_changed.connect(set_first_selected_player_as_leader)
+		loaded_player.selected = true
+	print("Loading characters!")

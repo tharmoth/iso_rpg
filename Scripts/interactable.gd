@@ -2,7 +2,7 @@ extends Area2D
 
 class_name Interactable
 
-var selected = false
+var highlighted = false
 
 func _ready():
 	mouse_entered.connect(_on_mouse_entered)
@@ -17,13 +17,13 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	GlobalCursor.mouse_exit(self)
 	
-func set_selected(select : bool):
-	selected = select
+func set_highlighted(highlight : bool):
+	highlighted = highlight
 	queue_redraw()
 	
 func _draw():
 #	if selected or $CollisionPolygon2D.polygon.size() > 0:
-	if selected:
+	if highlighted:
 		draw_polygon($CollisionPolygon2D.polygon, PackedColorArray([Color(0, .5, .5, .3)]))
 		
 		var outline : PackedVector2Array = $CollisionPolygon2D.polygon

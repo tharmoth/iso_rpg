@@ -9,6 +9,9 @@ func _ready():
 	
 	%ExitButton.pressed.connect(_on_exit_pressed)
 	%ExitButton.button_down.connect($ButtonPressAudioPlayer.play)
+	
+	GUI.visible = false
+	GUI.get_node("%DeathLabel").visible = false
 
 
 #################
@@ -42,8 +45,8 @@ func _on_load_pressed():
 
 func load_game():
 	GlobalPersistant.load_player()
-	if GlobalPersistant.player.spawn_scene != null and GlobalPersistant.player.spawn_scene != "":
-		GlobalPersistant.change_scene(GlobalPersistant.player.spawn_scene)
+	if GlobalPersistant.selected_player.spawn_scene != null and GlobalPersistant.selected_player.spawn_scene != "":
+		GlobalPersistant.change_scene(GlobalPersistant.selected_player.spawn_scene)
 	else:
 		GlobalPersistant.change_scene("res://Scenes/levels/forest.tscn")
 

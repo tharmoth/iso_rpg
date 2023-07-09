@@ -5,7 +5,8 @@ var camera = RTSCam.new()
 func _ready():
 	load_level()
 	add_child(camera)
-	camera.position = GlobalPersistant.player.position
+	camera.position = GlobalPersistant.selected_player.position
+	GUI.visible = true
 
 ######################################
 # Level Saving and Loading Functions #

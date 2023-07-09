@@ -4,7 +4,8 @@ class_name UTILS extends Node
 
 const HOSTILE_COLOR := Color(.7, .1, .1)
 const PLAYER_COLOR := Color(.1, .7, .1)
-const SELECTED_COLOR := Color(1, 1, 1)
+const SELECTED_COLOR := Color("00FA00")
+const HIGHLIGHTED_COLOR := Color(1, 1, 1)
 const INFINITY : int = 999999 # for json compat
 const MINUS_INFINITY : int = -1 * INFINITY # for json compat
 
