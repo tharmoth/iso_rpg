@@ -6,8 +6,52 @@ const HOSTILE_COLOR := Color(.7, .1, .1)
 const PLAYER_COLOR := Color(.1, .7, .1)
 const SELECTED_COLOR := Color("00FA00")
 const HIGHLIGHTED_COLOR := Color(1, 1, 1)
+
+const HAIR_COLORS := [Color("aa8866"), Color("debe99"), Color("241c11"), Color("4f1a00"), Color("9a3300")]
+
 const INFINITY : int = 999999 # for json compat
 const MINUS_INFINITY : int = -1 * INFINITY # for json compat
+const MALE_NAMES : Array[String] = ["Akibrus",
+"Angun",
+"Balrus",
+"Bulruk",
+"Caldor",
+"Dagen",
+"Darvyn",
+"Delvin",
+"Dracyian",
+"Dray",
+"Eldar",
+"Engar",
+"Fabien",
+"Farkas",
+"Galdor",
+"Igor",
+"Jai-Blynn",
+"Klayden",
+"Laimus",
+"Malfas",
+"Norok",
+"Orion",
+"Pindious",
+"Quintus",
+"Rammir",
+"Remus",
+"Rorik",
+"Sabir" ,
+"Séverin",
+"Sirius",
+"Soril",
+"Sulfu",
+"Syfas",
+"Viktas",
+"Vyn",
+"Wilkass",
+"Yagul",
+"Zakkas",
+"Zarek",
+"Zorion",
+]
 
 static func find_closest_ray(rays : Array, ray : Vector2) -> Vector2:
 	var maxvalue = 0

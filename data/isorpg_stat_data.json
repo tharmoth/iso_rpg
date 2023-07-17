@@ -979,5 +979,239 @@
       "poison": 4,
       "regen": 1
     }
+  },
+  "charisma": {
+    "1": {
+      "henchmen": 0,
+      "loyalty": -8,
+      "reaction": -7,
+      "price": 1
+    },
+    "2": {
+      "henchmen": 1,
+      "loyalty": -7,
+      "reaction": -6,
+      "price": 1
+    },
+    "3": {
+      "henchmen": 1,
+      "loyalty": -6,
+      "reaction": -5,
+      "price": 1
+    },
+    "4": {
+      "henchmen": 1,
+      "loyalty": -5,
+      "reaction": -4,
+      "price": 1
+    },
+    "5": {
+      "henchmen": 2,
+      "loyalty": -4,
+      "reaction": -3,
+      "price": 1
+    },
+    "6": {
+      "henchmen": 2,
+      "loyalty": -3,
+      "reaction": -2,
+      "price": 1
+    },
+    "7": {
+      "henchmen": 3,
+      "loyalty": -2,
+      "reaction": -1,
+      "price": 1
+    },
+    "8": {
+      "henchmen": 3,
+      "loyalty": -1,
+      "reaction": 0,
+      "price": 1
+    },
+    "9": {
+      "henchmen": 4,
+      "loyalty": 0,
+      "reaction": 0,
+      "price": 1
+    },
+    "10": {
+      "henchmen": 4,
+      "loyalty": 0,
+      "reaction": 0,
+      "price": 1
+    },
+    "11": {
+      "henchmen": 4,
+      "loyalty": 0,
+      "reaction": 0,
+      "price": 1
+    },
+    "12": {
+      "henchmen": 5,
+      "loyalty": 0,
+      "reaction": 1,
+      "price": 1
+    },
+    "13": {
+      "henchmen": 5,
+      "loyalty": 0,
+      "reaction": 2,
+      "price": 1
+    },
+    "14": {
+      "henchmen": 6,
+      "loyalty": 1,
+      "reaction": 3,
+      "price": 1
+    },
+    "15": {
+      "henchmen": 7,
+      "loyalty": 3,
+      "reaction": 4,
+      "price": 0.95
+    },
+    "16": {
+      "henchmen": 8,
+      "loyalty": 4,
+      "reaction": 5,
+      "price": 0.9
+    },
+    "17": {
+      "henchmen": 10,
+      "loyalty": 6,
+      "reaction": 6,
+      "price": 0.85
+    },
+    "18": {
+      "henchmen": 15,
+      "loyalty": 8,
+      "reaction": 7,
+      "price": 0.8
+    },
+    "19": {
+      "henchmen": 20,
+      "loyalty": 10,
+      "reaction": 8,
+      "price": 0.75
+    },
+    "20": {
+      "henchmen": 25,
+      "loyalty": 12,
+      "reaction": 9,
+      "price": 0.7
+    },
+    "21": {
+      "henchmen": 30,
+      "loyalty": 14,
+      "reaction": 10,
+      "price": 0.7
+    },
+    "22": {
+      "henchmen": 35,
+      "loyalty": 16,
+      "reaction": 11,
+      "price": 0.7
+    },
+    "23": {
+      "henchmen": 40,
+      "loyalty": 18,
+      "reaction": 12,
+      "price": 0.7
+    },
+    "24": {
+      "henchmen": 45,
+      "loyalty": 20,
+      "reaction": 13,
+      "price": 0.7
+    },
+    "25": {
+      "henchmen": 50,
+      "loyalty": 20,
+      "reaction": 14,
+      "price": 0.7
+    }
+  },
+  "reputation": {
+    "1": {
+      "reaction": -20,
+      "price": 10
+    },
+    "2": {
+      "reaction": -7,
+      "price": 10
+    },
+    "3": {
+      "reaction": -6,
+      "price": 2
+    },
+    "4": {
+      "reaction": -5,
+      "price": 1.5
+    },
+    "5": {
+      "reaction": -4,
+      "price": 1.4
+    },
+    "6": {
+      "reaction": -3,
+      "price": 1.3
+    },
+    "7": {
+      "reaction": -2,
+      "price": 1.2
+    },
+    "8": {
+      "reaction": -1,
+      "price": 1.1
+    },
+    "9": {
+      "reaction": 0,
+      "price": 1
+    },
+    "10": {
+      "reaction": 0,
+      "price": 1
+    },
+    "11": {
+      "reaction": 0,
+      "price": 1
+    },
+    "12": {
+      "reaction": 0,
+      "price": 1
+    },
+    "13": {
+      "reaction": 0,
+      "price": 1
+    },
+    "14": {
+      "reaction": 1,
+      "price": 1
+    },
+    "15": {
+      "reaction": 1,
+      "price": 0.95
+    },
+    "16": {
+      "reaction": 2,
+      "price": 0.9
+    },
+    "17": {
+      "reaction": 2,
+      "price": 0.85
+    },
+    "18": {
+      "reaction": 3,
+      "price": 0.8
+    },
+    "19": {
+      "reaction": 3,
+      "price": 0.75
+    },
+    "20": {
+      "reaction": 4,
+      "price": 0.7
+    }
   }
 }

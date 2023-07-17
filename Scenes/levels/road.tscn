@@ -1,14 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://c46wjou12l7ml"]
+[gd_scene load_steps=12 format=3 uid="uid://x41e4cqomvkw"]
 
+[ext_resource type="Script" path="res://Scripts/world/level.gd" id="1_c5ylh"]
 [ext_resource type="Texture2D" uid="uid://coxata4yo7325" path="res://Assets/scenes/road.png" id="1_jvvl2"]
-[ext_resource type="Script" path="res://Scripts/level.gd" id="1_yk8hr"]
-[ext_resource type="Script" path="res://Scripts/exit.gd" id="2_v64v6"]
-[ext_resource type="PackedScene" uid="uid://n6iobgqwvpcd" path="res://Scenes/rng/woods.tscn" id="3_t2bt0"]
-[ext_resource type="Script" path="res://Scripts/test.gd" id="4_wiwkf"]
+[ext_resource type="Script" path="res://Scripts/world/exit.gd" id="3_l30o6"]
+[ext_resource type="PackedScene" uid="uid://n6iobgqwvpcd" path="res://Scenes/world/woods.tscn" id="3_t2bt0"]
 [ext_resource type="Texture2D" uid="uid://qimdf4vmkwrh" path="res://Assets/scenes/RoadTile.png" id="5_023no"]
-[ext_resource type="PackedScene" uid="uid://igdnsmoamrt6" path="res://Scripts/endless_spawner.tscn" id="6_w06jn"]
-[ext_resource type="Script" path="res://Scripts/endless_spawner.gd" id="7_s8gm4"]
+[ext_resource type="Script" path="res://Scripts/world/procedural_road.gd" id="5_sevqu"]
+[ext_resource type="PackedScene" uid="uid://igdnsmoamrt6" path="res://Scenes/world/endless_spawner.tscn" id="6_w06jn"]
 [ext_resource type="AudioStream" uid="uid://efy8n1af3sx3" path="res://Assets/sfx/ambiance/forest - wind, birds.wav" id="8_1dwrf"]
+[ext_resource type="PackedScene" uid="uid://buyjwaq4dl7nk" path="res://Scenes/characters/hostile_npc.tscn" id="10_1q7rc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ce1kd"]
 vertices = PackedVector2Array(2048, -2048, 2048, 2048, -2048, 2048, -2048, -2048)
@@ -22,7 +22,8 @@ _data = {
 point_count = 4
 
 [node name="Road" type="Node2D"]
-script = ExtResource("1_yk8hr")
+y_sort_enabled = true
+script = ExtResource("1_c5ylh")
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -37,7 +38,7 @@ metadata/_edit_lock_ = true
 
 [node name="Exit" type="Area2D" parent="."]
 position = Vector2(1992, -89)
-script = ExtResource("2_v64v6")
+script = ExtResource("3_l30o6")
 target_scene = "res://Scenes/levels/forest.tscn"
 metadata/_edit_lock_ = true
 
@@ -48,7 +49,7 @@ metadata/_edit_lock_ = true
 
 [node name="DefaultSpawner" type="Area2D" parent="."]
 position = Vector2(-1731, 24)
-script = ExtResource("2_v64v6")
+script = ExtResource("3_l30o6")
 
 [node name="Trees" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -72,7 +73,7 @@ z_index = 10
 position = Vector2(0, 605.295)
 scale = Vector2(1, 0.996036)
 curve = SubResource("Curve2D_mi2n3")
-script = ExtResource("4_wiwkf")
+script = ExtResource("5_sevqu")
 metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="Path2D"]
@@ -86,13 +87,23 @@ metadata/_edit_lock_ = true
 
 [node name="Endless" parent="." instance=ExtResource("6_w06jn")]
 position = Vector2(-1248, 0)
-script = ExtResource("7_s8gm4")
 metadata/_edit_lock_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_1dwrf")
 volume_db = -10.0
 autoplay = true
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Bandit3" parent="Enemies" instance=ExtResource("10_1q7rc")]
+position = Vector2(-1066, 284)
+
+[node name="Bandit2" parent="Enemies" instance=ExtResource("10_1q7rc")]
+position = Vector2(-685, 284)
+
+[node name="Bandit" parent="Enemies" instance=ExtResource("10_1q7rc")]
+position = Vector2(-899, 210)
 
 [editable path="Trees/Woods"]
 [editable path="Trees/Woods2"]

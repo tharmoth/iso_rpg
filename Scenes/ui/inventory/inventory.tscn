@@ -1,0 +1,395 @@
+[gd_scene load_steps=23 format=3 uid="uid://b1xpmahuubb0v"]
+
+[ext_resource type="Script" path="res://Scripts/ui/dnd_listener.gd" id="2_uwe3l"]
+[ext_resource type="PackedScene" uid="uid://1kp0ta1pc4ut" path="res://Scenes/ui/inventory_slot.tscn" id="3_2h8xu"]
+[ext_resource type="Script" path="res://Scripts/ui/shop/name_label.gd" id="3_j3des"]
+[ext_resource type="Texture2D" uid="uid://d30k7o5lufvln" path="res://Assets/ui/inventory/emerald-necklace.png" id="4_6d6fp"]
+[ext_resource type="Texture2D" uid="uid://bgd788q23ofc2" path="res://Assets/ui/inventory/closed-barbute.png" id="5_eenih"]
+[ext_resource type="Texture2D" uid="uid://bsjprokvq7knr" path="res://Assets/ui/inventory/ring.png" id="6_dddqf"]
+[ext_resource type="Texture2D" uid="uid://bnxf652q1dsur" path="res://Assets/ui/inventory/gauntlet.png" id="7_rx7it"]
+[ext_resource type="Texture2D" uid="uid://betk1v5xwndhm" path="res://Assets/ui/inventory/breastplate.png" id="8_02fhw"]
+[ext_resource type="Texture2D" uid="uid://dpjjdrco257i4" path="res://Assets/ui/inventory/two-handed-sword.png" id="9_y6w2k"]
+[ext_resource type="Texture2D" uid="uid://ct1byxp16owne" path="res://Assets/ui/inventory/shield.png" id="10_nr67i"]
+[ext_resource type="Texture2D" uid="uid://ble4k7vhbylnm" path="res://Assets/ui/inventory/belt.png" id="11_n2t2o"]
+[ext_resource type="Texture2D" uid="uid://b14mdirktibh2" path="res://Assets/ui/inventory/metal-boot.png" id="12_xum31"]
+[ext_resource type="Texture2D" uid="uid://dblcq4e03835p" path="res://Assets/ui/inventory/trash-can.png" id="13_7os0l"]
+[ext_resource type="Script" path="res://Scripts/ui/inventory/pinup.gd" id="13_din3u"]
+[ext_resource type="PackedScene" uid="uid://c2c1qlqpxp0ui" path="res://Scenes/characters/sprites/rpgmaker_sprite.tscn" id="13_hhlon"]
+[ext_resource type="Script" path="res://Scripts/ui/trash_slot.gd" id="14_xofc7"]
+[ext_resource type="AudioStream" uid="uid://cwfiy2edw0xkk" path="res://Assets/sfx/ui/weapon_draw.mp3" id="15_sgutd"]
+[ext_resource type="AudioStream" uid="uid://d1bkkhu37nq0d" path="res://Assets/sfx/ui/weapon_draw_reverse.wav" id="16_wkejc"]
+[ext_resource type="Script" path="res://Scripts/ui/stats.gd" id="17_2815g"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_keqq0"]
+streams_count = 1
+random_volume_offset_db = 7.0
+stream_0/stream = ExtResource("15_sgutd")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oieml"]
+streams_count = 1
+stream_0/stream = ExtResource("16_wkejc")
+stream_0/weight = 1.0
+
+[sub_resource type="SystemFont" id="SystemFont_ym1tw"]
+font_names = PackedStringArray("Courier New")
+subpixel_positioning = 0
+
+[node name="Inventory" type="MarginContainer"]
+script = ExtResource("2_uwe3l")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ScreenLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="NameAndClass" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="PanelContainer/VBoxContainer/NameAndClass"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Charname"
+horizontal_alignment = 1
+script = ExtResource("3_j3des")
+
+[node name="ClassLabel" type="Label" parent="PanelContainer/VBoxContainer/NameAndClass"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Fighter"
+horizontal_alignment = 1
+
+[node name="InventoryMain" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ItemsBox" type="VBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Character" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Equipment" type="VBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment"]
+layout_mode = 2
+
+[node name="armor" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/armor/MarginContainer" index="2"]
+texture = ExtResource("8_02fhw")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/armor/MarginContainer" index="3"]
+slot = "armor"
+
+[node name="gloves" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/gloves/MarginContainer" index="2"]
+texture = ExtResource("7_rx7it")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/gloves/MarginContainer" index="3"]
+slot = "gloves"
+
+[node name="helmet" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/helmet/MarginContainer" index="2"]
+texture = ExtResource("5_eenih")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/helmet/MarginContainer" index="3"]
+slot = "helmet"
+
+[node name="necklace" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/necklace/MarginContainer" index="2"]
+texture = ExtResource("4_6d6fp")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/necklace/MarginContainer" index="3"]
+slot = "necklace"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4"]
+layout_mode = 2
+alignment = 1
+
+[node name="weapon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2/weapon/MarginContainer" index="2"]
+texture = ExtResource("9_y6w2k")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2/weapon/MarginContainer" index="3"]
+slot = "weapon"
+
+[node name="ring" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2/ring/MarginContainer" index="2"]
+texture = ExtResource("6_dddqf")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2/ring/MarginContainer" index="3"]
+slot = "ring_1"
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4"]
+layout_mode = 2
+
+[node name="Pinup" type="MarginContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 100
+
+[node name="PinupSpriteHolder" type="Control" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/PanelContainer/Pinup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("13_din3u")
+
+[node name="Sprites" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/PanelContainer/Pinup/PinupSpriteHolder" instance=ExtResource("13_hhlon")]
+position = Vector2(0, 75)
+scale = Vector2(2, 2)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4"]
+layout_mode = 2
+alignment = 1
+
+[node name="shield" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer/shield/MarginContainer" index="2"]
+texture = ExtResource("10_nr67i")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer/shield/MarginContainer" index="3"]
+slot = "shield"
+
+[node name="ring2" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer/ring2/MarginContainer" index="2"]
+texture = ExtResource("6_dddqf")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer/ring2/MarginContainer" index="3"]
+slot = "ring_2"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment"]
+layout_mode = 2
+alignment = 1
+
+[node name="belt" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3/belt/MarginContainer" index="2"]
+texture = ExtResource("11_n2t2o")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3/belt/MarginContainer" index="3"]
+slot = "belt"
+
+[node name="boots" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3" instance=ExtResource("3_2h8xu")]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="Icon" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3/boots/MarginContainer" index="2"]
+texture = ExtResource("12_xum31")
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3/boots/MarginContainer" index="3"]
+slot = "boots"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="QuickItems" type="VBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuickItemsLabel" type="Label" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Quick Items"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems"]
+layout_mode = 2
+alignment = 1
+
+[node name="quick_item01" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer/quick_item01/MarginContainer" index="3"]
+slot = "quick_slots"
+
+[node name="quick_item02" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer/quick_item02/MarginContainer" index="3"]
+slot = "quick_slots"
+
+[node name="quick_item03" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer/quick_item03/MarginContainer" index="3"]
+slot = "quick_slots"
+
+[node name="Trash" type="PanelContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/Trash"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/Trash/MarginContainer"]
+layout_mode = 2
+color = Color(0.592157, 0.592157, 0.592157, 0.686275)
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/Trash/MarginContainer" groups=["Inventory"]]
+layout_mode = 2
+texture = ExtResource("13_7os0l")
+expand_mode = 1
+script = ExtResource("14_xofc7")
+
+[node name="DrawPlayer" type="AudioStreamPlayer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/Trash/MarginContainer"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_keqq0")
+
+[node name="SheathPlayer" type="AudioStreamPlayer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/Trash/MarginContainer"]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_oieml")
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox"]
+layout_mode = 2
+
+[node name="Inventory" type="VBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer"]
+layout_mode = 2
+
+[node name="InventoryRow1" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory"]
+layout_mode = 2
+
+[node name="InventorySlot01" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot02" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot03" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot04" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot05" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot06" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot07" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot08" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow1" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventoryRow2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory"]
+layout_mode = 2
+
+[node name="InventorySlot09" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="InventorySlot16" parent="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/PanelContainer/Inventory/InventoryRow2" instance=ExtResource("3_2h8xu")]
+layout_mode = 2
+
+[node name="CharacterDetails" type="PanelContainer" parent="PanelContainer/VBoxContainer/InventoryMain"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/VBoxContainer/InventoryMain/CharacterDetails"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.207843, 0.207843, 0.207843, 0.686275)
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/InventoryMain/CharacterDetails"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/InventoryMain/CharacterDetails/MarginContainer" groups=["Inventory"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = SubResource("SystemFont_ym1tw")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Test"
+script = ExtResource("17_2815g")
+
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/armor"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/gloves"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/helmet"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer/necklace"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2/weapon"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer2/ring"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer/shield"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer4/VBoxContainer/ring2"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3/belt"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/Character/Equipment/HBoxContainer3/boots"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer/quick_item01"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer/quick_item02"]
+[editable path="PanelContainer/VBoxContainer/InventoryMain/ItemsBox/HBoxContainer/QuickItems/HBoxContainer/quick_item03"]

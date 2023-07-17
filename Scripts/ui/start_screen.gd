@@ -29,8 +29,8 @@ func new_game():
 	for file in dir.get_files():
 		dir.remove(file)
 
-	GlobalPersistant.reset()
-	GlobalPersistant.change_scene("res://Scenes/levels/forest.tscn")
+	Party.players = Party.get_new_party()
+	Party.change_scene("res://Scenes/levels/world.tscn")
 
 
 ##################
@@ -44,11 +44,8 @@ func _on_load_pressed():
 
 
 func load_game():
-	GlobalPersistant.load_player()
-	if GlobalPersistant.selected_player.spawn_scene != null and GlobalPersistant.selected_player.spawn_scene != "":
-		GlobalPersistant.change_scene(GlobalPersistant.selected_player.spawn_scene)
-	else:
-		GlobalPersistant.change_scene("res://Scenes/levels/forest.tscn")
+	Party.load_party()
+	get_tree().change_scene_to_file(Party.scene)
 
 
 ##################

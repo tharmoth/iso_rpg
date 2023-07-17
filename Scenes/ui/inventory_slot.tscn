@@ -16,20 +16,33 @@ stream_0/stream = ExtResource("3_umcql")
 stream_0/weight = 1.0
 
 [node name="InventorySlot" type="PanelContainer"]
+custom_minimum_size = Vector2(65, 65)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"OutlineHalf"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+visible = false
 layout_mode = 2
 color = Color(0.592157, 0.592157, 0.592157, 0.686275)
 
+[node name="ColorRect2" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Icon" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+
 [node name="TextureRect" type="TextureRect" parent="MarginContainer" groups=["Inventory"]]
-custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 expand_mode = 1
 script = ExtResource("1_sr18e")

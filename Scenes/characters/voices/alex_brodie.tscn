@@ -1,0 +1,136 @@
+[gd_scene load_steps=39 format=3 uid="uid://d113aw124ltiu"]
+
+[ext_resource type="AudioStream" uid="uid://biq41v1s2bplw" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_1_alex.wav" id="1_qdmoq"]
+[ext_resource type="AudioStream" uid="uid://bk08gwgxik5t3" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_2_alex.wav" id="2_q73gc"]
+[ext_resource type="AudioStream" uid="uid://bj1sq5eohqnw3" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_3_alex.wav" id="3_wr0fb"]
+[ext_resource type="AudioStream" uid="uid://dtpeg8ilr8714" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_4_alex.wav" id="4_vfmmh"]
+[ext_resource type="AudioStream" uid="uid://q4t72jp7d3ei" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_5_alex.wav" id="5_0e04a"]
+[ext_resource type="AudioStream" uid="uid://cmpeqiyau7rd1" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_6_alex.wav" id="6_ewdh2"]
+[ext_resource type="AudioStream" uid="uid://bpqbjy8iqji87" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_7_alex.wav" id="7_ubb0l"]
+[ext_resource type="AudioStream" uid="uid://b8xp8tp45j1s" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_8_alex.wav" id="8_t4tol"]
+[ext_resource type="AudioStream" uid="uid://bphvu177uhley" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_9_alex.wav" id="9_lo8jb"]
+[ext_resource type="AudioStream" uid="uid://6kmkxswnkjln" path="res://Assets/sfx/voices/damage/Alex Brodie/damage_10_alex.wav" id="10_0v4ik"]
+[ext_resource type="AudioStream" uid="uid://c2kg5ob7awawl" path="res://Assets/sfx/voices/death/Alex Brodie/death_1_alex.wav" id="11_1t12t"]
+[ext_resource type="AudioStream" uid="uid://cakro1prqlhsg" path="res://Assets/sfx/voices/death/Alex Brodie/death_2_alex.wav" id="12_h5k8g"]
+[ext_resource type="AudioStream" uid="uid://bv5m4y4qjoi3q" path="res://Assets/sfx/voices/death/Alex Brodie/death_3_alex.wav" id="13_lyn8n"]
+[ext_resource type="AudioStream" uid="uid://caqlreyyql41g" path="res://Assets/sfx/voices/death/Alex Brodie/death_4_alex.wav" id="14_45s11"]
+[ext_resource type="AudioStream" uid="uid://bbprvqbsgfki1" path="res://Assets/sfx/voices/death/Alex Brodie/death_5_alex.wav" id="15_w8h6i"]
+[ext_resource type="AudioStream" uid="uid://cwhv6brp8kdw2" path="res://Assets/sfx/voices/death/Alex Brodie/death_6_alex.wav" id="16_uettq"]
+[ext_resource type="AudioStream" uid="uid://clbm2gx0y3eak" path="res://Assets/sfx/voices/death/Alex Brodie/death_7_alex.wav" id="17_ishkb"]
+[ext_resource type="AudioStream" uid="uid://d0sowtfva3s1q" path="res://Assets/sfx/voices/death/Alex Brodie/death_8_alex.wav" id="18_lefjf"]
+[ext_resource type="AudioStream" uid="uid://cyyj6i1n5ikhy" path="res://Assets/sfx/voices/death/Alex Brodie/death_9_alex.wav" id="19_0et0j"]
+[ext_resource type="AudioStream" uid="uid://bfcrjrqjsq732" path="res://Assets/sfx/voices/death/Alex Brodie/death_10_alex.wav" id="20_t0ni7"]
+[ext_resource type="AudioStream" uid="uid://bee7d7mw464u6" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_1_alex.wav" id="21_p2etv"]
+[ext_resource type="AudioStream" uid="uid://b0kh3lbu4xvt8" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_2_alex.wav" id="22_ytr4u"]
+[ext_resource type="AudioStream" uid="uid://brtkwcy0umivk" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_3_alex.wav" id="23_r4m8t"]
+[ext_resource type="AudioStream" uid="uid://byjyjainayk47" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_4_alex.wav" id="24_8ux3d"]
+[ext_resource type="AudioStream" uid="uid://cmswvwqlsr5rn" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_5_alex.wav" id="25_5mgld"]
+[ext_resource type="AudioStream" uid="uid://cishwh05coonp" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_6_alex.wav" id="26_wudox"]
+[ext_resource type="AudioStream" uid="uid://o0hknnngsiod" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_7_alex.wav" id="27_o2je3"]
+[ext_resource type="AudioStream" uid="uid://4wukwhgq8acw" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_8_alex.wav" id="28_n2mv1"]
+[ext_resource type="AudioStream" uid="uid://xjk8v7dwo01s" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_9_alex.wav" id="29_3wtfg"]
+[ext_resource type="AudioStream" uid="uid://stwqayw7glw4" path="res://Assets/sfx/voices/confirmation/Alex Brodie/confirmation_10_alex.wav" id="30_x7q6v"]
+[ext_resource type="AudioStream" uid="uid://djk74sgar3hus" path="res://Assets/sfx/voices/ruffle/Alex Brodie/miscellaneous_13_alex.wav" id="31_sb2jh"]
+[ext_resource type="AudioStream" uid="uid://ccxod84pi0g3c" path="res://Assets/sfx/voices/ruffle/Alex Brodie/miscellaneous_14_alex.wav" id="32_48a0d"]
+[ext_resource type="AudioStream" uid="uid://xk6ekrho2ms1" path="res://Assets/sfx/voices/ruffle/Alex Brodie/miscellaneous_15_alex.wav" id="33_ysy6r"]
+[ext_resource type="AudioStream" uid="uid://bn1onwyyot5ot" path="res://Assets/sfx/voices/ruffle/Alex Brodie/miscellaneous_18_alex.wav" id="34_mscja"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rwsok"]
+streams_count = 10
+stream_0/stream = ExtResource("1_qdmoq")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_q73gc")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_wr0fb")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_vfmmh")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_0e04a")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("6_ewdh2")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("7_ubb0l")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("8_t4tol")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("9_lo8jb")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("10_0v4ik")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wd51n"]
+streams_count = 10
+stream_0/stream = ExtResource("11_1t12t")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("12_h5k8g")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("13_lyn8n")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("14_45s11")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("15_w8h6i")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("16_uettq")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("17_ishkb")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("18_lefjf")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("19_0et0j")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("20_t0ni7")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_lsyh0"]
+streams_count = 10
+random_pitch = 1.0
+stream_0/stream = ExtResource("21_p2etv")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("22_ytr4u")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("23_r4m8t")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("24_8ux3d")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("25_5mgld")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("26_wudox")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("27_o2je3")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("28_n2mv1")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("29_3wtfg")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("30_x7q6v")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x5d1m"]
+streams_count = 4
+stream_0/stream = ExtResource("31_sb2jh")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("32_48a0d")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("33_ysy6r")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("34_mscja")
+stream_3/weight = 1.0
+
+[node name="Voice" type="Node2D"]
+
+[node name="HitPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_rwsok")
+max_distance = 500.0
+
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_wd51n")
+max_distance = 500.0
+
+[node name="ConfirmationPlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
+stream = SubResource("AudioStreamRandomizer_lsyh0")
+max_distance = 500.0
+
+[node name="RufflePlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
+stream = SubResource("AudioStreamRandomizer_x5d1m")
+volume_db = -10.0
+max_distance = 500.0

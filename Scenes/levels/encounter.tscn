@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsgocp3y3nyse"]
+
+[ext_resource type="Texture2D" uid="uid://dfro7nvk1jchi" path="res://Assets/scenes/encounter.png" id="1_0elw1"]
+[ext_resource type="Script" path="res://Scripts/world/level.gd" id="1_g18yi"]
+[ext_resource type="PackedScene" uid="uid://n6iobgqwvpcd" path="res://Scenes/world/woods.tscn" id="2_r0lt3"]
+[ext_resource type="PackedScene" uid="uid://dhkp273kc1jah" path="res://Scenes/world/interactables/exit.tscn" id="3_h38pv"]
+[ext_resource type="PackedScene" uid="uid://buyjwaq4dl7nk" path="res://Scenes/characters/hostile_npc.tscn" id="4_gq8ya"]
+[ext_resource type="PackedScene" uid="uid://bukxx1d7t8dh0" path="res://Scenes/world/forest_sounds.tscn" id="6_l4xvu"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_eyu3c"]
+vertices = PackedVector2Array(-591, 225, -690, 279, -750, 302, -749, -747, 748, -753, 746, 744, -630, 380, -749, 748, -751, 429)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(0, 4, 5, 6), PackedInt32Array(6, 5, 7, 8)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-749, -747, -750, 302, -690, 279, -591, 225, -630, 380, -751, 429, -749, 748, 746, 744, 748, -753)])
+
+[node name="encounter" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_g18yi")
+persist = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_0elw1")
+
+[node name="Woods" parent="." instance=ExtResource("2_r0lt3")]
+position = Vector2(64, -441)
+tree_freq = 0.35
+
+[node name="CollisionPolygon2D" parent="Woods" index="0"]
+visible = false
+polygon = PackedVector2Array(683, 307, 684, -220, -582, -218, -290, 11, 93, 103, 459, 314)
+
+[node name="Woods2" parent="." instance=ExtResource("2_r0lt3")]
+tree_dist = 100
+tree_freq = 0.35
+
+[node name="CollisionPolygon2D" parent="Woods2" index="0"]
+visible = false
+polygon = PackedVector2Array(-752, 754, 754, 748, 116, 430, -299, 413, -339, 560, -626, 645)
+
+[node name="Woods3" parent="." instance=ExtResource("2_r0lt3")]
+position = Vector2(-621, -86)
+tree_dist = 100
+tree_freq = 0.25
+frequency = 0.1
+
+[node name="CollisionPolygon2D" parent="Woods3" index="0"]
+visible = false
+polygon = PackedVector2Array(-129, 285, 147, 50, 11, -243, -130, -273)
+
+[node name="Exit" parent="." instance=ExtResource("3_h38pv")]
+position = Vector2(643, 2)
+target_scene = "res://Scenes/levels/world.tscn"
+
+[node name="CollisionPolygon2D" parent="Exit" index="0"]
+polygon = PackedVector2Array(17, -208, 106, -209, 105, 491, 21, 489)
+
+[node name="HostileNPC" parent="." instance=ExtResource("4_gq8ya")]
+position = Vector2(-196, -111)
+
+[node name="HostileNPC2" parent="." instance=ExtResource("4_gq8ya")]
+position = Vector2(-200, -231)
+
+[node name="HostileNPC3" parent="." instance=ExtResource("4_gq8ya")]
+position = Vector2(-18, -186)
+
+[node name="Exit2" parent="." instance=ExtResource("3_h38pv")]
+position = Vector2(407, -39)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_eyu3c")
+
+[node name="AudioStreamPlayer" parent="." instance=ExtResource("6_l4xvu")]
+
+[editable path="Woods"]
+[editable path="Woods2"]
+[editable path="Woods3"]
+[editable path="Exit"]

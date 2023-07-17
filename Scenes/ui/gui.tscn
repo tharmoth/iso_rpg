@@ -1,25 +1,38 @@
-[gd_scene load_steps=11 format=3 uid="uid://d2qwbpb1nxg83"]
+[gd_scene load_steps=18 format=3 uid="uid://bnmoeaix4o4bu"]
 
+[ext_resource type="Script" path="res://Scripts/ui/gui.gd" id="1_vnbp0"]
 [ext_resource type="Script" path="res://Scripts/ui/gui_buttons.gd" id="2_58ovp"]
-[ext_resource type="Theme" uid="uid://8innpdu1og7a" path="res://Scenes/ui/theme.tres" id="2_bfbf4"]
-[ext_resource type="PackedScene" uid="uid://1kp0ta1pc4ut" path="res://Scenes/ui/inventory_slot.tscn" id="3_evkjt"]
+[ext_resource type="Theme" uid="uid://cosn1n3ttl34j" path="res://Scenes/ui/theme3.tres" id="2_lkb2g"]
 [ext_resource type="PackedScene" uid="uid://8t53t4rmile7" path="res://Scenes/ui/button_press_audio_player.tscn" id="3_q8hhg"]
-[ext_resource type="Script" path="res://Scenes/ui/dnd_listener.gd" id="4_77s4o"]
-[ext_resource type="Script" path="res://Scripts/ui/stats.gd" id="4_go75l"]
+[ext_resource type="PackedScene" uid="uid://b1xpmahuubb0v" path="res://Scenes/ui/inventory/inventory.tscn" id="5_dctu6"]
+[ext_resource type="PackedScene" uid="uid://ck06g6hugwdl5" path="res://Scenes/ui/inventory/quick_slot.tscn" id="5_prvh1"]
+[ext_resource type="PackedScene" uid="uid://c2uvo5sx2i0jd" path="res://Scenes/ui/loot/loot_container_slot.tscn" id="6_nupok"]
 [ext_resource type="PackedScene" uid="uid://xgx0u2vs3k54" path="res://Scenes/ui/character_icon.tscn" id="6_yktyy"]
-
-[sub_resource type="SystemFont" id="SystemFont_q1t07"]
-font_names = PackedStringArray("Copperplate Gothic")
-oversampling = 1.0
-
-[sub_resource type="SystemFont" id="SystemFont_ym1tw"]
-font_names = PackedStringArray("Courier New")
+[ext_resource type="PackedScene" uid="uid://bk17ncv11cq46" path="res://Scenes/ui/shop/shop.tscn" id="7_h2svn"]
+[ext_resource type="AudioStream" uid="uid://cwfiy2edw0xkk" path="res://Assets/sfx/ui/weapon_draw.mp3" id="8_t5bye"]
+[ext_resource type="PackedScene" uid="uid://phki5l5sq0wi" path="res://Scenes/ui/inn.tscn" id="8_u5mbn"]
+[ext_resource type="AudioStream" uid="uid://d1bkkhu37nq0d" path="res://Assets/sfx/ui/weapon_draw_reverse.wav" id="9_5vkb4"]
+[ext_resource type="PackedScene" uid="uid://bnf55pdo0ix4q" path="res://Scenes/ui/loot/loot_inventory_slot.tscn" id="9_kxojm"]
+[ext_resource type="PackedScene" uid="uid://yucf8ocn8avr" path="res://Scenes/ui/OutlineContainer.tscn" id="10_5udy4"]
 
 [sub_resource type="SystemFont" id="SystemFont_81uf1"]
 font_names = PackedStringArray("Copperplate Gothic")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_keqq0"]
+streams_count = 1
+random_volume_offset_db = 7.0
+stream_0/stream = ExtResource("8_t5bye")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oieml"]
+streams_count = 1
+stream_0/stream = ExtResource("9_5vkb4")
+stream_0/weight = 1.0
+
 [node name="GUI" type="CanvasLayer"]
+process_mode = 3
 layer = 10
+script = ExtResource("1_vnbp0")
 
 [node name="GuiMargin" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -27,7 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_bfbf4")
+theme = ExtResource("2_lkb2g")
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -36,208 +49,331 @@ theme_override_constants/margin_bottom = 0
 [node name="Row" type="HBoxContainer" parent="GuiMargin"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = -5
+theme_override_constants/separation = 0
 
 [node name="Buttons" type="PanelContainer" parent="GuiMargin/Row"]
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("2_58ovp")
 
-[node name="MarginContainer" type="MarginContainer" parent="GuiMargin/Row/Buttons"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Buttons" type="VBoxContainer" parent="GuiMargin/Row/Buttons/MarginContainer"]
+[node name="Buttons" type="VBoxContainer" parent="GuiMargin/Row/Buttons"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 
-[node name="ExitButton" type="Button" parent="GuiMargin/Row/Buttons/MarginContainer/Buttons"]
+[node name="ExitButton" type="Button" parent="GuiMargin/Row/Buttons/Buttons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Exit"
 
-[node name="InventoryButton" type="Button" parent="GuiMargin/Row/Buttons/MarginContainer/Buttons"]
+[node name="InventoryButton" type="Button" parent="GuiMargin/Row/Buttons/Buttons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 toggle_mode = true
 text = "Gear"
 
-[node name="CameraButton" type="Button" parent="GuiMargin/Row/Buttons/MarginContainer/Buttons"]
+[node name="CameraButton" type="Button" parent="GuiMargin/Row/Buttons/Buttons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 toggle_mode = true
 text = "Cam"
 
+[node name="ShopButton" type="Button" parent="GuiMargin/Row/Buttons/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+toggle_mode = true
+text = "Shop"
+
+[node name="InnButton" type="Button" parent="GuiMargin/Row/Buttons/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+toggle_mode = true
+text = "Inn"
+
 [node name="ButtonPressAudioPlayer" parent="GuiMargin/Row/Buttons" instance=ExtResource("3_q8hhg")]
+unique_name_in_owner = true
 
-[node name="MarginContainer" type="MarginContainer" parent="GuiMargin/Row"]
+[node name="Center" type="MarginContainer" parent="GuiMargin/Row"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Main" type="VBoxContainer" parent="GuiMargin/Row/MarginContainer"]
+[node name="Main" type="VBoxContainer" parent="GuiMargin/Row/Center"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Row" type="HBoxContainer" parent="GuiMargin/Row/MarginContainer/Main"]
+[node name="Top" type="HBoxContainer" parent="GuiMargin/Row/Center/Main"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Row2" type="HBoxContainer" parent="GuiMargin/Row/MarginContainer/Main"]
+[node name="Middle" type="HBoxContainer" parent="GuiMargin/Row/Center/Main"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="Console" type="PanelContainer" parent="GuiMargin/Row/MarginContainer/Main"]
+[node name="Bottom" type="MarginContainer" parent="GuiMargin/Row/Center/Main"]
+layout_mode = 2
+
+[node name="Main" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Actions" type="PanelContainer" parent="GuiMargin/Row/Center/Main/Bottom/Main"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Main/Actions"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="GuiMargin/Row/MarginContainer/Main/Console"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Main/Actions/HBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="GuiMargin/Row/MarginContainer/Main/Console"]
+[node name="Label" type="Label" parent="GuiMargin/Row/Center/Main/Bottom/Main/Actions/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Quick Slots"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Main/Actions/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="QuickSlot01" parent="GuiMargin/Row/Center/Main/Bottom/Main/Actions/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_prvh1")]
+layout_mode = 2
+
+[node name="QuickSlot02" parent="GuiMargin/Row/Center/Main/Bottom/Main/Actions/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_prvh1")]
+layout_mode = 2
+
+[node name="QuickSlot03" parent="GuiMargin/Row/Center/Main/Bottom/Main/Actions/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_prvh1")]
+layout_mode = 2
+
+[node name="Console" type="PanelContainer" parent="GuiMargin/Row/Center/Main/Bottom/Main"]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="GuiMargin/Row/Center/Main/Bottom/Main/Console"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="ColorRect" type="ColorRect" parent="GuiMargin/Row/MarginContainer/Main/Console/MarginContainer"]
+[node name="ColorRect2" type="ColorRect" parent="GuiMargin/Row/Center/Main/Bottom/Main/Console/MarginContainer"]
 layout_mode = 2
-color = Color(0, 0, 0, 0.0117647)
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 0.501961)
 
-[node name="Console" type="RichTextLabel" parent="GuiMargin/Row/MarginContainer/Main/Console/MarginContainer"]
+[node name="Console" type="RichTextLabel" parent="GuiMargin/Row/Center/Main/Bottom/Main/Console/MarginContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
-theme_override_fonts/normal_font = SubResource("SystemFont_q1t07")
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
 autowrap_mode = 0
 
-[node name="Inventory" type="MarginContainer" parent="GuiMargin/Row/MarginContainer"]
+[node name="Loot" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme = ExtResource("2_bfbf4")
-script = ExtResource("4_77s4o")
+alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="GuiMargin/Row/MarginContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="InventoryRow1" type="HBoxContainer" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot"]
 layout_mode = 2
 
-[node name="InventorySlot1" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="HBoxContainer" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer"]
 layout_mode = 2
 
-[node name="InventorySlot2" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="Loot" type="VBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="InventorySlot3" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="Label" type="Label" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Loot"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot"]
+custom_minimum_size = Vector2(213, 134)
 layout_mode = 2
 
-[node name="InventorySlot4" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="LootBox" type="VBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer"]
 layout_mode = 2
 
-[node name="InventorySlot5" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="LootRow1" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox"]
 layout_mode = 2
 
-[node name="InventorySlot6" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="LootSlot00" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow1" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot7" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="LootSlot01" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow1" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot8" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow1" instance=ExtResource("3_evkjt")]
+[node name="LootSlot02" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow1" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventoryRow2" type="HBoxContainer" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer"]
+[node name="LootRow2" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox"]
 layout_mode = 2
 
-[node name="InventorySlot9" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootSlot03" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow2" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot10" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootSlot04" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow2" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot11" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootSlot05" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow2" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot12" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootRow3" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox"]
 layout_mode = 2
 
-[node name="InventorySlot13" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootSlot06" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow3" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot14" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootSlot07" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow3" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot15" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootSlot08" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow3" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="InventorySlot16" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/InventoryRow2" instance=ExtResource("3_evkjt")]
+[node name="LootRow4" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox"]
 layout_mode = 2
 
-[node name="CharacterRow" type="HBoxContainer" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer"]
+[node name="LootSlot09" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow4" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="weapon" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow" instance=ExtResource("3_evkjt")]
+[node name="LootSlot10" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow4" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="TextureRect" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow/weapon/MarginContainer" index="1"]
-slot = "weapon"
-
-[node name="armor" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow" instance=ExtResource("3_evkjt")]
+[node name="LootSlot11" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow4" instance=ExtResource("6_nupok")]
 layout_mode = 2
 
-[node name="TextureRect" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow/armor/MarginContainer" index="1"]
-slot = "armor"
-
-[node name="shield" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow" instance=ExtResource("3_evkjt")]
+[node name="LootRow5" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox"]
 layout_mode = 2
 
-[node name="TextureRect" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow/shield/MarginContainer" index="1"]
-slot = "shield"
-
-[node name="CharacterDetails" type="PanelContainer" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer"]
+[node name="LootSlot12" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow5" instance=ExtResource("6_nupok")]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterDetails"]
+[node name="LootSlot13" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow5" instance=ExtResource("6_nupok")]
 layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.207843, 0.207843, 0.207843, 0.686275)
 
-[node name="MarginContainer" type="MarginContainer" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterDetails"]
+[node name="LootSlot14" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow5" instance=ExtResource("6_nupok")]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterDetails/MarginContainer" groups=["Inventory"]]
+[node name="LootRow6" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/normal_font = SubResource("SystemFont_ym1tw")
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
-text = "Test"
-script = ExtResource("4_go75l")
+
+[node name="LootSlot15" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Loot/ScrollContainer/LootBox/LootRow6" instance=ExtResource("6_nupok")]
+layout_mode = 2
+
+[node name="Spacer" type="MarginContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+
+[node name="Inventory" type="VBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory"]
+custom_minimum_size = Vector2(213, 134)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LootInventorySlot00" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot01" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot02" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LootInventorySlot03" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot04" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot05" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LootInventorySlot06" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer3" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot07" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer3" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot08" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer3" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LootInventorySlot09" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot10" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot11" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LootInventorySlot12" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer5" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot13" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer5" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="LootInventorySlot14" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer5" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LootInventorySlot15" parent="GuiMargin/Row/Center/Main/Bottom/Loot/PanelContainer/HBoxContainer/Inventory/ScrollContainer/VBoxContainer/HBoxContainer6" instance=ExtResource("9_kxojm")]
+layout_mode = 2
+
+[node name="Inventory" parent="GuiMargin/Row/Center" instance=ExtResource("5_dctu6")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Shop" parent="GuiMargin/Row/Center" instance=ExtResource("7_h2svn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Inn" parent="GuiMargin/Row/Center" instance=ExtResource("8_u5mbn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 
 [node name="Characters" type="PanelContainer" parent="GuiMargin/Row"]
 unique_name_in_owner = true
@@ -262,6 +398,18 @@ layout_mode = 2
 [node name="Character1" parent="GuiMargin/Row/Characters/MarginContainer/VBoxContainer" instance=ExtResource("6_yktyy")]
 layout_mode = 2
 
+[node name="Character2" parent="GuiMargin/Row/Characters/MarginContainer/VBoxContainer" instance=ExtResource("6_yktyy")]
+layout_mode = 2
+
+[node name="Character3" parent="GuiMargin/Row/Characters/MarginContainer/VBoxContainer" instance=ExtResource("6_yktyy")]
+layout_mode = 2
+
+[node name="Character4" parent="GuiMargin/Row/Characters/MarginContainer/VBoxContainer" instance=ExtResource("6_yktyy")]
+layout_mode = 2
+
+[node name="Character5" parent="GuiMargin/Row/Characters/MarginContainer/VBoxContainer" instance=ExtResource("6_yktyy")]
+layout_mode = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="GuiMargin"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -279,6 +427,16 @@ text = "[font_size=100][color=#e80000][b]You Died![/b][/color][/font_size]
 fit_content = true
 autowrap_mode = 0
 
-[editable path="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow/weapon"]
-[editable path="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow/armor"]
-[editable path="GuiMargin/Row/MarginContainer/Inventory/PanelContainer/VBoxContainer/CharacterRow/shield"]
+[node name="MarginContainer" parent="GuiMargin/MarginContainer" instance=ExtResource("10_5udy4")]
+layout_mode = 2
+
+[node name="DrawPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_keqq0")
+
+[node name="SheathPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_oieml")
+
+[node name="ButtonPlayer" parent="." instance=ExtResource("3_q8hhg")]
+unique_name_in_owner = true

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bukxx1d7t8dh0"]
+
+[ext_resource type="AudioStream" uid="uid://efy8n1af3sx3" path="res://Assets/sfx/ambiance/forest - wind, birds.wav" id="1_05b20"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_05b20")
+volume_db = -10.0
+autoplay = true

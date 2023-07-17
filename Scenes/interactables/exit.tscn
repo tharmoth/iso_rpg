@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhkp273kc1jah"]
-
-[ext_resource type="PackedScene" uid="uid://bfdbbwsg4dg3b" path="res://Scenes/interactables/interactable.tscn" id="1_q2thf"]
-[ext_resource type="Script" path="res://Scripts/exit.gd" id="2_tn1vk"]
-
-[node name="Exit" instance=ExtResource("1_q2thf")]
-script = ExtResource("2_tn1vk")
-target_scene = "default"

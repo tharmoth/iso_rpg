@@ -53,8 +53,8 @@
       "ac": 15
     },
     "hide": {
-      "value": 120,
-      "weight": 40,
+      "value": 40,
+      "weight": 35,
       "ac": 14
     },
     "studded_leather": {
@@ -102,7 +102,7 @@
   },
   "item": {
     "ring_of_protection": {
-      "value ": 1000,
+      "value": 1000,
       "weight": 0,
       "effect": "ac, 1"
     }
@@ -112,6 +112,11 @@
       "value": 75,
       "weight": 1,
       "effect": "health 2d4+2"
+    },
+    "ration": {
+      "value": 2,
+      "weight": 2,
+      "effect": "rest"
     }
   }
 }

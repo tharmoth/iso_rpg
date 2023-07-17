@@ -1,11 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://dffrpu3t4k4aj"]
+[gd_scene load_steps=52 format=3 uid="uid://dffrpu3t4k4aj"]
 
-[ext_resource type="Script" path="res://Scripts/behavior_character.gd" id="1_hamvy"]
+[ext_resource type="Script" path="res://Scripts/characters/character.gd" id="1_hamvy"]
 [ext_resource type="Script" path="res://Scripts/ui/health_tracker.gd" id="2_lq1kr"]
-[ext_resource type="PackedScene" uid="uid://d1f3qs13lmqom" path="res://Scenes/characters/sprites/rpgmaker_sprite.tscn" id="2_qjp3j"]
+[ext_resource type="PackedScene" uid="uid://c2c1qlqpxp0ui" path="res://Scenes/characters/sprites/rpgmaker_sprite.tscn" id="2_qjp3j"]
 [ext_resource type="AudioStream" uid="uid://cwjfu6dk6rmqo" path="res://Assets/sfx/footsteps/footstep dirt 1.wav" id="3_svc7s"]
 [ext_resource type="AudioStream" uid="uid://whhsrbnycg8m" path="res://Assets/sfx/footsteps/footstep dirt 2.wav" id="4_1xl2s"]
-[ext_resource type="Script" path="res://Scripts/selectable.gd" id="4_dwrmt"]
+[ext_resource type="Script" path="res://Scripts/characters/components/selectable.gd" id="4_dwrmt"]
 [ext_resource type="AudioStream" uid="uid://cr8oiyjqydkyk" path="res://Assets/sfx/footsteps/footstep dirt 11.wav" id="5_5esfd"]
 [ext_resource type="AudioStream" uid="uid://ddk5f8rq230io" path="res://Assets/sfx/footsteps/footstep dirt 12.wav" id="6_ffqlw"]
 [ext_resource type="AudioStream" uid="uid://4pfoepvh8hhw" path="res://Assets/sfx/footsteps/footstep dirt 13.wav" id="7_3bf0x"]
@@ -140,6 +140,8 @@ stream_2/weight = 1.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_mmtok"]
+
 [node name="BehaviorCharacter" type="CharacterBody2D" groups=["Persist"]]
 y_sort_enabled = true
 script = ExtResource("1_hamvy")
@@ -181,26 +183,27 @@ scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_r48y4")
 
 [node name="Sounds" type="Node2D" parent="."]
+process_mode = 3
 
-[node name="FootstepPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+[node name="FootstepPlayer" type="AudioStreamPlayer2D" parent="Sounds" groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_nsx06")
 volume_db = -5.0
 max_distance = 500.0
 attenuation = 0.233259
 
-[node name="SwingPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+[node name="SwingPlayer" type="AudioStreamPlayer2D" parent="Sounds" groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_6dq7d")
 max_distance = 500.0
 
-[node name="InteractPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+[node name="InteractPlayer" type="AudioStreamPlayer2D" parent="Sounds" groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_yrh1q")
 max_distance = 500.0
 
-[node name="SwordStrikePlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+[node name="SwordStrikePlayer" type="AudioStreamPlayer2D" parent="Sounds" groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_nojo6")
 max_distance = 500.0
 
-[node name="LevelUpPlayer" type="AudioStreamPlayer2D" parent="Sounds"]
+[node name="LevelUpPlayer" type="AudioStreamPlayer2D" parent="Sounds" groups=["AudioZoom"]]
 stream = ExtResource("42_dap31")
 
 [node name="Blood" type="CPUParticles2D" parent="."]
@@ -222,3 +225,6 @@ angular_velocity_max = 10.0
 scale_amount_min = 0.05
 scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_unmmq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mmtok")

@@ -1,3 +1,5 @@
 grassland_tiles.png -> https://opengameart.org/content/grassland-tileset
 cursors -> https://opengameart.org/content/pointers-part-5
 icons -> https://opengameart.org/content/armor-icons-32x32-px-painterly
+invent icons -> https://game-icons.net/
+TEXTURES -> https://polyhaven.com/a/plastered_stone_wall

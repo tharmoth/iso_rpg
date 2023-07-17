@@ -1,20 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv7oa15hepm5x"]
+[gd_scene load_steps=3 format=3 uid="uid://dnrfpvfdedmb7"]
 
 [ext_resource type="PackedScene" uid="uid://dffrpu3t4k4aj" path="res://Scenes/characters/behavior_character.tscn" id="1_6quf3"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="2_d08cv"]
-[ext_resource type="PackedScene" uid="uid://b5wdd557fj0qw" path="res://Scenes/characters/voices/sean_lenhart.tscn" id="3_8w37s"]
-
-[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_nhugo"]
+[ext_resource type="Script" path="res://Scripts/characters/player_character.gd" id="2_23f7g"]
 
 [node name="PlayerCharacter" instance=ExtResource("1_6quf3")]
-script = ExtResource("2_d08cv")
+script = ExtResource("2_23f7g")
 
-[node name="HealthBar" parent="." index="0"]
+[node name="HealthBar" parent="." index="1"]
 visible = false
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Sounds" index="4"]
-stream = SubResource("AudioStreamPolyphonic_nhugo")
-
-[node name="Voice" parent="." index="5" instance=ExtResource("3_8w37s")]
-
-[editable path="Voice"]

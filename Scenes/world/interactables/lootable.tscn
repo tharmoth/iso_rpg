@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://db1x5tigwum0m"]
+
+[ext_resource type="PackedScene" uid="uid://bfdbbwsg4dg3b" path="res://Scenes/world/interactables/interactable.tscn" id="1_teyj0"]
+[ext_resource type="Script" path="res://Scripts/world/lootable.gd" id="2_er0ej"]
+
+[node name="Lootable" groups=["Persist"] instance=ExtResource("1_teyj0")]
+y_sort_enabled = true
+script = ExtResource("2_er0ej")
+item = ""
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+z_index = -2
+y_sort_enabled = true

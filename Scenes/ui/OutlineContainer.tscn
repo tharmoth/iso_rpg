@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://yucf8ocn8avr"]
+
+[node name="OutlineContainer" type="MarginContainer"]
+theme_type_variation = &"OutlineContainer"

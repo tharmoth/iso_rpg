@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccr66gdjkj5lm"]
+
+[ext_resource type="Script" path="res://Scripts/world/interactables/chest.gd" id="1_hcws4"]
+[ext_resource type="Texture2D" uid="uid://dgsbxt6ppe0mw" path="res://Assets/sprites/containers/Chest_7.png" id="2_d764r"]
+[ext_resource type="Texture2D" uid="uid://dk286bed206nl" path="res://Assets/sprites/containers/Chest_14.png" id="3_p2jmg"]
+[ext_resource type="AudioStream" uid="uid://cln5w3b6ub1ii" path="res://Assets/sfx/interact/chest/zapsplat_foley_basket_hamper_lid_open_creak_001_84233.mp3" id="4_myapp"]
+[ext_resource type="AudioStream" uid="uid://kcaviuw32suk" path="res://Assets/sfx/interact/chest/zapsplat_horror_coffin_basket_lid_open_or_close_creak_001_45915.wav" id="5_ms4gg"]
+[ext_resource type="AudioStream" uid="uid://cmqkvbbyne4bf" path="res://Assets/sfx/interact/chest/zapsplat_household_wooden_gate_open_creak_81736.mp3" id="6_wnsyt"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5onuc"]
+streams_count = 3
+stream_0/stream = ExtResource("4_myapp")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_ms4gg")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_wnsyt")
+stream_2/weight = 1.0
+
+[node name="Chest" type="Area2D" groups=["Persist"]]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_hcws4")
+
+[node name="ClosedSprite" type="Sprite2D" parent="."]
+z_index = -1
+y_sort_enabled = true
+texture = ExtResource("2_d764r")
+
+[node name="OpenSprite" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+y_sort_enabled = true
+position = Vector2(2, -4)
+texture = ExtResource("3_p2jmg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(30.5, -8.6, 30.5, -6.1, 28.1, 0.200001, 39.5, 8.5, 39.5, 14.5, 36.4, 14.5, 29.4, 22.5, 27.2, 22.5, 8.2, 37.5, 1.5, 37.5, 1.5, 35.5, -27.2, 13.5, -31, 13.5, -34.5, 11.7, -34.5, 8.5, -35.4, -10.5, -39.5, -18.1, -39.5, -20.5, -37, -20.5, -15.5, -35.5, -15.5, -36.7, -14, -37.5, -12.9, -37.5)
+
+[node name="OpenPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_5onuc")

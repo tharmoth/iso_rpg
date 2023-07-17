@@ -4,17 +4,17 @@ var rpg_player : RPGCharacter
 @export var reverse : bool = false
 
 func _ready():
-	set_player(null)
+	set_player()
 	if get_parent() is Control:
-		GlobalPersistant.player_selected.connect(set_player)
+		Party.party_changed.connect(set_player)
 	
-func set_player(player : Player):	
+func set_player():	
 	if get_parent() is BCharacter:
 		rpg_player = get_parent().rpg_character
 	else :
 		var index = int(get_parent().name.right(1))
-		if GlobalPersistant.players.size() > index:
-			rpg_player = GlobalPersistant.players[index].rpg_character
+		if Party.players.size() > index:
+			rpg_player = Party.players[index].rpg_character
 			get_parent().visible = true
 		elif get_parent() is Control:
 			get_parent().visible = false

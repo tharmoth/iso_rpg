@@ -5,11 +5,14 @@ var active_player = null
 @export var item_name : String = "" :
 	set(value):
 		item_name = value
+		
 		item = ItemDatabase.get_item(item_name)
-		if slot != "inventory":
-			active_player.equip(slot, item_name)
-		else:
+		if slot == "quick_slots":
+			active_player.rpg_character.add_item_to_quick_slot(slot_index, item_name)
+		elif slot == "inventory":
 			active_player.rpg_character.add_item_to_inventory_slot(slot_index, item_name)
+		elif slot != "inventory":
+			active_player.equip(slot, item_name)
 
 		
 var item : Dictionary = {} :
@@ -27,16 +30,18 @@ var slot_index :
 	get:
 		if slot_index == null:
 			# Use the name of the parent to determine what slot this should represent
-			slot_index = int(get_parent().get_parent().name.substr(13)) - 1
+			slot_index = int(get_parent().get_parent().name.right(2)) - 1
 		return slot_index
 
 func _ready():
-	GlobalPersistant.player_selected.connect(func(player): refresh())
+	Party.party_leader_changed.connect(func(player): refresh())
 
 func refresh():
-	active_player = GlobalPersistant.selected_player
+	active_player = Party.party_leader
 	if slot == "consumable":
 		pass
+	elif slot == "quick_slots":
+		item_name = active_player.rpg_character.quick_slots[slot_index]
 	elif slot != "inventory":
 		item_name = active_player.rpg_character.get(slot)
 	elif slot == "inventory":
@@ -76,9 +81,9 @@ func _can_drop_data(at_position, data):
 	var origin_slot = data["origin"]
 	
 	# can this slot take the origin item
-	var can_drop = slot == "inventory" or origin_slot.item.get("slot") == slot
+	var can_drop = slot == "inventory" or origin_slot.item.get("slot") == slot or (origin_slot.item.get("slot") == "consumable" and slot == "quick_slots")
 	# can the origin slot thake this item
-	can_drop = can_drop and (item_name == "" or origin_slot.slot == "inventory" or origin_slot.slot == item.slot)
+	can_drop = can_drop and (item_name == "" or origin_slot.slot == "inventory" or origin_slot.slot == item.slot or (origin_slot.slot == "quick_slots" and item.get("slot") == "consumable"))
 
 	return can_drop
 	

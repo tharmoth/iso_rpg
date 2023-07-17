@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfu8dpkadmyit"]
+
+[ext_resource type="Script" path="res://Scripts/ui/shop/shop_inventory_item.gd" id="1_kaf2r"]
+[ext_resource type="Texture2D" uid="uid://ckhhs4yt1d6ji" path="res://Assets/ui/selected_outline.png" id="2_cghev"]
+
+[node name="ShopItem" type="HBoxContainer"]
+theme_override_constants/separation = 10
+script = ExtResource("1_kaf2r")
+
+[node name="ItemIcon" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+theme_type_variation = &"OutlineHalf"
+
+[node name="MarginContainer" type="MarginContainer" parent="ItemIcon"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ColorRect" type="ColorRect" parent="ItemIcon/MarginContainer"]
+layout_mode = 2
+mouse_filter = 1
+color = Color(0.592157, 0.592157, 0.592157, 0.686275)
+
+[node name="Icon" type="TextureRect" parent="ItemIcon/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+expand_mode = 1
+
+[node name="Selected" type="TextureRect" parent="ItemIcon/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("2_cghev")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Longsword
+"
+
+[node name="Value" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "100"

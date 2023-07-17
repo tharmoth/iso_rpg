@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://igdnsmoamrt6"]
+
+[ext_resource type="Script" path="res://Scripts/world/endless_spawner.gd" id="1_kgtic"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64lia"]
+size = Vector2(200, 4096)
+
+[node name="Area2D" type="Area2D"]
+position = Vector2(-1948, 0)
+script = ExtResource("1_kgtic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_64lia")

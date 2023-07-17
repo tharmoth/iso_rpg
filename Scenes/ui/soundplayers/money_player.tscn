@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://duwpoqfg10etc"]
+
+[ext_resource type="AudioStream" uid="uid://ijh3a22plb1o" path="res://Assets/ui/money/zapsplat_foley_money_coins_handful_set_down_wood_surface_001_85319.mp3" id="1_vx274"]
+[ext_resource type="AudioStream" uid="uid://dhsktqynr22ie" path="res://Assets/ui/money/zapsplat_foley_money_coins_handful_set_down_wood_surface_002_85320.mp3" id="2_6jda3"]
+[ext_resource type="AudioStream" uid="uid://b7hka547br0j5" path="res://Assets/ui/money/zapsplat_foley_money_coins_handful_set_down_wood_surface_003_85321.mp3" id="3_how2m"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_f8mf1"]
+streams_count = 3
+stream_0/stream = ExtResource("1_vx274")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_6jda3")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_how2m")
+stream_2/weight = 1.0
+
+[node name="MoneyPlayer" type="AudioStreamPlayer"]
+stream = SubResource("AudioStreamRandomizer_f8mf1")

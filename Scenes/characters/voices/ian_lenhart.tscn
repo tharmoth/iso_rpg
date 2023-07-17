@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b4img0lbdnber"]
+[gd_scene load_steps=39 format=3 uid="uid://b4img0lbdnber"]
 
 [ext_resource type="AudioStream" uid="uid://b6ky28ryiblsd" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_1_ian.wav" id="1_dp4ej"]
 [ext_resource type="AudioStream" uid="uid://b57yqs4bcim7h" path="res://Assets/sfx/voices/damage/Ian Lampert/damage_2_ian.wav" id="2_6e5xq"]
@@ -20,6 +20,20 @@
 [ext_resource type="AudioStream" uid="uid://b3q1xlbl8h2pp" path="res://Assets/sfx/voices/death/Ian Lampert/death_8_ian.wav" id="18_pbwdk"]
 [ext_resource type="AudioStream" uid="uid://d2sq2c3ltw08u" path="res://Assets/sfx/voices/death/Ian Lampert/death_9_ian.wav" id="19_gumi0"]
 [ext_resource type="AudioStream" uid="uid://b1ydg83y0eqkp" path="res://Assets/sfx/voices/death/Ian Lampert/death_10_ian.wav" id="20_1f1r8"]
+[ext_resource type="AudioStream" uid="uid://wouv2f6u41i5" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_1_ian.wav" id="21_dxs4x"]
+[ext_resource type="AudioStream" uid="uid://g3a55gdrbs8t" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_2_ian.wav" id="22_i8avv"]
+[ext_resource type="AudioStream" uid="uid://b4wouce2hj0o4" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_3_ian.wav" id="23_dt1o4"]
+[ext_resource type="AudioStream" uid="uid://16fdfqne04hh" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_4_ian.wav" id="24_8l5gs"]
+[ext_resource type="AudioStream" uid="uid://cnu50ycgu0cwe" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_5_ian.wav" id="25_t1o5i"]
+[ext_resource type="AudioStream" uid="uid://cyyqf80pe26s0" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_6_ian.wav" id="26_u73mh"]
+[ext_resource type="AudioStream" uid="uid://da11beqadpjjt" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_7_ian.wav" id="27_olgxa"]
+[ext_resource type="AudioStream" uid="uid://cguctb1qyqago" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_8_ian.wav" id="28_vmugh"]
+[ext_resource type="AudioStream" uid="uid://duik4qo6calyn" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_9_ian.wav" id="29_nuf52"]
+[ext_resource type="AudioStream" uid="uid://bf0eb875wkd8x" path="res://Assets/sfx/voices/confirmation/Ian Lampert/confirmation_10_ian.wav" id="30_xjpyi"]
+[ext_resource type="AudioStream" uid="uid://5j0f631ewbsk" path="res://Assets/sfx/voices/ruffle/Ian Lenhart/miscellaneous_13_ian.wav" id="31_5lori"]
+[ext_resource type="AudioStream" uid="uid://2in4gat4w8r7" path="res://Assets/sfx/voices/ruffle/Ian Lenhart/miscellaneous_14_ian.wav" id="32_uc5ws"]
+[ext_resource type="AudioStream" uid="uid://wgc3u4oq8afy" path="res://Assets/sfx/voices/ruffle/Ian Lenhart/miscellaneous_15_ian.wav" id="33_v4fhx"]
+[ext_resource type="AudioStream" uid="uid://ctjivqcbs1bhf" path="res://Assets/sfx/voices/ruffle/Ian Lenhart/miscellaneous_18_ian.wav" id="34_oa3fc"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_uc00k"]
 streams_count = 10
@@ -67,12 +81,55 @@ stream_8/weight = 1.0
 stream_9/stream = ExtResource("20_1f1r8")
 stream_9/weight = 1.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_78d06"]
+streams_count = 10
+random_pitch = 1.0
+stream_0/stream = ExtResource("21_dxs4x")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("22_i8avv")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("23_dt1o4")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("24_8l5gs")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("25_t1o5i")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("26_u73mh")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("27_olgxa")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("28_vmugh")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("29_nuf52")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("30_xjpyi")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_m5sla"]
+streams_count = 4
+stream_0/stream = ExtResource("31_5lori")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("32_uc5ws")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("33_v4fhx")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("34_oa3fc")
+stream_3/weight = 1.0
+
 [node name="Voice" type="Node2D"]
 
-[node name="HitPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="HitPlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_uc00k")
 max_distance = 500.0
 
-[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_3ewbc")
+max_distance = 500.0
+
+[node name="ConfirmationPlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
+stream = SubResource("AudioStreamRandomizer_78d06")
+
+[node name="RufflePlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
+stream = SubResource("AudioStreamRandomizer_m5sla")
+volume_db = -10.0
 max_distance = 500.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b5wdd557fj0qw"]
+[gd_scene load_steps=39 format=3 uid="uid://b5wdd557fj0qw"]
 
 [ext_resource type="AudioStream" uid="uid://ci0t2rokw8dua" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_1_sean.wav" id="1_w12nx"]
 [ext_resource type="AudioStream" uid="uid://dmo4cgrw70ahp" path="res://Assets/sfx/voices/damage/Sean Lenhart/damage_2_sean.wav" id="2_n41n2"]
@@ -20,6 +20,20 @@
 [ext_resource type="AudioStream" uid="uid://bwtxg7ve1owh4" path="res://Assets/sfx/voices/death/Sean Lenhart/death_8_sean.wav" id="18_js31c"]
 [ext_resource type="AudioStream" uid="uid://dlc1dotju86g8" path="res://Assets/sfx/voices/death/Sean Lenhart/death_9_sean.wav" id="19_bhqte"]
 [ext_resource type="AudioStream" uid="uid://bseiwk1gk8avs" path="res://Assets/sfx/voices/death/Sean Lenhart/death_10_sean.wav" id="20_6skvu"]
+[ext_resource type="AudioStream" uid="uid://sir2dhsf3u52" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_1_sean.wav" id="21_r5o12"]
+[ext_resource type="AudioStream" uid="uid://bcstgbmin0ul3" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_2_sean.wav" id="22_7jmxv"]
+[ext_resource type="AudioStream" uid="uid://3kvih1qsnqdp" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_3_sean.wav" id="23_y7ikv"]
+[ext_resource type="AudioStream" uid="uid://b3675q1t0mn2a" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_4_sean.wav" id="24_572oe"]
+[ext_resource type="AudioStream" uid="uid://b4f06as0t2rn3" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_5_sean.wav" id="25_tfh13"]
+[ext_resource type="AudioStream" uid="uid://prlv73aslg67" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_6_sean.wav" id="26_26x8t"]
+[ext_resource type="AudioStream" uid="uid://55h7e7dvhj2" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_7_sean.wav" id="27_kvlal"]
+[ext_resource type="AudioStream" uid="uid://b7h0rwcfn4xjo" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_8_sean.wav" id="28_cll3k"]
+[ext_resource type="AudioStream" uid="uid://byg275vmyc42" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_9_sean.wav" id="29_l41qr"]
+[ext_resource type="AudioStream" uid="uid://b2cxlbrdqtcdx" path="res://Assets/sfx/voices/confirmation/Sean Lenhart/confirmation_10_sean.wav" id="30_pyjb2"]
+[ext_resource type="AudioStream" uid="uid://wo2kx5f7cg5s" path="res://Assets/sfx/voices/ruffle/Sean Lenhart/miscellaneous_13_sean.wav" id="31_3pfyp"]
+[ext_resource type="AudioStream" uid="uid://wuh1mp4fet88" path="res://Assets/sfx/voices/ruffle/Sean Lenhart/miscellaneous_14_sean.wav" id="32_m7n2l"]
+[ext_resource type="AudioStream" uid="uid://dqftcqlxkukql" path="res://Assets/sfx/voices/ruffle/Sean Lenhart/miscellaneous_15_sean.wav" id="33_1heya"]
+[ext_resource type="AudioStream" uid="uid://cia1q0quh2p42" path="res://Assets/sfx/voices/ruffle/Sean Lenhart/miscellaneous_18_sean.wav" id="34_5kj6d"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4gspc"]
 streams_count = 10
@@ -67,11 +81,55 @@ stream_8/weight = 1.0
 stream_9/stream = ExtResource("20_6skvu")
 stream_9/weight = 1.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vo2ff"]
+streams_count = 10
+random_pitch = 1.0
+stream_0/stream = ExtResource("21_r5o12")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("22_7jmxv")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("23_y7ikv")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("24_572oe")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("25_tfh13")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("26_26x8t")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("27_kvlal")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("28_cll3k")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("29_l41qr")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("30_pyjb2")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y1me7"]
+streams_count = 4
+stream_0/stream = ExtResource("31_3pfyp")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("32_m7n2l")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("33_1heya")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("34_5kj6d")
+stream_3/weight = 1.0
+
 [node name="Voice" type="Node2D"]
 
-[node name="HitPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="HitPlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_4gspc")
 max_distance = 500.0
 
-[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="DeathPlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
 stream = SubResource("AudioStreamRandomizer_vtu3h")
+max_distance = 500.0
+
+[node name="ConfirmationPlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
+stream = SubResource("AudioStreamRandomizer_vo2ff")
+max_distance = 500.0
+
+[node name="RufflePlayer" type="AudioStreamPlayer2D" parent="." groups=["AudioZoom"]]
+stream = SubResource("AudioStreamRandomizer_y1me7")
+volume_db = -10.0

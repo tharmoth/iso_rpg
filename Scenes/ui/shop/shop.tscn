@@ -1,0 +1,208 @@
+[gd_scene load_steps=8 format=3 uid="uid://bk17ncv11cq46"]
+
+[ext_resource type="Script" path="res://Scripts/ui/shop/shop_merchant_list.gd" id="1_2k4gk"]
+[ext_resource type="PackedScene" uid="uid://cfu8dpkadmyit" path="res://Scenes/ui/shop/shop_item.tscn" id="2_sokps"]
+[ext_resource type="Script" path="res://Scripts/ui/shop/name_label.gd" id="3_clwt2"]
+[ext_resource type="Script" path="res://Scripts/ui/shop/gold_label.gd" id="4_73h42"]
+[ext_resource type="Script" path="res://Scripts/ui/shop/shop_inventory_list.gd" id="5_r1nwv"]
+[ext_resource type="PackedScene" uid="uid://duwpoqfg10etc" path="res://Scenes/ui/soundplayers/money_player.tscn" id="6_bijys"]
+[ext_resource type="PackedScene" uid="uid://8t53t4rmile7" path="res://Scenes/ui/button_press_audio_player.tscn" id="7_mshh8"]
+
+[node name="Shop" type="PanelContainer"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Buy and Sell
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Seller" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Seller"]
+layout_mode = 2
+
+[node name="NameLabel" type="MarginContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/NameLabel"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/NameLabel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Merchant"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRectMargin" type="MarginContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="ColorRect2" type="ColorRect" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/ScrollContainer/ColorRectMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.282353, 0.282353, 0.282353, 0.686275)
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/ScrollContainer/ColorRectMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ShopMerchantList" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/ScrollContainer/ColorRectMargin/MarginContainer" groups=["Inventory"]]
+custom_minimum_size = Vector2(50, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_2k4gk")
+
+[node name="ShopItem" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/ScrollContainer/ColorRectMargin/MarginContainer/ShopMerchantList" instance=ExtResource("2_sokps")]
+layout_mode = 2
+
+[node name="PriceLabel" type="MarginContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/PriceLabel"]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/PriceLabel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "Price: "
+
+[node name="Cost" type="Label" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer/PriceLabel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="BuyButton" type="Button" parent="VBoxContainer/HBoxContainer/Seller/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Buy"
+
+[node name="PlayerInventory" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory"]
+layout_mode = 2
+
+[node name="NameLabel" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/NameLabel"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/NameLabel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "CHARNAME"
+script = ExtResource("3_clwt2")
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/NameLabel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Gold:"
+
+[node name="Gold" type="Label" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/NameLabel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "17000"
+script = ExtResource("4_73h42")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRectMargin" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="ColorRect2" type="ColorRect" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ScrollContainer/ColorRectMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.282353, 0.282353, 0.282353, 0.686275)
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ScrollContainer/ColorRectMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ShopInventoryList" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ScrollContainer/ColorRectMargin/MarginContainer" groups=["Inventory"]]
+custom_minimum_size = Vector2(50, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("5_r1nwv")
+
+[node name="ShopItem" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/ScrollContainer/ColorRectMargin/MarginContainer/ShopInventoryList" instance=ExtResource("2_sokps")]
+layout_mode = 2
+
+[node name="PriceLabel" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/PriceLabel"]
+layout_mode = 2
+
+[node name="PriceLabel" type="Label" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/PriceLabel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "Price: "
+
+[node name="Price" type="Label" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer/PriceLabel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="SellButton" type="Button" parent="VBoxContainer/HBoxContainer/PlayerInventory/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Sell"
+
+[node name="MoneyPlayer" parent="." instance=ExtResource("6_bijys")]
+unique_name_in_owner = true
+
+[node name="ButtonPressAudioPlayer" parent="." instance=ExtResource("7_mshh8")]
+unique_name_in_owner = true
+volume_db = -10.0
